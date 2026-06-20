@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B² Burgers | Lokale Zutaten. Grosser Geschmack. Kein Ego.</title>
+    <meta name="description" content="B² Burgers — premium halal burgers in Berlin. Local produce, big flavor, small ego." />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700;900&subset=latin,latin-ext&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css?v=7" />
+  </head>
+  <body>
+<!-- Scroll progress -->
+    <div class="scroll-progress"></div>
+
+    <!-- Film grain overlay -->
+    <div class="grain"></div>
+
+    <!-- Custom cursor -->
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+      <img src="assets/logo.jpeg" alt="B² logo" />
+      <span>BSQUARE.DE</span>
+      <div class="loader-count" id="loaderCount">0</div>
+    </div>
+
+    <!-- Nav -->
+    <nav class="nav" id="nav">
+      <a href="#home" class="brand magnetic">
+        <img src="assets/logo.jpeg" alt="B²" />
+        <b>B²</b>
+      </a>
+      <div class="nav-links">
+        <a href="#lab">Burger Lab</a>
+        <a href="#menu">Menü</a>
+        <a href="#story">Story</a>
+        <a href="#location">Standort</a>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <canvas id="heroCanvas"></canvas>
+      <div class="hero-noise"></div>
+      <div class="hero-orb"></div>
+      <div class="hero-copy reveal">
+        <p class="eyebrow">SEIT DEZ. 2025</p>
+        <h1 class="split-text">LOCAL PRODUCE.<br />BIG FLAVOR.<br />SMALL EGO.</h1>
+        <p class="hero-sub">Premium Halal Burger mit lokalen Zutaten und echtem Handwerk. Keine Kompromisse, kein Füllstoff — nur das Echte.</p>
+        <div class="hero-actions">
+          <a href="#menu" class="btn btn-primary magnetic">ZUM MENÜ</a>
+          <a href="#location" class="btn btn-ghost magnetic">STANDORT</a>
+        </div>
+      </div>
+      <img class="hero-burger float" src="assets/monster.png" alt="Monster Burger" />
+      <div class="scroll-hint">SCROLLEN</div>
+    </section>
+
+    <!-- Ticker -->
+    <div class="ticker-strip">
+      <div class="ticker-track">
+        <span>B² BURGERS</span><span aria-hidden="true">✦</span>
+        <span>LOKALE ZUTATEN</span><span aria-hidden="true">✦</span>
+        <span>GROSSER GESCHMACK</span><span aria-hidden="true">✦</span>
+        <span>HALAL</span><span aria-hidden="true">✦</span>
+        <span>BERLIN</span><span aria-hidden="true">✦</span>
+        <span>B² BURGERS</span><span aria-hidden="true">✦</span>
+        <span>LOKALE ZUTATEN</span><span aria-hidden="true">✦</span>
+        <span>GROSSER GESCHMACK</span><span aria-hidden="true">✦</span>
+        <span>HALAL</span><span aria-hidden="true">✦</span>
+        <span>BERLIN</span><span aria-hidden="true">✦</span>
+      </div>
+    </div>
+
+    <!-- Cinematic Chapters -->
+    <!-- Burger Lab -->
+    <section class="section lab" id="lab">
+      <div class="section-head reveal">
+        <p class="eyebrow">DAS HIGHLIGHT</p>
+        <h2>BURGER LAB</h2>
+        <span>Wähl deinen Burger. Die Show beginnt.</span>
+      </div>
+
+      <div class="lab-stage">
+
+        <!-- LEFT: burger list -->
+        <div class="burger-list" id="burgerList"></div>
+
+        <!-- CENTER: cinematic stage -->
+        <div class="lab-center" id="labCenter">
+          <div class="lab-ring lab-ring--1"></div>
+          <div class="lab-ring lab-ring--2"></div>
+          <div class="lab-ring lab-ring--3"></div>
+          <div class="lab-glow-orb"></div>
+          <div class="lab-scan"></div>
+          <div class="lab-particles" id="labParticles"></div>
+          <div class="lab-select-flash" id="labFlash"></div>
+          <div class="lab-burger-wrap" id="labBurgerWrap">
+            <img id="activeImg" src="assets/monster.png" alt="Selected burger" class="lab-burger-img" />
+          </div>
+          <div class="lab-platform">
+            <div class="lab-platform-glow"></div>
+          </div>
+          <div class="lab-float-tag" id="activeTag">FRIED EGG / BACON / CHEDDAR</div>
+        </div>
+
+        <!-- RIGHT: info panel -->
+        <div class="lab-info-panel">
+          <div class="lab-status">
+            <span class="lab-dot"></span>
+            <span class="lab-status-text" id="labStatusText">ANALYZING</span>
+          </div>
+          <h3 id="activeName">Monster Burger</h3>
+          <div class="lab-meta">
+            <strong id="activePrice" class="price-pill">10.90€</strong>
+            <span class="lab-layer-count" id="layerCount">7 LAYERS</span>
+          </div>
+          <div id="layers" class="layers"></div>
+          <div class="lab-panel-shine"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- AI Mood Matcher -->
+    <section class="mood-section section" id="mood">
+      <div class="section-head reveal">
+        <p class="eyebrow">NICHT SICHER, WAS DU WILLST?</p>
+        <h2>BURGER<br/>ORAKEL.</h2>
+        <span>Sag uns deine Stimmung. Wir wählen deinen Burger.</span>
+      </div>
+      <div class="mood-grid reveal">
+        <button class="mood-card" data-mood="bold">
+          <b>MEGA HUNGER</b>
+          <p>Richtig hungrig. Nichts Leichtes.</p>
+        </button>
+        <button class="mood-card" data-mood="heat">
+          <b>SCHARF</b>
+          <p>Du willst es mit Feuer.</p>
+        </button>
+        <button class="mood-card" data-mood="classic">
+          <b>KLASSISCH</b>
+          <p>Klassisch, richtig gemacht.</p>
+        </button>
+        <button class="mood-card" data-mood="plant">
+          <b>VEGIE</b>
+          <p>Pflanzlich, voller Geschmack.</p>
+        </button>
+      </div>
+      <div class="mood-result" id="moodResult">
+        <div class="mood-analyzing" id="moodAnalyzing">
+          <div class="mood-ai-bar"><div class="mood-ai-fill" id="moodAiFill"></div></div>
+          <span id="moodAiText">FINDING YOUR BURGER...</span>
+        </div>
+        <div class="mood-match" id="moodMatch">
+          <img id="moodImg" src="" alt="" />
+          <div class="mood-match-info">
+            <p class="eyebrow">BESTELL DAS</p>
+            <h3 id="moodName"></h3>
+            <p id="moodDesc"></p>
+            <strong id="moodPrice" class="price-pill"></strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Signatures -->
+    <section class="section signatures">
+      <article class="sig-article reveal">
+        <img src="assets/monster.png" alt="Monster Burger" />
+        <div class="sig-copy">
+          <p class="eyebrow">KLASSIKER</p>
+          <h2>MONSTER<br />BURGER</h2>
+          <span>Spiegelei, Rindfleischpatty, Cheddar und Rindfleischbacon — unser Aushängeschild.</span>
+          <a href="#menu" class="btn btn-primary magnetic" style="margin-top:2rem">ZUM MENÜ</a>
+        </div>
+      </article>
+      <article class="sig-article sig-article--flip reveal">
+        <div class="sig-copy">
+          <p class="eyebrow">DOPPELT</p>
+          <h2>BEAST<br />BURGER</h2>
+          <span>Doppeltes Fleisch, doppelter Käse, karamellisierte Zwiebeln und Rindfleischbacon.</span>
+          <a href="#menu" class="btn btn-primary magnetic" style="margin-top:2rem">ZUM MENÜ</a>
+        </div>
+        <img src="assets/beast.png" alt="Beast Burger" />
+      </article>
+      <article class="sig-article reveal">
+        <img src="assets/pea.png" alt="Chilling Burger" />
+        <div class="sig-copy">
+          <p class="eyebrow">SAUCE DRIP</p>
+          <h2>CHILLING<br />BURGER</h2>
+          <span>Jalapeños und Chilli Sauce für alle, die es gerne scharf mögen.</span>
+          <a href="#menu" class="btn btn-primary magnetic" style="margin-top:2rem">ZUM MENÜ</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Menu / Collection -->
+    <section class="section collection" id="menu">
+      <div class="section-head reveal">
+        <p class="eyebrow">DIE AUSWAHL</p>
+        <h2>MENU</h2>
+        <span>Acht Burger, täglich frisch zubereitet. Jeder anders gebaut.</span>
+      </div>
+      <div class="cards" id="cards"></div>
+
+      <div class="menu-extras reveal">
+        <div class="menu-extras-grid">
+          <div class="menu-col">
+            <h3>POMMES</h3>
+            <div class="menu-row"><span>Pommes</span><b>3.90€</b></div>
+            <div class="menu-row"><span>Cheese Fries</span><b>4.70€</b></div>
+            <h3 style="margin-top:1.2rem">GETRÄNKE</h3>
+            <div class="menu-row"><span>Softeis</span><b>2.00€</b></div>
+            <div class="menu-row"><span>Shake</span><b>4.50€</b></div>
+          </div>
+          <div class="menu-col">
+            <h3>SAUCEN</h3>
+            <div class="menu-row"><span>Ketchup</span><b>0.50€</b></div>
+            <div class="menu-row"><span>Mayo</span><b>0.50€</b></div>
+            <div class="menu-row"><span>Garlic Sauce</span><b>0.50€</b></div>
+            <div class="menu-row"><span>Green Sauce</span><b>0.50€</b></div>
+            <h3 style="margin-top:1.2rem">MENÜ DEAL</h3>
+            <div class="menu-row"><span>+Menü (Pommes + Getränk)</span><b>4.50€</b></div>
+          </div>
+          <div class="menu-col">
+            <h3>EXTRAS</h3>
+            <div class="menu-row"><span>Mushroom</span><b>0.80€</b></div>
+            <div class="menu-row"><span>Egg</span><b>1.00€</b></div>
+            <div class="menu-row"><span>Cheese Slice</span><b>1.00€</b></div>
+            <div class="menu-row"><span>Jalapeños</span><b>1.00€</b></div>
+            <div class="menu-row"><span>Bacon</span><b>1.00€</b></div>
+            <div class="menu-row"><span>Karamellisierte Zwiebeln</span><b>1.00€</b></div>
+            <div class="menu-row"><span>Veggie Patty</span><b>2.00€</b></div>
+            <div class="menu-row"><span>Patty</span><b>2.50€</b></div>
+            <div class="menu-row"><span>Chicken Patty</span><b>2.50€</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fries Feature -->
+    <section class="fries-section" id="fries">
+      <div class="fries-copy reveal">
+        <p class="eyebrow">CHEESE FRIES EXPERIENCE</p>
+        <h2>KEINE NORMALE<br />NEBENROLLE.</h2>
+        <span>Knusprige Pommes und Cheese Fries — kein Nachgedanke, sondern ein Statement.</span>
+      </div>
+      <div class="fries-visual">
+        <img class="fries-img-real" src="assets/fries-real.jpg" alt="Pommes bei B² Burgers" />
+        <div class="fries-price-tag">
+          <b>POMMES</b><span>3,90€ / 4,70€</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story -->
+    <section class="section story" id="story">
+      <div class="story-inner">
+        <div class="story-header">
+          <p class="eyebrow">UNSERE GESCHICHTE</p>
+          <h2>SEIT DEZEMBER 2025</h2>
+        </div>
+        <div class="story-body">
+          <p class="story-lead">Ich kam als Student nach Berlin – mit großen Träumen, aber auch mit vielen Unsicherheiten.</p>
+          <p>Als introvertierter Mensch fiel es mir nie leicht, auf andere zuzugehen. Dazu kam die Sprachbarriere, und gerade am Anfang fühlte ich mich oft allein.</p>
+          <p>Doch es gab etwas, das mich schon seit meiner Kindheit begleitet: das Kochen.</p>
+          <p>Kochen war schon immer meine Sprache. Wenn mir Worte fehlten, sprach mein Essen für mich. Und jedes Mal, wenn ich für andere kochte, passierte etwas Besonderes – Menschen kamen zusammen, lächelten und genossen den Moment.</p>
+          <p class="story-beat">So begann ich, durch Essen Freundschaften zu schließen.</p>
+          <p>Mit der Zeit verliebte ich mich in Berlin – in seine Vielfalt, seine Energie und seine Offenheit. Diese Stadt wurde zu meiner Inspiration und gab meinem Traum eine Richtung: mein eigenes Restaurant zu eröffnen.</p>
+          <p>Mein Fokus war von Anfang an klar: Burger zu kreieren, die unvergesslich sind – saftig, voller Geschmack und mit Liebe zum Detail.</p>
+          <p class="story-en">Denn für mich geht es nicht nur um Burger.<br/>Es geht darum, Menschen zusammenzubringen.</p>
+          <p class="story-closing">Willkommen an unserem Tisch.</p>
+        </div>
+        <div class="story-pillars">
+          <div class="pillar" onclick="this.classList.toggle('flipped')">
+            <div class="pillar-inner">
+              <div class="pillar-front">
+                <span class="pillar-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M12 12C12 7 7 4 3 5c0 4 3 7 9 7z"/><path d="M12 12c0-5 5-8 9-7-0 4-3 7-9 7z"/></svg>
+              </span>
+                <b>LOKALE ZUTATEN</b>
+                <p>Täglich frisch, aus der Region.</p>
+              </div>
+              <div class="pillar-back">
+                <span class="pillar-back-label">Unser Versprechen</span>
+                <p>Wir arbeiten direkt mit lokalen Lieferanten zusammen, damit jede Zutat so frisch wie möglich bleibt — keine langen Lieferketten, kein Kompromiss.</p>
+              </div>
+            </div>
+          </div>
+          <div class="pillar" onclick="this.classList.toggle('flipped')">
+            <div class="pillar-inner">
+              <div class="pillar-front">
+                <span class="pillar-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 6-6 8-6 13a6 6 0 0 0 12 0c0-5-6-7-6-13z"/><path d="M12 12c0 3-2 4-2 6a2 2 0 0 0 4 0c0-2-2-3-2-6z"/></svg>
+              </span>
+                <b>GROSSER GESCHMACK</b>
+                <p>Jede Zutat hat ihren Grund.</p>
+              </div>
+              <div class="pillar-back">
+                <span class="pillar-back-label">Unser Handwerk</span>
+                <p>Jede Sauce, jede Schicht und jeder Biss ist bewusst. Bei uns ist nichts Füllstoff — nur Geschmack, der seinen Platz verdient.</p>
+              </div>
+            </div>
+          </div>
+          <div class="pillar" onclick="this.classList.toggle('flipped')">
+            <div class="pillar-inner">
+              <div class="pillar-front">
+                <span class="pillar-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/><polygon points="18,5 19,8 22,8 19.5,10 20.5,13 18,11 15.5,13 16.5,10 14,8 17,8"/></svg>
+              </span>
+                <b>HALAL</b>
+                <p>100 % halal — keine Ausnahmen.</p>
+              </div>
+              <div class="pillar-back">
+                <span class="pillar-back-label">Unser Standard</span>
+                <p>Alles auf unserer Karte ist vollständig halal zertifiziert. Kein separater Bereich, keine Option — das gesamte Menü, jedes Mal.</p>
+              </div>
+            </div>
+          </div>
+          <div class="pillar" onclick="this.classList.toggle('flipped')">
+            <div class="pillar-inner">
+              <div class="pillar-front">
+                <span class="pillar-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+              </span>
+                <b>BESCHEIDENHEIT</b>
+                <p>Das Essen spricht für sich.</p>
+              </div>
+              <div class="pillar-back">
+                <span class="pillar-back-label">Unsere Haltung</span>
+                <p>Keine Spielereien, kein Überbranding. Nur gutes Essen, faire Preise und ein Ort, wo der Burger lauter spricht als der Hype.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location -->
+    <section class="section location" id="location">
+      <div class="location-copy reveal">
+        <p class="eyebrow">BESUCH UNS</p>
+        <h2>BRING DEINEN<br />HUNGER MIT.</h2>
+        <p class="location-desc">Komm vorbei, bestell dir deinen Burger und genieß jeden Bissen. Wir freuen uns auf dich.</p>
+
+        <div class="location-meta">
+          <div class="location-meta-item">
+            <span class="loc-meta-label">ADRESSE</span>
+            <span class="loc-meta-val">Berlin, Deutschland</span>
+          </div>
+          <div class="location-meta-item">
+            <span class="loc-meta-label">ÖFFNUNGSZEITEN</span>
+            <span class="loc-meta-val">
+              Mo &nbsp;·&nbsp; 15:00 – 23:00<br>
+              Di – Mi &nbsp;·&nbsp; 11:30 – 23:00<br>
+              Do – Sa &nbsp;·&nbsp; 11:30 – 1:00<br>
+              So &nbsp;·&nbsp; 11:30 – 0:00
+            </span>
+          </div>
+          <div class="location-meta-item">
+            <span class="loc-meta-label">KONTAKT</span>
+            <span class="loc-meta-val">030 710 611 45</span>
+          </div>
+        </div>
+
+        <div class="location-actions">
+          <a href="https://maps.app.goo.gl/w4UQj2p4MUuaEKqr8?g_st=ic" target="_blank" rel="noopener noreferrer" class="btn btn-primary magnetic loc-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+            AUF GOOGLE MAPS
+          </a>
+          <a href="https://www.instagram.com/bsquare.de/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost magnetic loc-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            INSTAGRAM
+          </a>
+        </div>
+      </div>
+
+      <div class="location-map reveal">
+        <iframe
+          src="https://maps.google.com/maps?q=Bsquare+Burgers+Berlin&output=embed&hl=en&z=15"
+          loading="lazy"
+          title="B² Burgers location"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <div class="location-map-overlay"></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-left">
+        <img src="assets/logo.jpeg" alt="B²" />
+        <div>
+          <strong>B² BURGERS</strong>
+          <span>Lokale Zutaten. Grosser Geschmack. Kein Ego.</span>
+        </div>
+      </div>
+      <p class="footer-copy">© 2025 B² Burgers. Berlin. &nbsp;·&nbsp; Entwickelt von <a href="https://www.instagram.com/codegrey.dev/" target="_blank" rel="noopener noreferrer" class="footer-built">@codegrey.dev</a></p>
+      <a href="https://www.instagram.com/bsquare.de/" class="footer-ig" target="_blank" rel="noopener noreferrer">@bsquare.de</a>
+    </footer>
+
+    <!-- Mobile Burger Lab bottom sheet -->
+    <div class="lab-sheet" id="labSheet" aria-modal="true" role="dialog">
+      <div class="lab-sheet-backdrop" id="labSheetBackdrop"></div>
+      <div class="lab-sheet-panel">
+        <div class="sheet-header">
+          <div class="sheet-handle"></div>
+          <button class="lab-sheet-close" id="labSheetClose" aria-label="Close">✕</button>
+        </div>
+
+        <!-- Cinematic burger stage -->
+        <div class="sheet-stage">
+          <div class="sheet-ring sheet-ring--1"></div>
+          <div class="sheet-ring sheet-ring--2"></div>
+          <div class="sheet-glow"></div>
+          <div class="sheet-particles" id="sheetParticles"></div>
+          <img id="sheetImg" src="" alt="" class="sheet-burger-img" />
+          <div class="sheet-platform-glow"></div>
+        </div>
+
+        <!-- Info -->
+        <div class="sheet-info">
+          <div class="lab-status">
+            <span class="lab-dot"></span>
+            <span id="sheetStatusText">ANALYZING</span>
+          </div>
+          <h3 id="sheetName"></h3>
+          <div class="lab-meta">
+            <strong id="sheetPrice" class="price-pill"></strong>
+            <span class="lab-layer-count" id="sheetLayerCount">7 LAYERS</span>
+          </div>
+          <div id="sheetLayers" class="layers"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <script src="script.js?v=14"></script>
+  
+  <!-- Custom cursor -->
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
+  <script>
+    (function () {
+      // Only desktop pointer devices
+      if (!window.matchMedia('(pointer: fine)').matches) return;
+
+      var dot  = document.getElementById('cur-dot');
+      var ring = document.getElementById('cur-ring');
+
+      var mouseX = 0, mouseY = 0;
+      var ringX  = 0, ringY  = 0;
+      var halfTarget = 18, half = 18; // half of ring default size 36px
+      var init = false;
+
+      /* Dot follows mouse with zero lag */
+      window.addEventListener('mousemove', function (e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (!init) { ringX = mouseX; ringY = mouseY; init = true; }
+        dot.style.transform = 'translate3d(' + (mouseX - 3.5) + 'px,' + (mouseY - 3.5) + 'px,0)';
+      }, { passive: true });
+
+      /* Ring trails mouse via RAF */
+      function loop() {
+        ringX += (mouseX    - ringX) * 0.22;
+        ringY += (mouseY    - ringY) * 0.22;
+        half  += (halfTarget - half) * 0.18;
+        ring.style.transform = 'translate3d(' + (ringX - half) + 'px,' + (ringY - half) + 'px,0)';
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+
+      /* States */
+      document.addEventListener('mouseover', function (e) {
+        if (!e.target.closest('a,button,.card,.mood-card,.pillar')) return;
+        ring.classList.add('hovered'); ring.classList.remove('clicked'); halfTarget = 27;
+      });
+      document.addEventListener('mouseout', function (e) {
+        if (!e.target.closest('a,button,.card,.mood-card,.pillar')) return;
+        ring.classList.remove('hovered'); halfTarget = 18;
+      });
+      document.addEventListener('mousedown', function () {
+        ring.classList.add('clicked'); ring.classList.remove('hovered'); halfTarget = 11;
+      });
+      document.addEventListener('mouseup', function () {
+        ring.classList.remove('clicked'); halfTarget = 18;
+      });
+    })();
+  </script>
+
+</body>
+</html>
