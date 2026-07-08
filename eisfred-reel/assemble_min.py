@@ -74,6 +74,10 @@ def frame(i):  # 1-indexed
         t = ease_io_sine((i-36)/36)
         fr = kb(interior, 436, 775, lerp(370, 398, t), 387, lerp(1.0, 1.10, t), sharpen=0.7)
         return grade(fr, grain=2.0)
+    if 109 <= i <= 144:    # real Eiskaffee/shake footage replaces the AI scooping clip
+        fr = Image.open(f"newseg/f_{i-109+13:03d}.png").convert("RGB")
+        fr = fr.filter(ImageFilter.UnsharpMask(radius=1.4, percent=35, threshold=2))
+        return grade(fr, grain=1.5)
     if 145 <= i <= 169:    # real macarons photo replaces the AI macarons
         t = ease_io_sine((i-145)/24)
         fr = kb(macarons, 981, 1744, lerp(600, 585, t), lerp(920, 890, t),
