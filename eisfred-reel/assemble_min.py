@@ -90,14 +90,17 @@ def frame(i):  # 1-indexed
         t = ease_io_sine((i-36)/36)
         fr = kb(interior, 436, 775, lerp(350, 470, t), 387, 1.0, sharpen=0.95)
         return grade(fr, grain=2.2)
-    if 109 <= i <= 144:    # real Eiskaffee/shake drizzle footage
+    if 109 <= i <= 144:    # real Eiskaffee/shake drizzle footage (watermark removed)
         fr = Image.open(f"newseg/f_{i-109+13:03d}.png").convert("RGB")
         fr = upscale(fr)
+        fr = soften_patch(fr)
         return grade(fr, grain=1.4)
-    if 145 <= i <= 169:    # real macarons: handheld orbit — rotate + drift + breathe
-        t = ease_io_sine((i-145)/24)
-        fr = kb(macarons, 981, 1744, lerp(612, 578, t), lerp(925, 885, t),
-                lerp(1.12, 1.18, t), sharpen=0.6, rot=lerp(-3.2, 3.2, t))
+    if 145 <= i <= 169:    # real macarons: pure slow orbit, fixed scale, gentle arc
+        t = (i-145)/24
+        e = ease_io_sine(t)
+        bob = math.sin(t*math.pi) * 14
+        fr = kb(macarons, 981, 1744, lerp(608, 582, e), lerp(915, 895, e) - bob,
+                1.16, sharpen=0.6, rot=lerp(-2.6, 2.6, e))
         return grade(fr, grain=1.8)
     if i >= 170:           # own white end card: logo + script name, no overlap
         t = (i-170)/22
