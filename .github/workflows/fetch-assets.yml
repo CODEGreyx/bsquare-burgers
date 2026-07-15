@@ -1,7 +1,12 @@
 name: Fetch generated assets
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - "claude/**"
+    paths:
+      - "scripts/asset-urls.txt"
+      - ".github/workflows/fetch-assets.yml"
 
 permissions:
   contents: write
