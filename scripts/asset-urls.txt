@@ -1,1 +1,3 @@
-public/assets/exterior/residence-complete.png https://d8j0ntlcm91z4.cloudfront.net/user_3GXgnC8CdVnMMeXvrSFGzjNkP0u/hf_20260715_154312_d01c32d9-4976-4b4c-9eff-f1bf764bcfce.png
+public/assets/construction/residence-structure.png https://d8j0ntlcm91z4.cloudfront.net/user_3GXgnC8CdVnMMeXvrSFGzjNkP0u/hf_20260715_154903_dfe8fea9-7732-4f90-9911-3fbe53829e41.png
+public/assets/construction/residence-construction.png https://d8j0ntlcm91z4.cloudfront.net/user_3GXgnC8CdVnMMeXvrSFGzjNkP0u/hf_20260715_154921_76d6c628-de89-47ae-a20a-019a1cf4374c.png
+public/assets/interior/interior-living.png https://d8j0ntlcm91z4.cloudfront.net/user_3GXgnC8CdVnMMeXvrSFGzjNkP0u/hf_20260715_154935_ca6d7d56-4467-4e26-89b1-1d8e8dcdc8dd.png
