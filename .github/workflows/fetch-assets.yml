@@ -1,0 +1,34 @@
+name: Fetch generated assets
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Download assets listed in scripts/asset-urls.txt
+        run: |
+          set -euo pipefail
+          while IFS=' ' read -r dest url; do
+            [ -z "$dest" ] && continue
+            case "$dest" in \#*) continue ;; esac
+            mkdir -p "$(dirname "$dest")"
+            echo "Fetching $dest"
+            curl -sSL --retry 3 -o "$dest" "$url"
+          done < scripts/asset-urls.txt
+
+      - name: Commit assets
+        run: |
+          git config user.name "asset-fetch-bot"
+          git config user.email "actions@github.com"
+          git add -A public/assets
+          git diff --cached --quiet || git commit -m "Add generated assets (Higgsfield downloads via CI)"
+          git push
