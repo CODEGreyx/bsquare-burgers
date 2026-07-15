@@ -5,3 +5,4 @@ dist
 *.zip
 public/assets/**/*.png
 *.tmp.mjs
+dist-single
