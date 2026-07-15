@@ -1,7 +1,6 @@
 import React from 'react'
 import gsap from 'gsap'
 import ElevationSVG from './svg/ElevationSVG'
-import MaterialSwatch, { MATERIAL_KEYS, materialLabel } from './svg/MaterialSwatch'
 import { useScrollTimeline } from '../hooks/useScrollTimeline'
 import { stills, videos } from '../data/assets'
 import { sound } from '../lib/sound'
@@ -9,11 +8,22 @@ import './ExteriorScene.css'
 
 const PANELS = 5
 
+/* Window regions of the facade as soft-edged masks. Each "light" is a
+   full-bleed copy of the completed photo masked to one glowing region —
+   both photos share identical cover sizing, so the reveal is always
+   pixel-aligned, and the feathered mask lets the light bloom into the
+   dark construction photograph. */
+const LIGHTS = [
+  { name: 'ground', mask: 'radial-gradient(ellipse 26% 20% at 57% 67%, black 52%, transparent 100%)' },
+  { name: 'upper', mask: 'radial-gradient(ellipse 22% 19% at 77% 28%, black 52%, transparent 100%)' },
+  { name: 'fins', mask: 'radial-gradient(ellipse 16% 23% at 15% 50%, black 50%, transparent 100%)' },
+]
+
 /**
- * Scene 3 — FORM / MATERIAL / PRESENCE.
- * Concrete panels pour down over the skeleton, four full-height material
- * surfaces rise, then part to reveal the completed residence with its
- * lights on.
+ * Scene 3 — FORM / PRESENCE.
+ * Concrete panels pour down over the skeleton; then, room by room, the
+ * lights of the finished residence come on inside the raw construction
+ * photograph, and the completed house opens out of its own glass.
  */
 export default function ExteriorScene() {
   const ref = useScrollTimeline(
@@ -25,10 +35,6 @@ export default function ExteriorScene() {
         autoAlpha: 1,
       })
       gsap.set(root.querySelectorAll('.ext-curtain-img'), { yPercent: 101 })
-      gsap.set(root.querySelectorAll('.ext-mat'), {
-        yPercent: 102,
-        autoAlpha: 1,
-      })
 
       /* start exactly where scene 2 ended: photo + wireframe, no grid */
       const elev = root.querySelector('.ext-elev')
@@ -63,52 +69,54 @@ export default function ExteriorScene() {
         tl.to(inner, { yPercent: 0, duration: 0.16, ease: 'power2.inOut' }, at)
         tl.call(() => sound.impact(0.8), null, at + 0.15)
       })
-      word('.ext-word-form', 0.05, 0.3)
+      word('.ext-word-form', 0.05, 0.34)
       tl.to('.ext-elev', { opacity: 0, duration: 0.14 }, 0.14)
 
-      /* --- material panels rise --- */
-      const mats = root.querySelectorAll('.ext-mat')
-      mats.forEach((m, i) => {
-        tl.to(
-          m,
-          { yPercent: 0, duration: 0.13, ease: 'power2.out' },
-          0.34 + i * 0.04
-        )
-        tl.call(() => sound.impact(0.6), null, 0.36 + i * 0.04)
-      })
-      word('.ext-word-material', 0.44, 0.62)
-      tl.fromTo(
-        '.ext-mat-label',
-        { opacity: 0 },
-        { opacity: 1, duration: 0.06, stagger: 0.02 },
-        0.5
+      /* --- dusk settles over the raw construction --- */
+      tl.to(
+        '.ext-curtains',
+        { filter: 'brightness(0.72)', duration: 0.12 },
+        0.4
       )
 
-      /* switch the base underneath while it is fully covered */
-      tl.set('.ext-complete', { opacity: 1 }, 0.6)
-      tl.set(['.ext-structure', '.ext-curtains'], { opacity: 0 }, 0.605)
-
-      /* --- panels part: the residence, lights on --- */
-      mats.forEach((m, i) => {
-        tl.to(
-          m,
-          { yPercent: -103, duration: 0.14, ease: 'power2.inOut' },
-          0.64 + (mats.length - 1 - i) * 0.035
+      /* --- the lights come on, room by room --- */
+      root.querySelectorAll('.ext-light').forEach((el, i) => {
+        const at = 0.46 + i * 0.05
+        tl.fromTo(
+          el,
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.06, ease: 'power1.out' },
+          at
         )
+        tl.call(() => sound.impact(0.5), null, at + 0.03)
       })
-      tl.call(() => sound.swell(), null, 0.68)
       tl.fromTo(
         '.ext-bloom',
         { opacity: 0 },
-        { opacity: 0.4, duration: 0.1 },
-        0.68
+        { opacity: 0.3, duration: 0.1 },
+        0.5
       )
-      tl.to('.ext-bloom', { opacity: 0.12, duration: 0.14 }, 0.8)
+
+      /* --- the completed residence blooms out of its own light --- */
+      tl.set('.ext-complete', { autoAlpha: 1 }, 0.58)
       tl.fromTo(
         '.ext-complete',
-        { scale: 1.07 },
-        { scale: 1, duration: 0.32, ease: 'power1.out' },
-        0.64
+        { '--bw': '0%', '--bh': '0%', scale: 1.06 },
+        {
+          '--bw': '260%',
+          '--bh': '230%',
+          scale: 1,
+          duration: 0.24,
+          ease: 'power2.inOut',
+        },
+        0.6
+      )
+      tl.call(() => sound.swell(), null, 0.66)
+      tl.to('.ext-bloom', { opacity: 0.12, duration: 0.12 }, 0.74)
+      tl.set(
+        ['.ext-structure', '.ext-curtains', '.ext-light'],
+        { autoAlpha: 0 },
+        0.86
       )
 
       word('.ext-word-presence', 0.8, 0.94)
@@ -122,6 +130,8 @@ export default function ExteriorScene() {
     { pinDistance: '+=380%' }
   )
 
+  const completeSrc = stills.residenceComplete
+
   return (
     <section id="scene-exterior" className="scene" ref={ref}>
       {/* base: where scene 2 left off */}
@@ -134,25 +144,6 @@ export default function ExteriorScene() {
       <div className="ext-elev scene-fill">
         <ElevationSVG className="ext-elev-svg" opacity={0.42} />
       </div>
-
-      {/* the completed residence waits underneath */}
-      {videos.exteriorApproach ? (
-        <video
-          className="img-cover ext-complete"
-          src={videos.exteriorApproach}
-          muted
-          loop
-          playsInline
-          autoPlay
-        />
-      ) : (
-        <img
-          className="img-cover ext-complete"
-          src={stills.residenceComplete}
-          alt="Completed NØRTHLINE residence at dusk, interior lights glowing"
-        />
-      )}
-      <div className="ext-bloom scene-fill" />
 
       {/* concrete curtains carrying the mid-construction photograph */}
       <div className="ext-curtains scene-fill">
@@ -170,20 +161,40 @@ export default function ExteriorScene() {
         ))}
       </div>
 
-      {/* material planes */}
-      <div className="ext-mats scene-fill">
-        {MATERIAL_KEYS.map((kind) => (
-          <div className="ext-mat" key={kind}>
-            <MaterialSwatch kind={kind} />
-            <span className="t-tech ext-mat-label">{materialLabel(kind)}</span>
-          </div>
-        ))}
-      </div>
+      {/* the lights of the finished house, window by window */}
+      {LIGHTS.map((l) => (
+        <img
+          key={l.name}
+          className="img-cover ext-light"
+          style={{ WebkitMaskImage: l.mask, maskImage: l.mask }}
+          src={completeSrc}
+          alt=""
+          aria-hidden="true"
+        />
+      ))}
+      <div className="ext-bloom scene-fill" />
 
-      {/* the three words */}
+      {/* the completed residence */}
+      {videos.exteriorApproach ? (
+        <video
+          className="img-cover ext-complete"
+          src={videos.exteriorApproach}
+          muted
+          loop
+          playsInline
+          autoPlay
+        />
+      ) : (
+        <img
+          className="img-cover ext-complete"
+          src={completeSrc}
+          alt="Completed NØRTHLINE residence at dusk, interior lights glowing"
+        />
+      )}
+
+      {/* the words */}
       <div className="ext-words scene-fill" aria-hidden="true">
         <span className="t-display ext-word ext-word-form">FORM</span>
-        <span className="t-display ext-word ext-word-material">MATERIAL</span>
         <span className="t-display ext-word ext-word-presence">PRESENCE</span>
       </div>
 

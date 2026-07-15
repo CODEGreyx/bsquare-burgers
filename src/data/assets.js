@@ -21,6 +21,8 @@ export const stills = {
   residenceConstruction: '/assets/construction/residence-construction.webp',
   /** Ground-floor living space of the same residence. */
   interiorLiving: '/assets/interior/interior-living.webp',
+  /** Reverse angle of the same living room, toward the glazing + pool. */
+  interiorLiving2: '/assets/interior/interior-living-2.webp',
 }
 
 export const videos = {

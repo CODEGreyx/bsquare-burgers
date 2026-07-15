@@ -30,6 +30,7 @@ export default function InteriorScene() {
 
       /* nothing from later beats may leak into the approach */
       gsap.set('.int-room', { autoAlpha: 0 })
+      gsap.set('.int-room2', { autoAlpha: 0 })
       gsap.set('.int-label', { autoAlpha: 0 })
       const planStrokes = []
       ;['footprint', 'walls', 'axes'].forEach((name) => {
@@ -54,11 +55,11 @@ export default function InteriorScene() {
         0.06
       )
 
-      /* --- pass through the window --- */
+      /* --- pass through the window, landing on the sofa we saw lit --- */
       tl.set('.int-room', { autoAlpha: 1 }, 0.17)
       tl.fromTo(
         '.int-room',
-        { clipPath: 'inset(48% 26% 24% 46%)', scale: 1.18 },
+        { clipPath: 'inset(46% 42% 18% 30%)', scale: 1.18 },
         {
           clipPath: 'inset(0% 0% 0% 0%)',
           scale: 1.12,
@@ -112,24 +113,39 @@ export default function InteriorScene() {
       tl.to('.int-label', { autoAlpha: 0, duration: 0.08, stagger: 0.01 }, 0.72)
 
       /* --- the plan flashes over reality --- */
-      tl.fromTo(planOverlay, { opacity: 0 }, { opacity: 0.3, duration: 0.05 }, 0.62)
-      tl.to(planStrokes, { strokeDashoffset: 0, duration: 0.12, stagger: 0.004 }, 0.62)
-      tl.to(planOverlay, { opacity: 0, duration: 0.08 }, 0.78)
+      tl.fromTo(planOverlay, { opacity: 0 }, { opacity: 0.3, duration: 0.05 }, 0.6)
+      tl.to(planStrokes, { strokeDashoffset: 0, duration: 0.12, stagger: 0.004 }, 0.6)
+      tl.to(planOverlay, { opacity: 0, duration: 0.08 }, 0.72)
 
-      /* --- the facts, quietly --- */
+      /* --- the room turns: a band of light wipes to the reverse view --- */
+      tl.set('.int-room2', { autoAlpha: 1 }, 0.74)
+      tl.fromTo(
+        '.int-room2',
+        { '--wp': '-18%' },
+        { '--wp': '118%', duration: 0.16, ease: 'power1.inOut' },
+        0.75
+      )
+      tl.fromTo(
+        '.int-room2-media',
+        { scale: 1.1, xPercent: 1.5 },
+        { scale: 1, xPercent: 0, duration: 0.25, ease: 'none' },
+        0.75
+      )
+
+      /* --- the facts, quietly, over the widened room --- */
       root.querySelectorAll('.int-detail').forEach((el, i) => {
         tl.fromTo(
           el,
           { opacity: 0, y: 18 },
           { opacity: 1, y: 0, duration: 0.06, ease: 'power2.out' },
-          0.8 + i * 0.035
+          0.84 + i * 0.03
         )
       })
       tl.fromTo(
         '.int-detail-rule',
         { scaleX: 0 },
         { scaleX: 1, duration: 0.12, stagger: 0.03 },
-        0.8
+        0.84
       )
     },
     { pinDistance: '+=380%' }
@@ -165,6 +181,15 @@ export default function InteriorScene() {
           />
         )}
         <div className="int-sweep" />
+      </div>
+
+      {/* the reverse view of the same room */}
+      <div className="int-room2 scene-fill">
+        <img
+          className="img-cover int-room2-media"
+          src={stills.interiorLiving2}
+          alt="Reverse view of the living room toward the glazing and reflecting pool"
+        />
       </div>
 
       {/* material labels */}

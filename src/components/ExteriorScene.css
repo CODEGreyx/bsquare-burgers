@@ -3,8 +3,26 @@
 }
 
 .ext-complete {
-  opacity: 0;
+  /* revealed as a pool of light growing out of the living room */
+  --bw: 0%;
+  --bh: 0%;
+  visibility: hidden;
+  -webkit-mask-image: radial-gradient(
+    ellipse var(--bw) var(--bh) at 57% 64%,
+    #000 55%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse var(--bw) var(--bh) at 57% 64%,
+    #000 55%,
+    transparent 100%
+  );
   will-change: transform, opacity;
+}
+
+.ext-light {
+  visibility: hidden; /* lit window regions, faded in one by one */
+  will-change: opacity;
 }
 
 .ext-bloom {
@@ -22,6 +40,7 @@
 
 .ext-curtains {
   display: flex;
+  will-change: filter;
 }
 
 .ext-curtain {
@@ -39,36 +58,7 @@
   will-change: transform;
 }
 
-/* --- material planes --- */
-
-.ext-mats {
-  display: flex;
-  pointer-events: none;
-}
-
-.ext-mat {
-  position: relative;
-  flex: 1;
-  overflow: hidden;
-  visibility: hidden; /* GSAP owns the transform; hidden until primed */
-  will-change: transform;
-  border-left: 1px solid rgba(10, 10, 11, 0.9);
-}
-.ext-mat:first-child {
-  border-left: none;
-}
-
-.ext-mat-label {
-  position: absolute;
-  bottom: 5vh;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  color: var(--ivory-55);
-  opacity: 0;
-}
-
-/* --- the three words --- */
+/* --- the words --- */
 
 .ext-words {
   pointer-events: none;

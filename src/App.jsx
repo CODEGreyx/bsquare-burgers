@@ -28,8 +28,9 @@ export default function App() {
     ).matches
 
     const lenis = new Lenis({
-      duration: 1.4,
-      wheelMultiplier: 0.85,
+      duration: 1.7,
+      easing: (t) => 1 - Math.pow(1 - t, 4),
+      wheelMultiplier: 0.8,
       touchMultiplier: 1.4,
       smoothWheel: !prefersReduced,
     })

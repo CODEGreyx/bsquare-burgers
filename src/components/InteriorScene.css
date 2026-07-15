@@ -27,6 +27,26 @@
   will-change: transform;
 }
 
+/* reverse view, revealed by a travelling band of light */
+.int-room2 {
+  --wp: -18%;
+  visibility: hidden;
+  -webkit-mask-image: linear-gradient(
+    100deg,
+    #000 calc(var(--wp) - 14%),
+    transparent calc(var(--wp) + 14%)
+  );
+  mask-image: linear-gradient(
+    100deg,
+    #000 calc(var(--wp) - 14%),
+    transparent calc(var(--wp) + 14%)
+  );
+}
+
+.int-room2-media {
+  will-change: transform;
+}
+
 .int-sweep {
   position: absolute;
   inset: -10% -30%;
