@@ -44,7 +44,7 @@
 | --- | --- |
 | Large hero images decoded during scroll | 2K WebP (≈250–340 KB each), `<link rel=preload>` for the hero, eager decode of scene-2 photo before its reveal |
 | Pin refresh thrash on load | Single `ScrollTrigger.refresh()` after the loader completes + after hero decode (guarded for cached images) |
-| feTurbulence material panels | Rendered once per panel; only transforms animate over them |
+| Feathered mask reveals (lights-on, bloom, room wipe) | CSS mask-image gradients driven by GSAP custom-property tweens — compositor-friendly |
 | Film grain overlay | One tiny SVG-noise tile animated with steps(4) transform — pausable via `Space` (adds `body.paused`) |
 | Scroll-linked audio triggers | Impact synth is rate-limited (≥260 ms) so scrubbing can't machine-gun it |
 | Long-session memory | All triggers/timelines live in `gsap.context` and are reverted on unmount |

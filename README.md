@@ -111,8 +111,8 @@ environment cannot reach the Higgsfield CDN directly.)*
    visibly constructs the building. The big moments:
    - the blueprint drawing itself (scene 1),
    - the plan tilting down and the structure rising out of it (scene 2),
-   - concrete panels pouring in, the material wall, the lights-on reveal
-     (scene 3),
+   - concrete panels pouring in, the lights coming on room by room, the
+     residence blooming out of its own light (scene 3),
    - passing through the glass into the interior (scene 4),
    - the residence deconstructing into the CODEGREY.DEV endcard (scene 5).
 4. Hold at the end — the final composition is stable for as long as you

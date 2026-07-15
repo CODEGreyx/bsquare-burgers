@@ -93,6 +93,24 @@ reflecting pool, overcast Berlin dusk, warm 2700K interior light.
 > Cinematic color grade, photorealistic, medium format architectural
 > interior photography, no people, no text.
 
+### 4b. `public/assets/interior/interior-living-2.webp` — **GENERATED** ✔
+
+- Scene: 4 (the room turns — reverse/wider view revealed by a light wipe).
+- Reference images: interior-living + residence-complete.
+
+> A second photograph inside the SAME living room as the first interior
+> reference image, same residence as the exterior reference, same evening,
+> same furniture and materials. Camera now positioned near the travertine
+> limestone feature wall, looking across the ivory bouclé sofa and dark
+> stone plinth coffee table toward the floor-to-ceiling glazing with slim
+> dark bronze mullions, through which the dark reflecting pool, wet
+> granite terrace and sculptural pine are visible in blue dusk. Wide-plank
+> dark smoked oak floor, board-formed concrete ceiling edge, warm 2700K
+> recessed lighting washing the stone, the small sculptural bronze floor
+> lamp glowing beside the sofa. Identical warm-interior cool-exterior
+> cinematic color grade as the references, photorealistic medium format
+> architectural interior photography, no people, no text.
+
 ### 5. `public/assets/exterior/residence-reference.webp` — optional alias
 
 Identical to residence-complete; keep a copy under this name if a separate

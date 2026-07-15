@@ -11,7 +11,8 @@ code-generated stand-in with a documented replacement path ·
 | `public/assets/exterior/residence-complete.webp` | WebP still | 2752×1536 | 3 · 4 · 5 | Completed residence at dusk; master reference for all other generations; lights-on reveal, interior approach, final deconstruction | **final** |
 | `public/assets/construction/residence-structure.webp` | WebP still | 2752×1536 | 2 · 3 | Raw structural skeleton the animated wireframe resolves into | **final** |
 | `public/assets/construction/residence-construction.webp` | WebP still | 2752×1536 | 3 | Mid-construction stage carried in by the concrete curtain panels | **final** |
-| `public/assets/interior/interior-living.webp` | WebP still | 2752×1536 | 4 | Full-screen living space; light sweep, material labels, property details | **final** |
+| `public/assets/interior/interior-living.webp` | WebP still | 2752×1536 | 4 | Full-screen living space; light sweep, material labels, plan overlay | **final** |
+| `public/assets/interior/interior-living-2.webp` | WebP still | 2752×1536 | 4 | Reverse/wider view of the same room, revealed by a travelling light wipe; property details sit over it | **final** |
 
 ## Code-drawn architectural artwork (vector, resolution-independent)
 
@@ -19,7 +20,6 @@ code-generated stand-in with a documented replacement path ·
 | --- | --- | --- | --- | --- |
 | `src/components/svg/FloorPlanSVG.jsx` | SVG component | 1 · 2 · 4 | Ground-floor plan: draws itself in scene 1, tilts into the ground plane in scene 2, flashes over the interior in scene 4 | **final** (intentionally vector — crisper than raster for scroll-drawing) |
 | `src/components/svg/ElevationSVG.jsx` | SVG component | 2 · 3 | Structural elevation traced against the hero photo; columns/slabs/volumes/glazing rise layer by layer | **final** (same rationale) |
-| `src/components/svg/MaterialSwatch.jsx` | SVG (feTurbulence) | 3 | Travertine / smoked oak / bronze / glass full-height panels | **temporary** — replace with `material-*.webp` macros (HIGGSFIELD-PROMPTS §8–11) |
 
 ## Video slots (empty — still + code-motion fallback active)
 

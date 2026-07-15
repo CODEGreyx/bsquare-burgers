@@ -38,9 +38,9 @@ export const videos = {
   berlinAtmosphere: null, // '/assets/video/berlin-atmosphere.mp4'
 }
 
-/** Materials are rendered procedurally (SVG turbulence) until real macro
- *  photography replaces them — see MaterialSwatch.jsx. Drop files here to
- *  override: */
+/** Reserved for macro material photography (see HIGGSFIELD-PROMPTS.md).
+ *  Not currently displayed — the material-panel beat was replaced by the
+ *  lights-on reveal — but kept so future scenes can wire them in. */
 export const materials = {
   stone: null, // '/assets/materials/material-stone.webp'
   oak: null, // '/assets/materials/material-oak.webp'

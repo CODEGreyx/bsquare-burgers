@@ -64,7 +64,7 @@ export default function InteriorScene() {
           clipPath: 'inset(0% 0% 0% 0%)',
           scale: 1.12,
           duration: 0.2,
-          ease: 'power2.inOut',
+          ease: 'power2.in',
         },
         0.18
       )
