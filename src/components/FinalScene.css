@@ -3,28 +3,14 @@
 }
 
 .fin-stage {
-  display: flex;
+  will-change: transform;
+}
+
+.fin-veil {
   opacity: 0;
-}
-
-.fin-slice {
-  position: relative;
-  flex: 1;
-  will-change: transform, opacity;
-}
-
-.fin-slice-img {
-  position: absolute;
-  inset: 0;
-  background-repeat: no-repeat;
-  will-change: filter;
-}
-
-.fin-slice-tint {
-  position: absolute;
-  inset: 0;
-  background: var(--ivory-55);
-  opacity: 0;
+  pointer-events: none;
+  background: var(--ink);
+  will-change: opacity;
 }
 
 .fin-center {

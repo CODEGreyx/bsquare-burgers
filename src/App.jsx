@@ -8,9 +8,7 @@ import Loader from './components/Loader'
 import Navigation from './components/Navigation'
 import FilmingMode from './components/FilmingMode'
 import SoundControl from './components/SoundControl'
-import BlueprintScene from './components/BlueprintScene'
-import ConstructionScene from './components/ConstructionScene'
-import ExteriorScene from './components/ExteriorScene'
+import BuildScene from './components/BuildScene'
 import InteriorScene from './components/InteriorScene'
 import FinalScene from './components/FinalScene'
 
@@ -66,9 +64,7 @@ export default function App() {
       <Loader />
       <Navigation />
       <main>
-        <BlueprintScene />
-        <ConstructionScene />
-        <ExteriorScene />
+        <BuildScene />
         <InteriorScene />
         <FinalScene />
       </main>

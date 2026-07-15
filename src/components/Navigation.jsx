@@ -5,15 +5,13 @@ import { getLenis } from '../lib/lenis'
 import './Navigation.css'
 
 const ITEMS = [
-  { label: 'Residence', target: '#scene-blueprint' },
-  { label: 'Architecture', target: '#scene-construction' },
-  { label: 'Materials', target: '#scene-exterior' },
-  { label: 'Experience', target: '#scene-interior' },
+  { label: 'Residence', target: '#scene-build' },
+  { label: 'Interior', target: '#scene-interior' },
   { label: 'CODEGREY.DEV', target: '#scene-final' },
 ]
 
 /**
- * A whisper of a header. It dissolves the moment construction starts and
+ * A whisper of a header. It dissolves the moment the build begins and
  * only returns with the final brand hold.
  */
 export default function Navigation() {
@@ -29,8 +27,8 @@ export default function Navigation() {
       })
 
     const st = ScrollTrigger.create({
-      trigger: '#scene-construction',
-      start: 'top 80%',
+      trigger: '#scene-build',
+      start: 'top top',
       onEnter: () => show(false),
       onLeaveBack: () => show(true),
     })
@@ -47,7 +45,7 @@ export default function Navigation() {
   const go = (e, target) => {
     e.preventDefault()
     const lenis = getLenis()
-    if (lenis) lenis.scrollTo(target, { duration: 2.2 })
+    if (lenis) lenis.scrollTo(target === '#scene-build' ? 0 : target, { duration: 2.2 })
     else document.querySelector(target)?.scrollIntoView()
   }
 
@@ -55,8 +53,8 @@ export default function Navigation() {
     <nav className="nav hide-when-filming" ref={ref}>
       <a
         className="nav-mark t-tech"
-        href="#scene-blueprint"
-        onClick={(e) => go(e, '#scene-blueprint')}
+        href="#scene-build"
+        onClick={(e) => go(e, '#scene-build')}
       >
         NØRTHLINE
       </a>

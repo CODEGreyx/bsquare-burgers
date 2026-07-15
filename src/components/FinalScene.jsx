@@ -5,136 +5,77 @@ import { stills } from '../data/assets'
 import { sound } from '../lib/sound'
 import './FinalScene.css'
 
-const SLICES = 6
-
 /**
- * Scene 5 — the residence deconstructs into architectural planes, the
- * planes flatten into a drawn grid, the grid resolves into the
- * NØRTHLINE mark, and the mark hands over to CODEGREY.DEV.
+ * The ending — the finished residence holds, quietly darkens to black,
+ * the NØRTHLINE mark draws itself, and the mark hands over to the
+ * CODEGREY.DEV identity. No movement beyond the drawing of the mark.
  */
 export default function FinalScene() {
   const ref = useScrollTimeline(
     (tl, root) => {
-      const slices = root.querySelectorAll('.fin-slice')
       const mono = root.querySelector('.fin-mark')
       primeDraw(mono, 'path, line, polyline')
 
-      /* --- the residence returns, assembled --- */
-      tl.fromTo(
-        '.fin-stage',
-        { opacity: 0 },
-        { opacity: 1, duration: 0.06 },
-        0
-      )
+      /* --- the finished residence, held, then dimmed to black --- */
+      tl.fromTo('.fin-stage', { opacity: 1 }, { opacity: 1, duration: 0.12 }, 0)
+      tl.to('.fin-veil', { opacity: 1, duration: 0.14, ease: 'power1.in' }, 0.16)
+      tl.to('.fin-stage', { scale: 1.04, duration: 0.5, ease: 'none' }, 0)
 
-      /* --- it separates into planes --- */
-      slices.forEach((s, i) => {
-        const dir = i % 2 === 0 ? -1 : 1
-        tl.to(
-          s,
-          {
-            yPercent: dir * (7 + i * 3.2),
-            scaleX: 0.94,
-            duration: 0.2,
-            ease: 'power1.inOut',
-          },
-          0.14 + i * 0.012
-        )
-      })
-      tl.to(
-        '.fin-slice-img',
-        { filter: 'grayscale(0.75) brightness(0.5)', duration: 0.22 },
-        0.16
-      )
-
-      /* --- planes flatten into a drawn grid --- */
-      slices.forEach((s, i) => {
-        tl.to(
-          s,
-          {
-            yPercent: 0,
-            scaleX: 0.012,
-            duration: 0.18,
-            ease: 'power2.inOut',
-          },
-          0.36 + i * 0.015
-        )
-      })
-      tl.to('.fin-slice-tint', { opacity: 1, duration: 0.12 }, 0.42)
-
-      /* --- the grid becomes the mark --- */
-      tl.to(
-        slices,
-        { opacity: 0, duration: 0.1, stagger: 0.008 },
-        0.56
-      )
+      /* --- the mark draws itself out of the dark --- */
       tl.to(
         mono.querySelectorAll('path, line, polyline'),
-        { strokeDashoffset: 0, duration: 0.14, stagger: 0.03 },
-        0.56
+        { strokeDashoffset: 0, duration: 0.16, stagger: 0.03 },
+        0.34
       )
       tl.fromTo(
         '.fin-mark-caption',
         { opacity: 0 },
-        { opacity: 1, duration: 0.05 },
-        0.66
+        { opacity: 1, duration: 0.06 },
+        0.46
       )
 
       /* --- hand over to the studio --- */
       tl.to(
         '.fin-mark-wrap',
         { scale: 0.62, yPercent: -160, duration: 0.12, ease: 'power2.inOut' },
-        0.74
+        0.6
       )
-      tl.to('.fin-mark-caption', { opacity: 0, duration: 0.04 }, 0.74)
-      tl.call(() => sound.brandTone(), null, 0.78)
+      tl.to('.fin-mark-caption', { opacity: 0, duration: 0.04 }, 0.6)
+      tl.call(() => sound.brandTone(), null, 0.64)
       tl.fromTo(
         '.fin-by',
         { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.06 },
-        0.78
+        { opacity: 1, y: 0, duration: 0.07 },
+        0.64
       )
       tl.fromTo(
         '.fin-studio',
         { opacity: 0, y: 26 },
-        { opacity: 1, y: 0, duration: 0.09, ease: 'power2.out' },
-        0.81
+        { opacity: 1, y: 0, duration: 0.1, ease: 'power2.out' },
+        0.68
       )
       tl.fromTo(
         '.fin-tagline',
         { opacity: 0 },
-        { opacity: 1, duration: 0.06 },
-        0.87
+        { opacity: 1, duration: 0.07 },
+        0.76
       )
       tl.fromTo(
         '.fin-footer',
         { opacity: 0 },
-        { opacity: 1, duration: 0.05 },
-        0.9
+        { opacity: 1, duration: 0.06 },
+        0.8
       )
       /* --- hold the final composition for the reel --- */
-      tl.to({}, { duration: 0.1 })
+      tl.to({}, { duration: 0.14 })
     },
     { pinDistance: '+=340%' }
   )
 
   return (
     <section id="scene-final" className="scene" ref={ref}>
-      <div className="fin-stage scene-fill">
-        {Array.from({ length: SLICES }, (_, i) => (
-          <div className="fin-slice" key={i}>
-            <div
-              className="fin-slice-img"
-              style={{
-                backgroundImage: `url(${stills.residenceComplete})`,
-                backgroundPosition: `${(i / (SLICES - 1)) * 100}% 50%`,
-                backgroundSize: `${SLICES * 100}% 100%`,
-              }}
-            />
-            <div className="fin-slice-tint" />
-          </div>
-        ))}
-      </div>
+      <img className="img-cover fin-stage" src={stills.residenceComplete} alt="" aria-hidden="true" />
+      <div className="fin-veil scene-fill" />
 
       <div className="fin-center scene-fill">
         <div className="fin-mark-wrap">

@@ -1,8 +1,8 @@
 import React from 'react'
 import gsap from 'gsap'
-import FloorPlanSVG from './svg/FloorPlanSVG'
-import { useScrollTimeline, primeDraw } from '../hooks/useScrollTimeline'
+import { useScrollTimeline } from '../hooks/useScrollTimeline'
 import { stills, videos } from '../data/assets'
+import { sound } from '../lib/sound'
 import './InteriorScene.css'
 
 const LABELS = [
@@ -15,89 +15,32 @@ const LABELS = [
 const DETAILS = ['280 M²', 'PRIVATE TERRACE', 'PANORAMIC BERLIN VIEW', 'THREE BEDROOMS']
 
 /**
- * Scene 4 — through the glass into the residence. The exterior zooms
- * toward the lit living space, the glazing becomes a doorway, and the
- * interior opens up: light moves across travertine, materials identify
- * themselves, the plan flashes over reality.
+ * The interior — held still. The room is revealed once by a single
+ * architectural wipe, then it does not move: only light, the material
+ * labels and the property facts resolve over the static image, so the
+ * space can be read (and filmed) calmly.
  */
 export default function InteriorScene() {
   const ref = useScrollTimeline(
     (tl, root) => {
-      const planOverlay = root.querySelector('.int-plan')
-      primeDraw(planOverlay, 'line, path, polygon, polyline, circle, rect')
-      gsap.set(planOverlay.querySelectorAll('text'), { opacity: 0 })
-      gsap.set(planOverlay.querySelectorAll('[data-dot]'), { fillOpacity: 0 })
-
-      /* nothing from later beats may leak into the approach */
-      gsap.set('.int-room', { autoAlpha: 0 })
       gsap.set('.int-label', { autoAlpha: 0 })
-      const planStrokes = []
-      ;['footprint', 'walls', 'axes'].forEach((name) => {
-        planOverlay
-          .querySelectorAll(`[data-layer="${name}"]`)
-          .forEach((g) =>
-            planStrokes.push(...g.querySelectorAll('line, path, polygon, polyline, circle'))
-          )
-      })
 
-      /* --- approach the glass --- */
-      tl.fromTo(
-        '.int-exterior',
-        { scale: 1, transformOrigin: '60% 62%' },
-        { scale: 2.7, duration: 0.24, ease: 'power1.in' },
-        0
-      )
-      tl.fromTo(
-        '.int-vignette',
-        { opacity: 0 },
-        { opacity: 1, duration: 0.18 },
-        0.06
-      )
+      /* the room is simply present — a clean cut in from the exterior, held
+         completely still. Only light and type move over it. */
+      tl.call(() => sound.impact(0.6), null, 0.04)
 
-      /* --- pass through the glazing into the double-height room --- */
-      tl.set('.int-room', { autoAlpha: 1 }, 0.17)
-      tl.fromTo(
-        '.int-room',
-        { clipPath: 'inset(34% 54% 30% 18%)', scale: 1.16 },
-        {
-          clipPath: 'inset(0% 0% 0% 0%)',
-          scale: 1.14,
-          duration: 0.2,
-          ease: 'power2.in',
-        },
-        0.18
-      )
-      tl.set('.int-exterior', { opacity: 0 }, 0.38)
-      tl.to('.int-vignette', { opacity: 0, duration: 0.1 }, 0.34)
-
-      /* --- a slow cinematic drift across the room: glazing → living →
-         dining. One continuous move over the whole scene (this wide image
-         has the depth to carry it), so it reads as a filmed dolly. --- */
-      tl.fromTo(
-        '.int-room-media',
-        { scale: 1.14, xPercent: 4, yPercent: 1 },
-        { scale: 1.05, xPercent: -4, yPercent: 0, duration: 0.62, ease: 'none' },
-        0.38
-      )
-      tl.to('.int-room', { scale: 1, duration: 0.2 }, 0.38)
-
-      /* --- warm light moves across the stone --- */
+      /* --- one slow pass of warm light, the only movement --- */
       tl.fromTo(
         '.int-sweep',
         { xPercent: -70, opacity: 0 },
-        { xPercent: 0, opacity: 1, duration: 0.1, ease: 'power1.in' },
-        0.42
+        { xPercent: 0, opacity: 1, duration: 0.12, ease: 'power1.in' },
+        0.24
       )
-      tl.to('.int-sweep', {
-        xPercent: 160,
-        opacity: 0,
-        duration: 0.22,
-        ease: 'power1.out',
-      }, 0.52)
+      tl.to('.int-sweep', { xPercent: 160, opacity: 0, duration: 0.26, ease: 'power1.out' }, 0.36)
 
-      /* --- materials identify themselves --- */
+      /* --- materials identify themselves, then step back --- */
       root.querySelectorAll('.int-label').forEach((el, i) => {
-        const at = 0.5 + i * 0.035
+        const at = 0.3 + i * 0.04
         tl.set(el, { autoAlpha: 1 }, at)
         tl.fromTo(
           el.querySelector('.int-label-line'),
@@ -112,44 +55,25 @@ export default function InteriorScene() {
           at + 0.03
         )
       })
-      tl.to('.int-label', { autoAlpha: 0, duration: 0.08, stagger: 0.01 }, 0.72)
+      tl.to('.int-label', { autoAlpha: 0, duration: 0.08, stagger: 0.01 }, 0.6)
 
-      /* --- the plan flashes over reality --- */
-      tl.fromTo(planOverlay, { opacity: 0 }, { opacity: 0.28, duration: 0.05 }, 0.62)
-      tl.to(planStrokes, { strokeDashoffset: 0, duration: 0.12, stagger: 0.004 }, 0.62)
-      tl.to(planOverlay, { opacity: 0, duration: 0.08 }, 0.76)
-
-      /* --- the facts, quietly, over the settling room --- */
+      /* --- the facts, quietly, over the still room --- */
       root.querySelectorAll('.int-detail').forEach((el, i) => {
         tl.fromTo(
           el,
           { opacity: 0, y: 18 },
-          { opacity: 1, y: 0, duration: 0.06, ease: 'power2.out' },
-          0.84 + i * 0.03
+          { opacity: 1, y: 0, duration: 0.07, ease: 'power2.out' },
+          0.66 + i * 0.04
         )
       })
-      tl.fromTo(
-        '.int-detail-rule',
-        { scaleX: 0 },
-        { scaleX: 1, duration: 0.12, stagger: 0.03 },
-        0.84
-      )
+      tl.fromTo('.int-detail-rule', { scaleX: 0 }, { scaleX: 1, duration: 0.12, stagger: 0.03 }, 0.66)
+      tl.to({}, { duration: 0.1 })
     },
-    { pinDistance: '+=380%' }
+    { pinDistance: '+=320%' }
   )
 
   return (
     <section id="scene-interior" className="scene" ref={ref}>
-      {/* the exterior we arrive from */}
-      <img
-        className="img-cover int-exterior"
-        src={stills.residenceComplete}
-        alt=""
-        aria-hidden="true"
-      />
-      <div className="int-vignette scene-fill" />
-
-      {/* the room */}
       <div className="int-room scene-fill">
         {videos.interiorLight ? (
           <video
@@ -170,25 +94,14 @@ export default function InteriorScene() {
         <div className="int-sweep" />
       </div>
 
-      {/* material labels */}
       {LABELS.map((l) => (
-        <div
-          className="int-label"
-          key={l.text}
-          style={{ left: l.x, top: l.y }}
-        >
+        <div className="int-label" key={l.text} style={{ left: l.x, top: l.y }}>
           <span className="int-label-dot" />
           <span className="int-label-line" />
           <span className="t-tech int-label-text">{l.text}</span>
         </div>
       ))}
 
-      {/* plan overlay */}
-      <div className="int-plan scene-fill">
-        <FloorPlanSVG className="int-plan-svg" />
-      </div>
-
-      {/* property details */}
       <div className="int-details">
         {DETAILS.map((d, i) => (
           <React.Fragment key={d}>

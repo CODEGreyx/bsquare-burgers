@@ -1,0 +1,148 @@
+#scene-build {
+  background: radial-gradient(
+    ellipse 120% 100% at 50% 46%,
+    #0e0f11 0%,
+    var(--ink) 72%
+  );
+}
+
+/* every photographic layer shares the one locked frame */
+.build-structure {
+  z-index: 1;
+  will-change: clip-path;
+}
+.build-construction {
+  z-index: 2;
+  will-change: clip-path;
+}
+.build-light {
+  z-index: 3;
+  will-change: opacity;
+}
+.build-bloom {
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 55% 45% at 60% 58%,
+    rgba(201, 160, 106, 0.5),
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+}
+.build-complete {
+  z-index: 4;
+  will-change: clip-path;
+}
+
+.build-elev {
+  z-index: 5;
+}
+.build-elev-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- opening title ---------- */
+
+.build-title {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.2rem;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 50%,
+    rgba(10, 10, 11, 0.9) 30%,
+    rgba(10, 10, 11, 0.5) 66%,
+    transparent 100%
+  );
+  will-change: transform, opacity;
+}
+
+.build-name {
+  font-size: clamp(3.4rem, 11vw, 10.5rem);
+  letter-spacing: 0.14em;
+  margin-right: -0.14em;
+  display: flex;
+}
+.build-charmask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.build-char {
+  display: inline-block;
+  will-change: transform;
+}
+.build-sub {
+  opacity: 0;
+}
+
+/* ---------- the two words ---------- */
+
+.build-words {
+  z-index: 6;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+}
+.build-word {
+  grid-area: 1 / 1;
+  font-size: clamp(3.2rem, 9vw, 8.6rem);
+  letter-spacing: 0.3em;
+  margin-right: -0.3em;
+  color: var(--ivory);
+  opacity: 0;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.6);
+  will-change: transform, opacity;
+}
+
+/* ---------- hint + caption ---------- */
+
+.build-hint {
+  position: absolute;
+  bottom: 4.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  opacity: 0;
+}
+.build-hintline {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(var(--ivory-55), transparent);
+  animation: buildhint 2.4s ease-in-out infinite;
+}
+@keyframes buildhint {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+.build-caption {
+  position: absolute;
+  left: 5vw;
+  bottom: 5.5vh;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  opacity: 0;
+}
+.build-caption-dim {
+  color: var(--ivory-30);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .build-hintline { animation: none; }
+}

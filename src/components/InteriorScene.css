@@ -2,49 +2,9 @@
   background: var(--ink);
 }
 
-.int-exterior {
-  will-change: transform;
-}
-
-.int-vignette {
-  opacity: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse 46% 40% at 60% 62%,
-    transparent 30%,
-    rgba(10, 10, 11, 0.85) 78%,
-    var(--ink) 100%
-  );
-}
-
+/* the room fills the frame and holds completely still */
 .int-room {
-  clip-path: inset(48% 26% 24% 46%);
   overflow: hidden;
-  will-change: clip-path, transform;
-}
-
-.int-room-media {
-  will-change: transform;
-}
-
-/* reverse view, revealed by a travelling band of light */
-.int-room2 {
-  --wp: -18%;
-  visibility: hidden;
-  -webkit-mask-image: linear-gradient(
-    100deg,
-    #000 calc(var(--wp) - 14%),
-    transparent calc(var(--wp) + 14%)
-  );
-  mask-image: linear-gradient(
-    100deg,
-    #000 calc(var(--wp) - 14%),
-    transparent calc(var(--wp) + 14%)
-  );
-}
-
-.int-room2-media {
-  will-change: transform;
 }
 
 .int-sweep {
