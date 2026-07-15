@@ -6,10 +6,10 @@ import { stills, videos } from '../data/assets'
 import './InteriorScene.css'
 
 const LABELS = [
-  { text: 'TRAVERTINE', x: '26%', y: '34%' },
-  { text: 'BOARD-FORMED CONCRETE', x: '42%', y: '52%' },
-  { text: 'SMOKED OAK', x: '55%', y: '82%' },
-  { text: 'BRONZE + GLASS', x: '78%', y: '38%' },
+  { text: 'BRONZE + GLASS', x: '19%', y: '30%' },
+  { text: 'BOARD-FORMED CONCRETE', x: '58%', y: '20%' },
+  { text: 'TRAVERTINE', x: '84%', y: '44%' },
+  { text: 'SMOKED OAK', x: '40%', y: '84%' },
 ]
 
 const DETAILS = ['280 M²', 'PRIVATE TERRACE', 'PANORAMIC BERLIN VIEW', 'THREE BEDROOMS']
@@ -30,7 +30,6 @@ export default function InteriorScene() {
 
       /* nothing from later beats may leak into the approach */
       gsap.set('.int-room', { autoAlpha: 0 })
-      gsap.set('.int-room2', { autoAlpha: 0 })
       gsap.set('.int-label', { autoAlpha: 0 })
       const planStrokes = []
       ;['footprint', 'walls', 'axes'].forEach((name) => {
@@ -55,14 +54,14 @@ export default function InteriorScene() {
         0.06
       )
 
-      /* --- pass through the window, landing on the sofa we saw lit --- */
+      /* --- pass through the glazing into the double-height room --- */
       tl.set('.int-room', { autoAlpha: 1 }, 0.17)
       tl.fromTo(
         '.int-room',
-        { clipPath: 'inset(46% 42% 18% 30%)', scale: 1.18 },
+        { clipPath: 'inset(34% 54% 30% 18%)', scale: 1.16 },
         {
           clipPath: 'inset(0% 0% 0% 0%)',
-          scale: 1.12,
+          scale: 1.14,
           duration: 0.2,
           ease: 'power2.in',
         },
@@ -71,15 +70,18 @@ export default function InteriorScene() {
       tl.set('.int-exterior', { opacity: 0 }, 0.38)
       tl.to('.int-vignette', { opacity: 0, duration: 0.1 }, 0.34)
 
-      /* --- the camera keeps drifting forward --- */
-      tl.to(
+      /* --- a slow cinematic drift across the room: glazing → living →
+         dining. One continuous move over the whole scene (this wide image
+         has the depth to carry it), so it reads as a filmed dolly. --- */
+      tl.fromTo(
         '.int-room-media',
-        { scale: 1.07, xPercent: -1.6, duration: 0.55, ease: 'none' },
+        { scale: 1.14, xPercent: 4, yPercent: 1 },
+        { scale: 1.05, xPercent: -4, yPercent: 0, duration: 0.62, ease: 'none' },
         0.38
       )
       tl.to('.int-room', { scale: 1, duration: 0.2 }, 0.38)
 
-      /* --- light moves across the stone --- */
+      /* --- warm light moves across the stone --- */
       tl.fromTo(
         '.int-sweep',
         { xPercent: -70, opacity: 0 },
@@ -113,26 +115,11 @@ export default function InteriorScene() {
       tl.to('.int-label', { autoAlpha: 0, duration: 0.08, stagger: 0.01 }, 0.72)
 
       /* --- the plan flashes over reality --- */
-      tl.fromTo(planOverlay, { opacity: 0 }, { opacity: 0.3, duration: 0.05 }, 0.6)
-      tl.to(planStrokes, { strokeDashoffset: 0, duration: 0.12, stagger: 0.004 }, 0.6)
-      tl.to(planOverlay, { opacity: 0, duration: 0.08 }, 0.72)
+      tl.fromTo(planOverlay, { opacity: 0 }, { opacity: 0.28, duration: 0.05 }, 0.62)
+      tl.to(planStrokes, { strokeDashoffset: 0, duration: 0.12, stagger: 0.004 }, 0.62)
+      tl.to(planOverlay, { opacity: 0, duration: 0.08 }, 0.76)
 
-      /* --- the room turns: a band of light wipes to the reverse view --- */
-      tl.set('.int-room2', { autoAlpha: 1 }, 0.74)
-      tl.fromTo(
-        '.int-room2',
-        { '--wp': '-18%' },
-        { '--wp': '118%', duration: 0.16, ease: 'power1.inOut' },
-        0.75
-      )
-      tl.fromTo(
-        '.int-room2-media',
-        { scale: 1.1, xPercent: 1.5 },
-        { scale: 1, xPercent: 0, duration: 0.25, ease: 'none' },
-        0.75
-      )
-
-      /* --- the facts, quietly, over the widened room --- */
+      /* --- the facts, quietly, over the settling room --- */
       root.querySelectorAll('.int-detail').forEach((el, i) => {
         tl.fromTo(
           el,
@@ -181,15 +168,6 @@ export default function InteriorScene() {
           />
         )}
         <div className="int-sweep" />
-      </div>
-
-      {/* the reverse view of the same room */}
-      <div className="int-room2 scene-fill">
-        <img
-          className="img-cover int-room2-media"
-          src={stills.interiorLiving2}
-          alt="Reverse view of the living room toward the glazing and reflecting pool"
-        />
       </div>
 
       {/* material labels */}
