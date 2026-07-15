@@ -1,0 +1,102 @@
+#scene-exterior {
+  background: var(--ink);
+}
+
+.ext-complete {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.ext-bloom {
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 55% 45% at 62% 55%,
+    rgba(201, 160, 106, 0.5),
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+}
+
+/* --- concrete curtains --- */
+
+.ext-curtains {
+  display: flex;
+}
+
+.ext-curtain {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  visibility: hidden; /* GSAP owns the transform; hidden until primed */
+  will-change: transform;
+}
+
+.ext-curtain-img {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+/* --- material planes --- */
+
+.ext-mats {
+  display: flex;
+  pointer-events: none;
+}
+
+.ext-mat {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  visibility: hidden; /* GSAP owns the transform; hidden until primed */
+  will-change: transform;
+  border-left: 1px solid rgba(10, 10, 11, 0.9);
+}
+.ext-mat:first-child {
+  border-left: none;
+}
+
+.ext-mat-label {
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  color: var(--ivory-55);
+  opacity: 0;
+}
+
+/* --- the three words --- */
+
+.ext-words {
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+}
+
+.ext-word {
+  grid-area: 1 / 1;
+  font-size: clamp(3.2rem, 9vw, 8.6rem);
+  letter-spacing: 0.3em;
+  margin-right: -0.3em;
+  color: var(--ivory);
+  opacity: 0;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.55);
+  will-change: transform, opacity;
+}
+
+.ext-caption {
+  position: absolute;
+  left: 5vw;
+  bottom: 5.5vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  opacity: 0;
+}
+
+.ext-caption-dim {
+  color: var(--ivory-30);
+}

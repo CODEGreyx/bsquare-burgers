@@ -22,12 +22,19 @@ jobs:
       - name: Download assets listed in scripts/asset-urls.txt
         run: |
           set -euo pipefail
+          sudo apt-get update -q && sudo apt-get install -y -q webp
           while IFS=' ' read -r dest url; do
             [ -z "$dest" ] && continue
             case "$dest" in \#*) continue ;; esac
             mkdir -p "$(dirname "$dest")"
             echo "Fetching $dest"
             curl -sSL --retry 3 -o "$dest" "$url"
+            case "$dest" in
+              *.png)
+                cwebp -quiet -q 82 "$dest" -o "${dest%.png}.webp"
+                rm "$dest"
+                ;;
+            esac
           done < scripts/asset-urls.txt
 
       - name: Commit assets

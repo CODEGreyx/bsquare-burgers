@@ -1,0 +1,44 @@
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-center {
+  position: relative;
+  width: min(46vw, 640px);
+}
+
+.loader-line {
+  height: 1px;
+  width: 100%;
+  background: var(--ivory-55);
+  transform-origin: 50% 50%;
+}
+
+.loader-tick {
+  position: absolute;
+  top: -5px;
+  width: 1px;
+  height: 11px;
+  background: var(--ivory-55);
+  transform-origin: 50% 100%;
+}
+.loader-tick-l {
+  left: 0;
+}
+.loader-tick-r {
+  right: 0;
+}
+
+.loader-meta {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}

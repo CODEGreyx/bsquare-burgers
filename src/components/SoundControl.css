@@ -1,0 +1,55 @@
+.soundctl {
+  position: fixed;
+  right: 3.2rem;
+  bottom: 2.6rem;
+  z-index: 55;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 18px;
+  padding: 6px 4px;
+  opacity: 0.6;
+  transition: opacity 0.4s;
+}
+
+body:not(.filming) .soundctl:hover {
+  opacity: 1;
+}
+
+body.filming .soundctl {
+  opacity: 0.18;
+}
+
+.soundctl-bar {
+  width: 2px;
+  height: 6px;
+  background: var(--ivory-55);
+  transition: background 0.3s;
+}
+
+.soundctl.is-on .soundctl-bar {
+  background: var(--ivory);
+  animation: soundbar 1.4s ease-in-out infinite;
+}
+.soundctl.is-on .soundctl-bar:nth-child(2) {
+  animation-delay: 0.18s;
+}
+.soundctl.is-on .soundctl-bar:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+@keyframes soundbar {
+  0%, 100% { height: 5px; }
+  50% { height: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .soundctl.is-on .soundctl-bar { animation: none; height: 10px; }
+}
+
+.soundctl-label {
+  margin-left: 8px;
+  font-size: 0.55rem;
+  align-self: center;
+  color: var(--ivory-30);
+}

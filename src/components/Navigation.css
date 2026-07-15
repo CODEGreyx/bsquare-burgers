@@ -1,0 +1,45 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.2rem 3.2rem;
+  opacity: 0;
+}
+
+.nav-mark {
+  color: var(--ivory);
+  text-decoration: none;
+  letter-spacing: 0.5em;
+}
+
+.nav-items {
+  display: flex;
+  gap: 2.6rem;
+}
+
+.nav-link {
+  color: var(--ivory-55);
+  text-decoration: none;
+  transition: color 0.4s;
+}
+
+body:not(.filming) .nav-link:hover {
+  color: var(--ivory);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 1.4rem 1.6rem;
+  }
+  .nav-items {
+    gap: 1.2rem;
+  }
+  .nav-link:not(:last-child) {
+    display: none;
+  }
+}

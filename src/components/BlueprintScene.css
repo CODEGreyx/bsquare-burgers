@@ -1,0 +1,89 @@
+#scene-blueprint {
+  background: radial-gradient(
+    ellipse 120% 100% at 50% 40%,
+    #0e0f11 0%,
+    var(--ink) 70%
+  );
+}
+
+.bp-plan {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 6vw;
+  will-change: transform;
+}
+
+.bp-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.bp-title {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 50%,
+    rgba(10, 10, 11, 0.88) 30%,
+    rgba(10, 10, 11, 0.55) 65%,
+    transparent 100%
+  );
+}
+
+.bp-name {
+  font-size: clamp(3.6rem, 11vw, 10.5rem);
+  letter-spacing: 0.14em;
+  margin-right: -0.14em; /* optically recenter tracked type */
+  display: flex;
+}
+
+.bp-charmask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.bp-char {
+  display: inline-block;
+  will-change: transform;
+}
+
+.bp-sub {
+  opacity: 0;
+}
+
+.bp-hint {
+  position: absolute;
+  bottom: 4.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  opacity: 0;
+}
+
+.bp-hintline {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(var(--ivory-55), transparent);
+  animation: hintdrop 2.4s ease-in-out infinite;
+}
+
+@keyframes hintdrop {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-hintline { animation: none; }
+}
