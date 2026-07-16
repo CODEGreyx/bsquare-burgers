@@ -22,7 +22,7 @@ jobs:
       - name: Download assets listed in scripts/asset-urls.txt
         run: |
           set -euo pipefail
-          sudo apt-get update -q && sudo apt-get install -y -q webp
+          sudo apt-get update -q && sudo apt-get install -y -q webp ffmpeg
           UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
 
           pexels_dl() { # $1 = pexels video id → /tmp/v.mp4 via the direct
