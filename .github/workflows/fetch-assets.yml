@@ -25,10 +25,13 @@ jobs:
           sudo apt-get update -q && sudo apt-get install -y -q webp
           UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
 
-          pexels_urls() { # $1 = pexels video id → prints direct mp4 urls
-            curl -sL -A "$UA" "https://www.pexels.com/video/$1/" \
-              | grep -oE 'https://videos\.pexels\.com/video-files/[^"&?]+\.mp4' \
-              | sort -u
+          pexels_dl() { # $1 = pexels video id → /tmp/v.mp4 via the direct
+            # download endpoint (302 → videos.pexels.com file). Prints the
+            # final URL + http code + content type for diagnostics.
+            curl -sL -A "$UA" -e "https://www.pexels.com/video/$1/" \
+              -o /tmp/v.mp4 \
+              -w "final=%{url_effective}\nhttp=%{http_code}\ntype=%{content_type}\nbytes=%{size_download}\n" \
+              "https://www.pexels.com/download/video/$1/"
           }
 
           while IFS=' ' read -r a b c; do
@@ -37,36 +40,33 @@ jobs:
               \#*) continue ;;
 
               PEXELS-PREVIEW)
-                # b = pexels id → commit 3 preview frames + url list
+                # b = pexels id → commit 3 preview frames + diagnostics
                 id="$b"
                 out="public/assets/video/_previews"
                 mkdir -p "$out"
-                pexels_urls "$id" > "$out/$id-urls.txt" || true
-                src=$(grep -m1 -E 'hd_|uhd_' "$out/$id-urls.txt" || head -1 "$out/$id-urls.txt")
-                if [ -n "$src" ]; then
-                  curl -sL -A "$UA" -o /tmp/v.mp4 "$src"
-                  d=$(ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/v.mp4)
+                pexels_dl "$id" > "$out/$id-urls.txt" || true
+                if ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/v.mp4 > /tmp/dur.txt 2>/dev/null; then
+                  d=$(cat /tmp/dur.txt)
                   echo "duration=$d" >> "$out/$id-urls.txt"
+                  ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of csv=p=0 /tmp/v.mp4 >> "$out/$id-urls.txt" || true
                   for p in 5 50 95; do
                     t=$(awk "BEGIN{print $d*$p/100}")
                     ffmpeg -y -v error -ss "$t" -i /tmp/v.mp4 -frames:v 1 \
                       -vf scale=960:-2 "$out/$id-$p.jpg"
                   done
+                else
+                  echo "NOT A VIDEO — first bytes:" >> "$out/$id-urls.txt"
+                  head -c 300 /tmp/v.mp4 >> "$out/$id-urls.txt" || true
                 fi
                 ;;
 
               PEXELS-GET)
-                # b = dest path, c = pexels id → download best ≥1080p,
+                # b = dest path, c = pexels id → download original quality,
                 # re-encode for scroll scrubbing (dense keyframes, no audio)
                 dest="$b"; id="$c"
                 mkdir -p "$(dirname "$dest")"
-                urls=$(pexels_urls "$id")
-                src=$(echo "$urls" | grep -m1 'uhd_2560' || true)
-                [ -z "$src" ] && src=$(echo "$urls" | grep -m1 'uhd_3840' || true)
-                [ -z "$src" ] && src=$(echo "$urls" | grep -m1 'hd_1920' || true)
-                [ -z "$src" ] && src=$(echo "$urls" | head -1)
-                echo "Encoding $src → $dest"
-                curl -sL -A "$UA" -o /tmp/v.mp4 "$src"
+                pexels_dl "$id"
+                echo "Encoding pexels $id → $dest"
                 ffmpeg -y -v error -i /tmp/v.mp4 \
                   -vf "scale=1920:-2" -c:v libx264 -preset slow -crf 24 \
                   -g 8 -keyint_min 8 -pix_fmt yuv420p -an \
