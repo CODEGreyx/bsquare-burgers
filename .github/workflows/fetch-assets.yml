@@ -25,6 +25,12 @@ jobs:
           sudo apt-get update -q && sudo apt-get install -y -q webp ffmpeg
           UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
 
+          # every command echoes into a log that is committed back even on
+          # failure, so the sandboxed session can read what went wrong
+          mkdir -p public/assets/video/_previews
+          exec > >(tee public/assets/video/_previews/_run.log) 2>&1
+          set -x
+
           pexels_dl() { # $1 = pexels video id → /tmp/v.mp4 via the direct
             # download endpoint (302 → videos.pexels.com file). Prints the
             # final URL + http code + content type for diagnostics.
@@ -51,7 +57,7 @@ jobs:
                   ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of csv=p=0 /tmp/v.mp4 >> "$out/$id-urls.txt" || true
                   for p in 5 50 95; do
                     t=$(awk "BEGIN{print $d*$p/100}")
-                    ffmpeg -y -v error -ss "$t" -i /tmp/v.mp4 -frames:v 1 \
+                    ffmpeg -nostdin -y -v error -ss "$t" -i /tmp/v.mp4 -frames:v 1 \
                       -vf scale=960:-2 "$out/$id-$p.jpg"
                   done
                 else
@@ -67,7 +73,7 @@ jobs:
                 mkdir -p "$(dirname "$dest")"
                 pexels_dl "$id"
                 echo "Encoding pexels $id → $dest"
-                ffmpeg -y -v error -i /tmp/v.mp4 \
+                ffmpeg -nostdin -y -v error -i /tmp/v.mp4 \
                   -vf "scale=1920:-2" -c:v libx264 -preset slow -crf 24 \
                   -g 8 -keyint_min 8 -pix_fmt yuv420p -an \
                   -movflags +faststart "$dest"
@@ -89,6 +95,7 @@ jobs:
           done < scripts/asset-urls.txt
 
       - name: Commit assets
+        if: always()
         run: |
           git config user.name "asset-fetch-bot"
           git config user.email "actions@github.com"
