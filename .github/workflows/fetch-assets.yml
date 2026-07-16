@@ -23,16 +23,67 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update -q && sudo apt-get install -y -q webp
-          while IFS=' ' read -r dest url; do
-            [ -z "$dest" ] && continue
-            case "$dest" in \#*) continue ;; esac
-            mkdir -p "$(dirname "$dest")"
-            echo "Fetching $dest"
-            curl -sSL --retry 3 -o "$dest" "$url"
-            case "$dest" in
-              *.png)
-                cwebp -quiet -q 82 "$dest" -o "${dest%.png}.webp"
-                rm "$dest"
+          UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+
+          pexels_urls() { # $1 = pexels video id → prints direct mp4 urls
+            curl -sL -A "$UA" "https://www.pexels.com/video/$1/" \
+              | grep -oE 'https://videos\.pexels\.com/video-files/[^"&?]+\.mp4' \
+              | sort -u
+          }
+
+          while IFS=' ' read -r a b c; do
+            [ -z "$a" ] && continue
+            case "$a" in
+              \#*) continue ;;
+
+              PEXELS-PREVIEW)
+                # b = pexels id → commit 3 preview frames + url list
+                id="$b"
+                out="public/assets/video/_previews"
+                mkdir -p "$out"
+                pexels_urls "$id" > "$out/$id-urls.txt" || true
+                src=$(grep -m1 -E 'hd_|uhd_' "$out/$id-urls.txt" || head -1 "$out/$id-urls.txt")
+                if [ -n "$src" ]; then
+                  curl -sL -A "$UA" -o /tmp/v.mp4 "$src"
+                  d=$(ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/v.mp4)
+                  echo "duration=$d" >> "$out/$id-urls.txt"
+                  for p in 5 50 95; do
+                    t=$(awk "BEGIN{print $d*$p/100}")
+                    ffmpeg -y -v error -ss "$t" -i /tmp/v.mp4 -frames:v 1 \
+                      -vf scale=960:-2 "$out/$id-$p.jpg"
+                  done
+                fi
+                ;;
+
+              PEXELS-GET)
+                # b = dest path, c = pexels id → download best ≥1080p,
+                # re-encode for scroll scrubbing (dense keyframes, no audio)
+                dest="$b"; id="$c"
+                mkdir -p "$(dirname "$dest")"
+                urls=$(pexels_urls "$id")
+                src=$(echo "$urls" | grep -m1 'uhd_2560' || true)
+                [ -z "$src" ] && src=$(echo "$urls" | grep -m1 'uhd_3840' || true)
+                [ -z "$src" ] && src=$(echo "$urls" | grep -m1 'hd_1920' || true)
+                [ -z "$src" ] && src=$(echo "$urls" | head -1)
+                echo "Encoding $src → $dest"
+                curl -sL -A "$UA" -o /tmp/v.mp4 "$src"
+                ffmpeg -y -v error -i /tmp/v.mp4 \
+                  -vf "scale=1920:-2" -c:v libx264 -preset slow -crf 24 \
+                  -g 8 -keyint_min 8 -pix_fmt yuv420p -an \
+                  -movflags +faststart "$dest"
+                ;;
+
+              *)
+                dest="$a"; url="$b"
+                mkdir -p "$(dirname "$dest")"
+                echo "Fetching $dest"
+                curl -sSL --retry 3 -o "$dest" "$url"
+                case "$dest" in
+                  *.png)
+                    cwebp -quiet -q 82 "$dest" -o "${dest%.png}.webp"
+                    rm "$dest"
+                    ;;
+                esac
                 ;;
             esac
           done < scripts/asset-urls.txt

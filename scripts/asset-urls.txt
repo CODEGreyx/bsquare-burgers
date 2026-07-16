@@ -1,5 +1,15 @@
-# One asset per line: <repo-relative destination path> <https URL>
-# .png destinations are converted to .webp on the runner (q82) and the
-# PNG is discarded. Push a change to this file to trigger the fetch.
-# See HIGGSFIELD-PROMPTS.md for the prompts that produce each asset.
-public/assets/interior/interior-living-2.png https://d8j0ntlcm91z4.cloudfront.net/user_3GXgnC8CdVnMMeXvrSFGzjNkP0u/hf_20260715_214715_30dedae1-168c-4ef1-9e04-a804ffcf3433.png
+# One asset per line. Formats:
+#   <dest path> <https URL>          – plain fetch (.png auto-converted to .webp)
+#   PEXELS-PREVIEW <id>              – commit 3 preview frames + url list for a Pexels video
+#   PEXELS-GET <dest> <id>           – download best >=1080p Pexels video, re-encode for scrubbing
+# Push a change to this file to trigger the fetch workflow.
+
+# Candidate construction-timelapse clips (Pexels, free for commercial use)
+PEXELS-PREVIEW 6164052
+PEXELS-PREVIEW 29794133
+PEXELS-PREVIEW 5513062
+PEXELS-PREVIEW 7025003
+PEXELS-PREVIEW 5348779
+PEXELS-PREVIEW 3689303
+PEXELS-PREVIEW 5567026
+PEXELS-PREVIEW 5567024
