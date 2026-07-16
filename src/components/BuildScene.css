@@ -6,6 +6,13 @@
   );
 }
 
+/* scroll-scrubbed construction clip (when a build video is provided) */
+.build-video {
+  z-index: 1;
+  object-fit: cover;
+  background: var(--ink);
+}
+
 /* every photographic layer shares the one locked frame */
 .build-structure {
   z-index: 1;

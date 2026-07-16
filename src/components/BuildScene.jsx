@@ -2,11 +2,12 @@ import React, { useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import ElevationSVG from './svg/ElevationSVG'
 import { useScrollTimeline, primeDraw } from '../hooks/useScrollTimeline'
-import { stills } from '../data/assets'
+import { stills, videos } from '../data/assets'
 import { sound } from '../lib/sound'
 import './BuildScene.css'
 
 const TITLE = 'NØRTHLINE'
+const hasVideo = !!videos.buildTimelapse
 
 /* Window regions of the facade as soft-edged masks — the finished house's
    warm light appearing, window by window, over the raw construction. */
@@ -27,6 +28,30 @@ const LIGHTS = [
 export default function BuildScene() {
   const ref = useScrollTimeline(
     (tl, root) => {
+      /* ---- VIDEO PATH: scrub a real construction clip to scroll ---- */
+      if (hasVideo) {
+        const video = root.querySelector('.build-video')
+        video.pause()
+        const proxy = { t: 0 }
+        const scrub = () => {
+          if (video.duration) video.currentTime = proxy.t * video.duration
+        }
+        /* one continuous scrub across the whole pinned section */
+        tl.to(proxy, { t: 1, duration: 1, ease: 'none', onUpdate: scrub }, 0)
+
+        /* title steps aside, the two words punctuate, caption holds */
+        tl.to('.build-title', { yPercent: -12, autoAlpha: 0, duration: 0.06 }, 0.03)
+        tl.to('.build-hint', { autoAlpha: 0, duration: 0.03 }, 0.03)
+        tl.fromTo('.build-word-form', { yPercent: 24, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.06 }, 0.32)
+        tl.to('.build-word-form', { yPercent: -20, autoAlpha: 0, duration: 0.06 }, 0.44)
+        tl.call(() => sound.swell(), null, 0.72)
+        tl.fromTo('.build-word-presence', { yPercent: 22, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.07 }, 0.82)
+        tl.fromTo('.build-caption', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.05 }, 0.9)
+        tl.to({}, { duration: 0.08 })
+        return
+      }
+
+      /* ---- CODE PATH: staged reveal from stills + drawn wireframe ---- */
       const elev = root.querySelector('.build-elev')
       primeDraw(elev, 'line, path, polygon, polyline, circle, rect')
       gsap.set(elev.querySelectorAll('text'), { opacity: 0 })
@@ -161,30 +186,44 @@ export default function BuildScene() {
 
   return (
     <section id="scene-build" className="scene" ref={ref}>
-      {/* the one locked frame — every layer shares the hero framing */}
-      <img className="img-cover build-structure" src={stills.residenceStructure} alt="" aria-hidden="true" />
-      <img className="img-cover build-construction" src={stills.residenceConstruction} alt="" aria-hidden="true" />
-
-      {LIGHTS.map((l) => (
-        <img
-          key={l.name}
-          className="img-cover build-light"
-          style={{ WebkitMaskImage: l.mask, maskImage: l.mask }}
-          src={stills.residenceComplete}
-          alt=""
-          aria-hidden="true"
+      {hasVideo ? (
+        /* the one locked construction clip, scrubbed to scroll */
+        <video
+          className="img-cover build-video"
+          src={videos.buildTimelapse}
+          muted
+          playsInline
+          preload="auto"
+          aria-label="The NØRTHLINE residence under construction at dusk"
         />
-      ))}
-      <div className="build-bloom scene-fill" />
-      <img
-        className="img-cover build-complete"
-        src={stills.residenceComplete}
-        alt="The completed NØRTHLINE residence at dusk"
-      />
+      ) : (
+        <>
+          {/* the one locked frame — every layer shares the hero framing */}
+          <img className="img-cover build-structure" src={stills.residenceStructure} alt="" aria-hidden="true" />
+          <img className="img-cover build-construction" src={stills.residenceConstruction} alt="" aria-hidden="true" />
 
-      <div className="build-elev scene-fill">
-        <ElevationSVG className="build-elev-svg" />
-      </div>
+          {LIGHTS.map((l) => (
+            <img
+              key={l.name}
+              className="img-cover build-light"
+              style={{ WebkitMaskImage: l.mask, maskImage: l.mask }}
+              src={stills.residenceComplete}
+              alt=""
+              aria-hidden="true"
+            />
+          ))}
+          <div className="build-bloom scene-fill" />
+          <img
+            className="img-cover build-complete"
+            src={stills.residenceComplete}
+            alt="The completed NØRTHLINE residence at dusk"
+          />
+
+          <div className="build-elev scene-fill">
+            <ElevationSVG className="build-elev-svg" />
+          </div>
+        </>
+      )}
 
       {/* opening title, in the same frame */}
       <div className="build-title">

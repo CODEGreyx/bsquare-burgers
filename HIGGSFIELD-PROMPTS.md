@@ -174,6 +174,39 @@ Currently rendered procedurally (SVG turbulence) — drop the files and set
 
 ---
 
+## ★ V0 — THE BUILD (scroll-scrubbed construction clip) — PRIORITY
+
+`public/assets/video/build-timelapse.mp4` — the centrepiece. One locked
+camera; the residence is constructed across the clip. BuildScene scrubs
+this video's timeline directly to scroll (build as you scroll down, un-build
+as you scroll up), so nothing else needs to change — just drop the file and
+set `videos.buildTimelapse` in `src/data/assets.js`.
+
+- Aspect 16:9, 1080p+, **5–8 s**, 24–30 fps.
+- **Locked-off camera — zero pan/zoom/parallax.** The frame must match the
+  reference stills' three-quarter angle so it sits in the same "one place".
+- Generate with start_image = `residence-structure.webp` and end_image =
+  `residence-complete.webp` (kling3_0 supports start+end frames) so the
+  clip morphs the *same building* from frame to finished.
+- **Encode for scrubbing:** dense keyframes, e.g.
+  `ffmpeg -i in.mp4 -c:v libx264 -g 6 -keyint_min 6 -sc_threshold 0 -pix_fmt yuv420p -movflags +faststart build-timelapse.mp4`
+  (a keyframe every ~6 frames makes seeking smooth as you scroll).
+
+> Locked-off architectural time-lapse of a single luxury Berlin residence
+> under construction at dusk, camera completely static on a tripod, exact
+> three-quarter view across the reflecting-pool plot. The building assembles
+> itself in place: bare structural concrete frame and columns → cast
+> concrete walls and the cantilevered upper volume → dark bronze window
+> frames → glass panes fill in → travertine fins clad the left volume →
+> warm 2700K interior lights switch on room by room → water fills the
+> reflecting pool and the sculptural pine and grasses settle in. Overcast
+> blue-grey dusk sky throughout, cool exterior vs warm interior, cinematic
+> muted color grade. The architecture stays rigid and identical, no
+> morphing windows, no warping geometry, no people, no cranes, no text,
+> no camera movement.
+
+---
+
 ## Cinematic videos (16:9, 1080p+, H.264 MP4, 6–10 s, 24 fps)
 
 Camera movement must be **very slow and perfectly stable** — the site is

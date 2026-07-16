@@ -26,6 +26,16 @@ export const stills = {
 }
 
 export const videos = {
+  /**
+   * THE BUILD. A single locked-camera construction clip: bare plot →
+   * structural frame → concrete → glass → warm light at dusk. When set,
+   * BuildScene scrubs this video's timeline directly to scroll position
+   * (it builds as you scroll, reverses as you scroll up) instead of the
+   * code-driven stage reveal. Encode with dense keyframes for smooth
+   * seeking — see HIGGSFIELD-PROMPTS.md (video V0).
+   */
+  buildTimelapse: null, // '/assets/video/build-timelapse.mp4'
+
   /** Slow cinematic push toward the residence at dusk. */
   exteriorApproach: null, // '/assets/video/exterior-approach.mp4'
   /** Slow drift across glass / water / wet concrete reflections. */
