@@ -1,0 +1,244 @@
++ IFS=' '
++ read -r a b c
++ '[' -z '#' ']'
++ case "$a" in
++ continue
++ IFS=' '
++ read -r a b c
++ '[' -z '#' ']'
++ case "$a" in
++ continue
++ IFS=' '
++ read -r a b c
++ '[' -z '#' ']'
++ case "$a" in
++ continue
++ IFS=' '
++ read -r a b c
++ '[' -z '#' ']'
++ case "$a" in
++ continue
++ IFS=' '
++ read -r a b c
++ '[' -z '#' ']'
++ case "$a" in
++ continue
++ IFS=' '
++ read -r a b c
++ '[' -z '' ']'
++ continue
++ IFS=' '
++ read -r a b c
++ '[' -z '#' ']'
++ case "$a" in
++ continue
++ IFS=' '
++ read -r a b c
++ '[' -z PEXELS-PREVIEW ']'
++ case "$a" in
++ id=6164052
++ out=public/assets/video/_previews
++ mkdir -p public/assets/video/_previews
++ pexels_dl 6164052
++ curl -sL -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36' -e https://www.pexels.com/video/6164052/ -o /tmp/v.mp4 -w 'final=%{url_effective}\nhttp=%{http_code}\ntype=%{content_type}\nbytes=%{size_download}\n' https://www.pexels.com/download/video/6164052/
++ ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/v.mp4
+++ cat /tmp/dur.txt
++ d=9.009000
++ echo duration=9.009000
++ ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of csv=p=0 /tmp/v.mp4
++ for p in 5 50 95
+++ awk 'BEGIN{print 9.009000*5/100}'
++ t=0.45045
++ ffmpeg -nostdin -y -v error -ss 0.45045 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/6164052-5.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 9.009000*50/100}'
++ t=4.5045
++ ffmpeg -nostdin -y -v error -ss 4.5045 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/6164052-50.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 9.009000*95/100}'
++ t=8.55855
++ ffmpeg -nostdin -y -v error -ss 8.55855 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/6164052-95.jpg
++ IFS=' '
++ read -r a b c
++ '[' -z PEXELS-PREVIEW ']'
++ case "$a" in
++ id=29794133
++ out=public/assets/video/_previews
++ mkdir -p public/assets/video/_previews
++ pexels_dl 29794133
++ curl -sL -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36' -e https://www.pexels.com/video/29794133/ -o /tmp/v.mp4 -w 'final=%{url_effective}\nhttp=%{http_code}\ntype=%{content_type}\nbytes=%{size_download}\n' https://www.pexels.com/download/video/29794133/
++ ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/v.mp4
+++ cat /tmp/dur.txt
++ d=65.949217
++ echo duration=65.949217
++ ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of csv=p=0 /tmp/v.mp4
++ for p in 5 50 95
+++ awk 'BEGIN{print 65.949217*5/100}'
++ t=3.29746
++ ffmpeg -nostdin -y -v error -ss 3.29746 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/29794133-5.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 65.949217*50/100}'
++ t=32.9746
++ ffmpeg -nostdin -y -v error -ss 32.9746 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/29794133-50.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 65.949217*95/100}'
++ t=62.6518
++ ffmpeg -nostdin -y -v error -ss 62.6518 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/29794133-95.jpg
++ IFS=' '
++ read -r a b c
++ '[' -z PEXELS-PREVIEW ']'
++ case "$a" in
++ id=5513062
++ out=public/assets/video/_previews
++ mkdir -p public/assets/video/_previews
++ pexels_dl 5513062
++ curl -sL -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36' -e https://www.pexels.com/video/5513062/ -o /tmp/v.mp4 -w 'final=%{url_effective}\nhttp=%{http_code}\ntype=%{content_type}\nbytes=%{size_download}\n' https://www.pexels.com/download/video/5513062/
++ ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/v.mp4
+++ cat /tmp/dur.txt
++ d=21.388033
++ echo duration=21.388033
++ ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of csv=p=0 /tmp/v.mp4
++ for p in 5 50 95
+++ awk 'BEGIN{print 21.388033*5/100}'
++ t=1.0694
++ ffmpeg -nostdin -y -v error -ss 1.0694 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/5513062-5.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 21.388033*50/100}'
++ t=10.694
++ ffmpeg -nostdin -y -v error -ss 10.694 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/5513062-50.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 21.388033*95/100}'
++ t=20.3186
++ ffmpeg -nostdin -y -v error -ss 20.3186 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/5513062-95.jpg
++ IFS=' '
++ read -r a b c
++ '[' -z PEXELS-PREVIEW ']'
++ case "$a" in
++ id=7025003
++ out=public/assets/video/_previews
++ mkdir -p public/assets/video/_previews
++ pexels_dl 7025003
++ curl -sL -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36' -e https://www.pexels.com/video/7025003/ -o /tmp/v.mp4 -w 'final=%{url_effective}\nhttp=%{http_code}\ntype=%{content_type}\nbytes=%{size_download}\n' https://www.pexels.com/download/video/7025003/
++ ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/v.mp4
+++ cat /tmp/dur.txt
++ d=19.240000
++ echo duration=19.240000
++ ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of csv=p=0 /tmp/v.mp4
++ for p in 5 50 95
+++ awk 'BEGIN{print 19.240000*5/100}'
++ t=0.962
++ ffmpeg -nostdin -y -v error -ss 0.962 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/7025003-5.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 19.240000*50/100}'
++ t=9.62
++ ffmpeg -nostdin -y -v error -ss 9.62 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/7025003-50.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 19.240000*95/100}'
++ t=18.278
++ ffmpeg -nostdin -y -v error -ss 18.278 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/7025003-95.jpg
++ IFS=' '
++ read -r a b c
++ '[' -z PEXELS-PREVIEW ']'
++ case "$a" in
++ id=5348779
++ out=public/assets/video/_previews
++ mkdir -p public/assets/video/_previews
++ pexels_dl 5348779
++ curl -sL -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36' -e https://www.pexels.com/video/5348779/ -o /tmp/v.mp4 -w 'final=%{url_effective}\nhttp=%{http_code}\ntype=%{content_type}\nbytes=%{size_download}\n' https://www.pexels.com/download/video/5348779/
++ ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/v.mp4
+++ cat /tmp/dur.txt
++ d=6.973633
++ echo duration=6.973633
++ ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of csv=p=0 /tmp/v.mp4
++ for p in 5 50 95
+++ awk 'BEGIN{print 6.973633*5/100}'
++ t=0.348682
++ ffmpeg -nostdin -y -v error -ss 0.348682 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/5348779-5.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 6.973633*50/100}'
++ t=3.48682
++ ffmpeg -nostdin -y -v error -ss 3.48682 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/5348779-50.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 6.973633*95/100}'
++ t=6.62495
++ ffmpeg -nostdin -y -v error -ss 6.62495 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/5348779-95.jpg
++ IFS=' '
++ read -r a b c
++ '[' -z PEXELS-PREVIEW ']'
++ case "$a" in
++ id=3689303
++ out=public/assets/video/_previews
++ mkdir -p public/assets/video/_previews
++ pexels_dl 3689303
++ curl -sL -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36' -e https://www.pexels.com/video/3689303/ -o /tmp/v.mp4 -w 'final=%{url_effective}\nhttp=%{http_code}\ntype=%{content_type}\nbytes=%{size_download}\n' https://www.pexels.com/download/video/3689303/
++ ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/v.mp4
+++ cat /tmp/dur.txt
++ d=18.431667
++ echo duration=18.431667
++ ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of csv=p=0 /tmp/v.mp4
++ for p in 5 50 95
+++ awk 'BEGIN{print 18.431667*5/100}'
++ t=0.921583
++ ffmpeg -nostdin -y -v error -ss 0.921583 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/3689303-5.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 18.431667*50/100}'
++ t=9.21583
++ ffmpeg -nostdin -y -v error -ss 9.21583 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/3689303-50.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 18.431667*95/100}'
++ t=17.5101
++ ffmpeg -nostdin -y -v error -ss 17.5101 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/3689303-95.jpg
++ IFS=' '
++ read -r a b c
++ '[' -z PEXELS-PREVIEW ']'
++ case "$a" in
++ id=5567026
++ out=public/assets/video/_previews
++ mkdir -p public/assets/video/_previews
++ pexels_dl 5567026
++ curl -sL -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36' -e https://www.pexels.com/video/5567026/ -o /tmp/v.mp4 -w 'final=%{url_effective}\nhttp=%{http_code}\ntype=%{content_type}\nbytes=%{size_download}\n' https://www.pexels.com/download/video/5567026/
++ ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/v.mp4
+++ cat /tmp/dur.txt
++ d=10.010000
++ echo duration=10.010000
++ ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of csv=p=0 /tmp/v.mp4
++ for p in 5 50 95
+++ awk 'BEGIN{print 10.010000*5/100}'
++ t=0.5005
++ ffmpeg -nostdin -y -v error -ss 0.5005 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/5567026-5.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 10.010000*50/100}'
++ t=5.005
++ ffmpeg -nostdin -y -v error -ss 5.005 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/5567026-50.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 10.010000*95/100}'
++ t=9.5095
++ ffmpeg -nostdin -y -v error -ss 9.5095 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/5567026-95.jpg
++ IFS=' '
++ read -r a b c
++ '[' -z PEXELS-PREVIEW ']'
++ case "$a" in
++ id=5567024
++ out=public/assets/video/_previews
++ mkdir -p public/assets/video/_previews
++ pexels_dl 5567024
++ curl -sL -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36' -e https://www.pexels.com/video/5567024/ -o /tmp/v.mp4 -w 'final=%{url_effective}\nhttp=%{http_code}\ntype=%{content_type}\nbytes=%{size_download}\n' https://www.pexels.com/download/video/5567024/
++ ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/v.mp4
+++ cat /tmp/dur.txt
++ d=10.010000
++ echo duration=10.010000
++ ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of csv=p=0 /tmp/v.mp4
++ for p in 5 50 95
+++ awk 'BEGIN{print 10.010000*5/100}'
++ t=0.5005
++ ffmpeg -nostdin -y -v error -ss 0.5005 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/5567024-5.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 10.010000*50/100}'
++ t=5.005
++ ffmpeg -nostdin -y -v error -ss 5.005 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/5567024-50.jpg
++ for p in 5 50 95
+++ awk 'BEGIN{print 10.010000*95/100}'
++ t=9.5095
++ ffmpeg -nostdin -y -v error -ss 9.5095 -i /tmp/v.mp4 -frames:v 1 -vf scale=960:-2 public/assets/video/_previews/5567024-95.jpg
++ IFS=' '
++ read -r a b c
