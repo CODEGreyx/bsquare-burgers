@@ -13,14 +13,17 @@
   background: var(--ink);
 }
 
-/* every photographic layer shares the one locked frame */
-.build-structure {
-  z-index: 1;
+/* every photographic layer shares the one locked frame — pieces of the
+   same photo align pixel-perfectly, so their joints are invisible */
+.build-piece {
+  visibility: hidden; /* GSAP primes the collapsed clip, then shows */
   will-change: clip-path;
 }
-.build-construction {
+.build-piece-struct {
+  z-index: 1;
+}
+.build-piece-env {
   z-index: 2;
-  will-change: clip-path;
 }
 .build-light {
   z-index: 3;
@@ -37,9 +40,22 @@
   );
   mix-blend-mode: screen;
 }
+/* completion blooms out of the living room's own light */
 .build-complete {
+  --bw: 0%;
+  --bh: 0%;
   z-index: 4;
-  will-change: clip-path;
+  visibility: hidden;
+  -webkit-mask-image: radial-gradient(
+    ellipse var(--bw) var(--bh) at 57% 64%,
+    #000 55%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse var(--bw) var(--bh) at 57% 64%,
+    #000 55%,
+    transparent 100%
+  );
 }
 
 .build-elev {
@@ -134,6 +150,23 @@
   45% { transform: scaleY(1); transform-origin: top; }
   55% { transform: scaleY(1); transform-origin: bottom; }
   100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* editorial stage tags — one at a time, bottom-left */
+.build-stages {
+  position: absolute;
+  left: 5vw;
+  bottom: 5.5vh;
+  z-index: 6;
+  display: grid;
+}
+.build-stagetag {
+  grid-area: 1 / 1;
+  opacity: 0;
+  color: var(--ivory-55);
+  letter-spacing: 0.34em;
+  white-space: nowrap;
+  will-change: transform, opacity;
 }
 
 .build-caption {
