@@ -13,17 +13,38 @@
   background: var(--ink);
 }
 
-/* every photographic layer shares the one locked frame — pieces of the
-   same photo align pixel-perfectly, so their joints are invisible */
-.build-piece {
-  visibility: hidden; /* GSAP primes the collapsed clip, then shows */
-  will-change: clip-path;
-}
-.build-piece-struct {
+/* every photographic layer shares the one locked frame; each state is
+   blended in by a WIDE, SOFT boundary that travels continuously with
+   the scroll — no cuts, no hard edges, one evolving shot */
+.build-structure {
+  --wp: -24%;
   z-index: 1;
+  visibility: hidden;
+  -webkit-mask-image: linear-gradient(
+    to top,
+    #000 calc(var(--wp) - 22%),
+    transparent calc(var(--wp) + 22%)
+  );
+  mask-image: linear-gradient(
+    to top,
+    #000 calc(var(--wp) - 22%),
+    transparent calc(var(--wp) + 22%)
+  );
 }
-.build-piece-env {
+.build-construction {
+  --hp: -28%;
   z-index: 2;
+  visibility: hidden;
+  -webkit-mask-image: linear-gradient(
+    105deg,
+    #000 calc(var(--hp) - 26%),
+    transparent calc(var(--hp) + 26%)
+  );
+  mask-image: linear-gradient(
+    105deg,
+    #000 calc(var(--hp) - 26%),
+    transparent calc(var(--hp) + 26%)
+  );
 }
 .build-light {
   z-index: 3;
@@ -150,6 +171,19 @@
   45% { transform: scaleY(1); transform-origin: top; }
   55% { transform: scaleY(1); transform-origin: bottom; }
   100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* running construction-record day counter, top-right */
+.build-day {
+  position: absolute;
+  top: 4.2vh;
+  right: 5vw;
+  z-index: 6;
+  opacity: 0;
+  color: var(--ivory-55);
+  letter-spacing: 0.4em;
+  font-variant-numeric: tabular-nums;
+  will-change: opacity;
 }
 
 /* editorial stage tags — one at a time, bottom-left */

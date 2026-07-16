@@ -9,32 +9,6 @@ import './BuildScene.css'
 const TITLE = 'NØRTHLINE'
 const hasVideo = !!videos.buildTimelapse
 
-/* ------------------------------------------------------------------ *
- * The house is assembled from PIECES of the real photographs, each
- * clipped to a region of the actual architecture (viewport-space
- * insets: [top, right, bottom, left] in %). Every full-bleed copy of
- * the same photo aligns pixel-perfectly, so the pieces join without
- * seams — the joints fall on the building's own edges, like real
- * construction joints.
- * ------------------------------------------------------------------ */
-
-/* raw concrete frame — erected bottom-up, in construction order */
-const STRUCT_PIECES = [
-  { name: 'site', clip: [76, 0, 0, 0] }, //     the prepared ground
-  { name: 'tower', clip: [24, 72, 20, 0] }, //  left travertine tower
-  { name: 'ground-floor', clip: [50, 14, 20, 26] }, // columns + slab
-  { name: 'cantilever', clip: [6, 2, 42, 28] }, // the upper volume
-  { name: 'frame-full', clip: [0, 0, 0, 0] }, // closes every gap
-]
-
-/* envelope — cladding and window frames hung top-down, volume by volume */
-const ENV_PIECES = [
-  { name: 'tower-clad', clip: [24, 72, 20, 0] },
-  { name: 'mid-glazing', clip: [27, 44, 18, 24] },
-  { name: 'cantilever-clad', clip: [6, 2, 42, 28] },
-  { name: 'envelope-full', clip: [0, 0, 0, 0] },
-]
-
 /* the finished house's warm light, window by window (soft masks) */
 const LIGHTS = [
   { name: 'ground', mask: 'radial-gradient(ellipse 26% 20% at 57% 67%, black 52%, transparent 100%)' },
@@ -44,19 +18,14 @@ const LIGHTS = [
 
 const STAGES = ['01 — Survey', '02 — Structure', '03 — Envelope', '04 — Light']
 
-const inset = (t, r, b, l) => `inset(${t}% ${r}% ${b}% ${l}%)`
-/* collapsed start states: structure rises (top edge starts at the
-   piece's bottom), envelope hangs (bottom edge starts at the top) */
-const riseFrom = ([t, r, b, l]) => inset(100 - b, r, b, l)
-const riseTo = ([t, r, b, l]) => inset(t, r, b, l)
-const hangFrom = ([t, r, b, l]) => inset(t, r, 100 - t, l)
-
 /**
- * THE BUILD — one locked camera. The same view fills in, stage by stage,
- * as the user scrolls: darkness → survey lines → structural wireframe →
- * the concrete frame erected piece by piece → the envelope hung panel by
- * panel → glass, warm light, completion. Nothing pans, nothing
- * crossfades; every piece arrives inside its own bounds.
+ * THE BUILD — one locked camera, one continuous shot, scrubbed by
+ * scroll like a video's playhead. There are no cuts and no steps:
+ * the blueprint resolves into concrete through a soft boundary that
+ * travels up the frame, the envelope sweeps across it, and the finished
+ * light blooms out of the living room — every millimetre of scroll
+ * produces a proportional, reversible change, exactly like dragging
+ * through a construction timelapse.
  */
 export default function BuildScene() {
   const ref = useScrollTimeline(
@@ -72,8 +41,6 @@ export default function BuildScene() {
         tl.to(proxy, { t: 1, duration: 1, ease: 'none', onUpdate: scrub }, 0)
         tl.to('.build-title', { yPercent: -12, autoAlpha: 0, duration: 0.06 }, 0.03)
         tl.to('.build-hint', { autoAlpha: 0, duration: 0.03 }, 0.03)
-        tl.fromTo('.build-word-form', { yPercent: 24, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.06 }, 0.32)
-        tl.to('.build-word-form', { yPercent: -20, autoAlpha: 0, duration: 0.06 }, 0.44)
         tl.call(() => sound.swell(), null, 0.72)
         tl.fromTo('.build-word-presence', { yPercent: 22, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.07 }, 0.82)
         tl.fromTo('.build-caption', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.05 }, 0.9)
@@ -81,19 +48,14 @@ export default function BuildScene() {
         return
       }
 
-      /* ---- CODE PATH: piece-by-piece assembly from the stills ---- */
+      /* ---- CODE PATH: one continuous scroll-scrubbed transformation ---- */
       const elev = root.querySelector('.build-elev')
       primeDraw(elev, 'line, path, polygon, polyline, circle, rect')
       gsap.set(elev.querySelectorAll('text'), { opacity: 0 })
 
-      const structEls = root.querySelectorAll('[data-piece="struct"]')
-      const envEls = root.querySelectorAll('[data-piece="env"]')
-      structEls.forEach((el, i) =>
-        gsap.set(el, { clipPath: riseFrom(STRUCT_PIECES[i].clip), autoAlpha: 1 })
-      )
-      envEls.forEach((el, i) =>
-        gsap.set(el, { clipPath: hangFrom(ENV_PIECES[i].clip), autoAlpha: 1 })
-      )
+      /* soft travelling boundaries — GSAP owns the CSS vars */
+      gsap.set('.build-structure', { '--wp': '-24%', autoAlpha: 1 })
+      gsap.set('.build-construction', { '--hp': '-28%', autoAlpha: 1 })
       gsap.set(root.querySelectorAll('.build-light'), { autoAlpha: 0 })
       gsap.set('.build-complete', { '--bw': '0%', '--bh': '0%', autoAlpha: 0 })
       gsap.set('.build-stagetag', { autoAlpha: 0 })
@@ -121,90 +83,99 @@ export default function BuildScene() {
         tl.fromTo(tags[i], { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.04 }, at + 0.01)
       }
 
-      /* the title steps aside as the drawing begins */
+      /* the title steps aside as the record begins */
       tl.to('.build-title', { yPercent: -12, autoAlpha: 0, duration: 0.05 }, 0.02)
       tl.to('.build-hint', { autoAlpha: 0, duration: 0.03 }, 0.02)
 
-      /* ---------- 1 · SURVEY: the drawing lays itself out ---------- */
+      /* ---------- SURVEY: the drawing lays itself out ---------- */
       stage(0, 0.04)
       draw(strokesOf('grid'), 0.04, 0.05, 0.004)
       tl.to(textsOf('grid'), { opacity: 1, duration: 0.03 }, 0.08)
       draw(strokesOf('ground'), 0.07, 0.06, 0.015)
-      draw(strokesOf('dims'), 0.1, 0.06, 0.008)
-      tl.to(textsOf('dims'), { opacity: 1, duration: 0.04 }, 0.14)
+      draw(strokesOf('dims'), 0.09, 0.06, 0.008)
+      tl.to(textsOf('dims'), { opacity: 1, duration: 0.04 }, 0.13)
 
-      /* ---------- 2 · WIREFRAME: the structure is drawn ---------- */
-      stage(1, 0.16)
+      /* ---------- WIREFRAME: the structure is drawn ---------- */
+      stage(1, 0.15)
       strokesOf('columns').forEach((col, i) => {
-        tl.to(col, { strokeDashoffset: 0, duration: 0.035, ease: 'power2.out' }, 0.15 + i * 0.016)
-        tl.call(() => sound.impact(0.6), null, 0.165 + i * 0.016)
+        tl.to(col, { strokeDashoffset: 0, duration: 0.03, ease: 'none' }, 0.14 + i * 0.012)
       })
-      draw(strokesOf('slabs'), 0.22, 0.06, 0.015)
-      draw(strokesOf('volume-left'), 0.26, 0.05)
-      draw(strokesOf('volume-upper'), 0.28, 0.06, 0.01)
-      draw(strokesOf('glazing'), 0.31, 0.06, 0.004)
+      tl.call(() => sound.impact(0.6), null, 0.17)
+      draw(strokesOf('slabs'), 0.19, 0.05, 0.012)
+      draw(strokesOf('volume-left'), 0.22, 0.04)
+      draw(strokesOf('volume-upper'), 0.24, 0.05, 0.008)
+      draw(strokesOf('glazing'), 0.26, 0.05, 0.003)
       tl.fromTo(
         strokesOf('fins'),
         { scaleY: 0, transformOrigin: '50% 100%' },
-        { scaleY: 1, duration: 0.04, stagger: 0.003 },
-        0.33
+        { scaleY: 1, duration: 0.03, stagger: 0.002 },
+        0.28
       )
-      tl.to(strokesOf('fins'), { strokeDashoffset: 0, duration: 0.001 }, 0.33)
-      draw(strokesOf('landscape'), 0.35, 0.05)
+      tl.to(strokesOf('fins'), { strokeDashoffset: 0, duration: 0.001 }, 0.28)
+      draw(strokesOf('landscape'), 0.3, 0.04)
 
-      /* ---------- 3 · THE FRAME IS ERECTED, piece by piece ---------- */
-      STRUCT_PIECES.forEach((p, i) => {
-        const at = 0.4 + i * 0.045
-        tl.to(
-          structEls[i],
-          { clipPath: riseTo(p.clip), duration: 0.055, ease: 'power2.out' },
-          at
-        )
-        tl.call(() => sound.impact(0.9 + i * 0.1), null, at + 0.045)
-      })
-      /* survey annotations retire once the mass is real */
+      /* the day counter starts running with the works */
+      const day = root.querySelector('.build-day')
+      const dayProxy = { d: 1 }
+      tl.fromTo(day, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.03 }, 0.32)
+      tl.to(
+        dayProxy,
+        {
+          d: 196,
+          duration: 0.58,
+          ease: 'none',
+          onUpdate: () => {
+            day.textContent = `DAY ${String(Math.round(dayProxy.d)).padStart(3, '0')}`
+          },
+        },
+        0.34
+      )
+
+      /* ---------- CONCRETE: the frame materialises upward ----------
+         A wide, soft boundary travels continuously up the frame; below
+         it the drawing has already become the real photograph. */
+      tl.to(
+        '.build-structure',
+        { '--wp': '135%', duration: 0.24, ease: 'none' },
+        0.34
+      )
+      /* the drawing yields exactly as the mass overtakes it */
       tl.to(
         [...strokesOf('grid'), ...textsOf('grid'), ...strokesOf('dims'), ...textsOf('dims')],
-        { opacity: 0, duration: 0.06 },
-        0.46
+        { opacity: 0, duration: 0.1 },
+        0.4
       )
-      tl.fromTo('.build-word-form', { yPercent: 24, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.05 }, 0.52)
-      tl.to('.build-word-form', { yPercent: -20, autoAlpha: 0, duration: 0.05 }, 0.62)
+      tl.to(elev, { autoAlpha: 0.5, duration: 0.16, ease: 'none' }, 0.42)
+      tl.call(() => sound.impact(1.1), null, 0.45)
 
-      /* ---------- 4 · THE ENVELOPE IS HUNG, panel by panel ---------- */
-      stage(2, 0.6)
-      ENV_PIECES.forEach((p, i) => {
-        const at = 0.62 + i * 0.042
-        tl.to(
-          envEls[i],
-          { clipPath: riseTo(p.clip), duration: 0.05, ease: 'power2.inOut' },
-          at
-        )
-        tl.call(() => sound.impact(0.7), null, at + 0.04)
-      })
-      /* the wireframe has served its purpose */
-      tl.to(elev, { autoAlpha: 0, duration: 0.1 }, 0.64)
+      /* ---------- ENVELOPE: cladding sweeps across the facade ---------- */
+      stage(2, 0.56)
+      tl.to(
+        '.build-construction',
+        { '--hp': '140%', duration: 0.22, ease: 'none' },
+        0.58
+      )
+      tl.to(elev, { autoAlpha: 0, duration: 0.12, ease: 'none' }, 0.6)
+      tl.call(() => sound.impact(0.9), null, 0.66)
 
-      /* ---------- 5 · LIGHT: the house wakes up ---------- */
-      stage(3, 0.78)
+      /* ---------- LIGHT: the house wakes up, continuously ---------- */
+      stage(3, 0.8)
       root.querySelectorAll('.build-light').forEach((el, i) => {
-        tl.to(el, { autoAlpha: 1, duration: 0.04, ease: 'power1.out' }, 0.78 + i * 0.035)
-        tl.call(() => sound.impact(0.5), null, 0.79 + i * 0.035)
+        tl.to(el, { autoAlpha: 1, duration: 0.06, ease: 'none' }, 0.8 + i * 0.025)
       })
-      tl.fromTo('.build-bloom', { opacity: 0 }, { opacity: 0.32, duration: 0.08 }, 0.8)
-      /* completion blooms out of the living room's own light */
+      tl.fromTo('.build-bloom', { opacity: 0 }, { opacity: 0.32, duration: 0.06, ease: 'none' }, 0.82)
       tl.set('.build-complete', { autoAlpha: 1 }, 0.86)
       tl.to(
         '.build-complete',
-        { '--bw': '260%', '--bh': '230%', duration: 0.1, ease: 'power2.inOut' },
-        0.87
+        { '--bw': '260%', '--bh': '230%', duration: 0.1, ease: 'none' },
+        0.865
       )
       tl.call(() => sound.swell(), null, 0.89)
-      tl.to('.build-bloom', { opacity: 0.1, duration: 0.08 }, 0.94)
-      tl.to(tags[3], { autoAlpha: 0, y: -8, duration: 0.03 }, 0.93)
+      tl.to('.build-bloom', { opacity: 0.1, duration: 0.06, ease: 'none' }, 0.94)
+      tl.to([tags[3], day], { autoAlpha: 0, y: -8, duration: 0.03 }, 0.93)
 
       /* ---------- the finished residence, named, held ---------- */
-      tl.fromTo('.build-word-presence', { yPercent: 22, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.06 }, 0.93)
+      tl.fromTo('.build-word-presence', { yPercent: 22, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.06 }, 0.94)
       tl.fromTo(
         '.build-caption',
         { opacity: 0, y: 12 },
@@ -247,29 +218,20 @@ export default function BuildScene() {
         />
       ) : (
         <>
-          {/* structural frame, assembled from pieces of the real photo */}
-          {STRUCT_PIECES.map((p) => (
-            <img
-              key={p.name}
-              data-piece="struct"
-              className="img-cover build-piece build-piece-struct"
-              src={stills.residenceStructure}
-              alt=""
-              aria-hidden="true"
-            />
-          ))}
-
-          {/* envelope, hung panel by panel */}
-          {ENV_PIECES.map((p) => (
-            <img
-              key={p.name}
-              data-piece="env"
-              className="img-cover build-piece build-piece-env"
-              src={stills.residenceConstruction}
-              alt=""
-              aria-hidden="true"
-            />
-          ))}
+          {/* the one locked shot — three states of the same frame,
+              blended by soft boundaries that travel with the scroll */}
+          <img
+            className="img-cover build-structure"
+            src={stills.residenceStructure}
+            alt=""
+            aria-hidden="true"
+          />
+          <img
+            className="img-cover build-construction"
+            src={stills.residenceConstruction}
+            alt=""
+            aria-hidden="true"
+          />
 
           {LIGHTS.map((l) => (
             <img
@@ -307,7 +269,6 @@ export default function BuildScene() {
       </div>
 
       <div className="build-words scene-fill" aria-hidden="true">
-        <span className="t-display build-word build-word-form">FORM</span>
         <span className="t-display build-word build-word-presence">PRESENCE</span>
       </div>
 
@@ -316,7 +277,10 @@ export default function BuildScene() {
         <span className="build-hintline" />
       </div>
 
-      {/* editorial stage tags, bottom-left */}
+      {/* construction-record chrome */}
+      <span className="t-tech build-day" aria-hidden="true">
+        DAY 001
+      </span>
       <div className="build-stages" aria-hidden="true">
         {STAGES.map((s) => (
           <span key={s} className="t-tech build-stagetag">
