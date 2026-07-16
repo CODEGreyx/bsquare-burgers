@@ -1,6 +1,0 @@
-final=https://videos.pexels.com/video-files/5513062/5513062-hd_1920_1080_30fps.mp4
-http=200
-type=video/mp4
-bytes=12761455
-duration=21.388033
-1920,1080,30000/1001

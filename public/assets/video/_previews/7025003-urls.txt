@@ -1,6 +1,0 @@
-final=https://videos.pexels.com/video-files/7025003/7025003-uhd_4096_2160_25fps.mp4
-http=200
-type=video/mp4
-bytes=44682542
-duration=19.240000
-4096,2160,25/1

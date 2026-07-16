@@ -4,12 +4,6 @@
 #   PEXELS-GET <dest> <id>           – download best >=1080p Pexels video, re-encode for scrubbing
 # Push a change to this file to trigger the fetch workflow.
 
-# Candidate construction-timelapse clips (Pexels, free for commercial use)
-PEXELS-PREVIEW 6164052
-PEXELS-PREVIEW 29794133
-PEXELS-PREVIEW 5513062
-PEXELS-PREVIEW 7025003
-PEXELS-PREVIEW 5348779
-PEXELS-PREVIEW 3689303
-PEXELS-PREVIEW 5567026
-PEXELS-PREVIEW 5567024
+# THE BUILD — 4K construction timelapse, day → dusk over tower cranes.
+# Pexels 7025003 (free for commercial use, no attribution required).
+PEXELS-GET public/assets/video/build-timelapse.mp4 7025003

@@ -1,6 +1,0 @@
-final=https://videos.pexels.com/video-files/29794133/12800975_1920_1080_60fps.mp4
-http=200
-type=video/mp4
-bytes=64178583
-duration=65.949217
-1920,1080,60000/1001
