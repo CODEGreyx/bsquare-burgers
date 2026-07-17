@@ -2,7 +2,6 @@ import React, { useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useScrollTimeline } from '../../hooks/useScrollTimeline'
 import { FRAMES, STAGE_AT } from '../../data/sequence'
-import { getLenis } from '../../lib/lenis'
 import './SequenceScene.css'
 
 const STAGE_COUNT = 8
@@ -29,7 +28,6 @@ export default function SequenceScene() {
         g3: root.querySelector('.stx-3'),
         g4: root.querySelector('.stx-4'),
         g5: root.querySelector('.stx-5'),
-        g6: root.querySelector('.stx-6'),
       }
 
       gsap.set(scan, { autoAlpha: 0 })
@@ -122,10 +120,10 @@ export default function SequenceScene() {
       show(groups.g5, 0.71) /* landscaping, complete in daylight */
       hide(groups.g5, 0.79)
 
-      show(groups.g6, 0.87, 0.026) /* dusk — the residence, lit */
-      tl.fromTo('.seq-credit', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.018 }, 0.92)
-      tl.to([tags[7], railFill.parentNode], { autoAlpha: 0, duration: 0.018 }, 0.94)
-      tl.to({}, { duration: 0.01 })
+      /* the record ends quietly: the lit residence holds the frame,
+         only the small credit joins the technical chrome */
+      tl.fromTo('.seq-credit', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.018 }, 0.9)
+      tl.to({}, { duration: 0.04 })
     },
     { pinDistance: '+=600%', scrub: 0.7, deps: [mode] }
   )
@@ -243,26 +241,6 @@ export default function SequenceScene() {
       <div className="stx stx-5 stx-low-left">
         <div className="stx-line"><span className="stx-state">THE LAND</span></div>
         <div className="stx-line"><span className="stx-state">RETURNS AROUND IT.</span></div>
-      </div>
-
-      <div className="stx stx-6">
-        <div className="stx-line"><span className="stx-mark">MONOLITH</span></div>
-        <div className="stx-line"><span className="stx-descriptor">PRIVATE VIEWINGS — 2027</span></div>
-        <div className="stx-gap" />
-        <div className="stx-line">
-          <a
-            className="stx-cta"
-            href="#gallery"
-            onClick={(e) => {
-              e.preventDefault()
-              const lenis = getLenis()
-              if (lenis) lenis.scrollTo('#gallery', { duration: 2.2 })
-              else document.querySelector('#gallery')?.scrollIntoView({ behavior: 'smooth' })
-            }}
-          >
-            EXPLORE THE RESIDENCE
-          </a>
-        </div>
       </div>
 
       <span className="seq-credit t-tech">CODEGREY.DEV</span>
