@@ -12,6 +12,17 @@
 .seq {
   background: var(--ink);
 }
+/* cinematic scrim: gently seats nav and captions over bright daylight */
+.seq::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(10, 10, 11, 0.34), transparent 16%),
+    linear-gradient(transparent 76%, rgba(10, 10, 11, 0.42));
+}
 
 .seq-stack {
   will-change: transform;
@@ -207,7 +218,7 @@
 
 .stx-mark {
   font-family: var(--sans);
-  font-weight: 300;
+  font-weight: 200;
   font-size: clamp(3rem, 8.5vw, 8rem);
   letter-spacing: 0.3em;
   margin-right: -0.3em;
@@ -215,12 +226,23 @@
   text-shadow: 0 2px 44px rgba(0, 0, 0, 0.45);
 }
 .stx-descriptor {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.3rem;
   font-weight: 400;
   font-size: clamp(0.6rem, 0.8vw, 0.78rem);
   letter-spacing: 0.6em;
   margin-right: -0.6em;
   text-transform: uppercase;
   color: rgba(240, 235, 225, 0.62);
+}
+
+.stx-descriptor::before,
+.stx-descriptor::after {
+  content: '';
+  width: 34px;
+  height: 1px;
+  background: rgba(240, 235, 225, 0.28);
 }
 
 .stx-state {

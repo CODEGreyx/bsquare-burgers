@@ -20,7 +20,7 @@
 /* ---------- architecture ---------- */
 
 .arch-statement {
-  font-weight: 300;
+  font-weight: 200;
   font-size: clamp(2rem, 5.4vw, 5.2rem);
   letter-spacing: 0.12em;
   line-height: 1.16;
@@ -78,14 +78,14 @@
 
 .mat-crop {
   height: 30vh;
-  background-size: 320%;
+  background-size: 620%;
   background-repeat: no-repeat;
   filter: saturate(0.82) contrast(1.02);
   transition: background-size 1.4s cubic-bezier(0.22, 1, 0.36, 1),
     filter 1.4s ease;
 }
 .mat-cell:hover .mat-crop {
-  background-size: 348%;
+  background-size: 660%;
   filter: saturate(1) contrast(1.04);
 }
 
@@ -103,6 +103,10 @@
   font-size: clamp(0.9rem, 1.2vw, 1.15rem);
   letter-spacing: 0.3em;
   color: var(--warmwhite);
+  transition: letter-spacing 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.mat-cell:hover .mat-name {
+  letter-spacing: 0.37em;
 }
 .mat-note {
   font-weight: 300;
@@ -123,7 +127,7 @@
 }
 
 .enq-title {
-  font-weight: 300;
+  font-weight: 200;
   font-size: clamp(1.8rem, 4.4vw, 4.2rem);
   letter-spacing: 0.16em;
   line-height: 1.2;

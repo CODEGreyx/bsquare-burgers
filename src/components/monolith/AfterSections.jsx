@@ -13,29 +13,33 @@ const MATERIALS = [
     n: '01',
     name: 'RAW CONCRETE',
     note: 'The slab poured in one day.',
-    src: FRAMES[1].src,
-    pos: '50% 72%',
+    src: FRAMES[2].src,
+    pos: '50% 68%',
+    size: '640%',
   },
   {
     n: '02',
     name: 'STRUCTURAL TIMBER',
     note: 'Every rafter placed by hand.',
     src: FRAMES[3].src,
-    pos: '50% 34%',
+    pos: '50% 10%',
+    size: '600%',
   },
   {
     n: '03',
     name: 'NATURAL STONE',
     note: 'Split-face cladding, laid dry.',
     src: FRAMES[7].src,
-    pos: '30% 48%',
+    pos: '44% 42%',
+    size: '700%',
   },
   {
     n: '04',
     name: 'GLASS + LIGHT',
     note: 'Floor to ceiling, warm at dusk.',
     src: FRAMES[7].src,
-    pos: '58% 44%',
+    pos: '63% 38%',
+    size: '640%',
   },
 ]
 
@@ -95,7 +99,11 @@ export default function AfterSections() {
             <article className="mat-cell" key={m.n} data-reveal>
               <div
                 className="mat-crop"
-                style={{ backgroundImage: `url(${m.src})`, backgroundPosition: m.pos }}
+                style={{
+                  backgroundImage: `url(${m.src})`,
+                  backgroundPosition: m.pos,
+                  backgroundSize: m.size,
+                }}
                 aria-hidden="true"
               />
               <div className="mat-meta">

@@ -20,11 +20,13 @@ export default function MonolithLoader() {
     lenis?.stop()
     window.scrollTo(0, 0)
 
+    const pct = root.querySelector('.ldr-pct')
     let imgDone = 0
     let videoP = 0
     const paint = () => {
       const p = (imgDone / FRAMES.length) * 0.35 + videoP * 0.65
       gsap.to(fill, { scaleX: p, duration: 0.4, ease: 'power2.out', overwrite: true })
+      pct.textContent = String(Math.min(99, Math.round(p * 100))).padStart(2, '0')
     }
 
     const images = Promise.all(
@@ -92,8 +94,10 @@ export default function MonolithLoader() {
 
     let tl
     Promise.all([images, film]).then(() => {
+      pct.textContent = '100'
       tl = gsap.timeline({ delay: 0.3 })
       tl.to(fill, { scaleX: 1, duration: 0.3, ease: 'power2.out' }, 0)
+      tl.to(pct, { opacity: 0, duration: 0.4 }, 0.2)
       tl.to(root.querySelector('.ldr-mark'), {
         letterSpacing: '0.62em',
         opacity: 0,
@@ -121,7 +125,10 @@ export default function MonolithLoader() {
       <span className="ldr-line">
         <span className="ldr-fill" />
       </span>
-      <span className="ldr-sub t-tech">PRIVATE RESIDENCE</span>
+      <span className="ldr-row">
+        <span className="ldr-sub t-tech">PRIVATE RESIDENCE</span>
+        <span className="ldr-pct t-tech">00</span>
+      </span>
     </div>
   )
 }

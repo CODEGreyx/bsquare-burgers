@@ -8,6 +8,7 @@ import MonolithLoader from './components/monolith/MonolithLoader'
 import MonolithNav from './components/monolith/MonolithNav'
 import SequenceScene from './components/monolith/SequenceScene'
 import AfterSections from './components/monolith/AfterSections'
+import MonolithCursor from './components/monolith/MonolithCursor'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -59,6 +60,7 @@ export default function App() {
         <SequenceScene />
         <AfterSections />
       </main>
+      <MonolithCursor />
       <div className="grade" aria-hidden="true" />
     </>
   )
