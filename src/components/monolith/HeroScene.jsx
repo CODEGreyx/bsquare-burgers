@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
-import { FX } from '../../data/frames'
+import { LIB } from '../../data/frames'
 import './HeroScene.css'
 
 /**
@@ -47,7 +47,7 @@ export default function HeroScene() {
 
   return (
     <section id="hero" className="scene hero" ref={ref}>
-      <img className="hero-img" src={FX.dusk} alt="The MONOLITH residence at dusk" />
+      <img className="hero-img" src={LIB.seafront} alt="A MONOLITH residence above the sea at dusk" />
       <div className="hero-grad" aria-hidden="true" />
 
       <div className="hero-center">

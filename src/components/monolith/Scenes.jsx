@@ -63,7 +63,7 @@ export function TypeScene() {
    stills, each with one word, a project code and internal drift.
    ================================================================== */
 const PANELS = [
-  { src: LIB.seafront, word: 'FORM', code: 'ML·26·01', n: '01' },
+  { src: LIB.seafrontPool, word: 'FORM', code: 'ML·26·01', n: '01' },
   { src: LIB.living, word: 'LIGHT', code: 'ML·26·02', n: '02' },
   { src: LIB.concrete, word: 'MATERIAL', code: 'ML·26·03', n: '03' },
   { src: FX.duskb, word: 'SILENCE', code: 'ML·26·04', n: '04' },
