@@ -12,7 +12,6 @@ import {
   TypeScene,
   GalleryScene,
   MaterialScene,
-  CollectionScene,
   BlueprintScene,
   FinalStatement,
 } from './components/monolith/Scenes'
@@ -70,7 +69,6 @@ export default function App() {
         <TypeScene />
         <GalleryScene />
         <MaterialScene />
-        <CollectionScene />
         <BlueprintScene />
         <FinalStatement />
       </main>
