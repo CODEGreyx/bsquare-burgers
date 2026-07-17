@@ -1,15 +1,11 @@
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useScrollTimeline } from '../../hooks/useScrollTimeline'
-import { FRAMES } from '../../data/sequence'
+import { FRAMES, STAGE_AT } from '../../data/sequence'
 import { getLenis } from '../../lib/lenis'
 import './SequenceScene.css'
 
-/* the film: 8 stages, 3 s per stage (2 s hold + 1 s morph), ~24 s.
-   morph k plays between (3k+2)/24 and (3k+3)/24 of the timeline. */
 const STAGE_COUNT = 8
-const MORPH = (k) => (3 * k + 2) / (3 * STAGE_COUNT)
-const MW = 1 / (3 * STAGE_COUNT)
 
 /**
  * THE SEQUENCE — a construction film scrubbed by scroll. ScrollTrigger
@@ -44,8 +40,8 @@ export default function SequenceScene() {
         if (g !== groups.g1) gsap.set(g.querySelectorAll('.stx-line > *'), { yPercent: 112 })
       })
 
-      /* slow global settle — subtle depth, no autoplay feel */
-      tl.fromTo('.seq-stack', { scale: 1.06 }, { scale: 1.015, duration: 1, ease: 'none' }, 0)
+      /* ONE locked camera: the image never moves, scales or drifts —
+         only the construction inside the frame changes */
       tl.fromTo(railFill, { scaleY: 0 }, { scaleY: 1, duration: 1, ease: 'none' }, 0)
 
       if (mode === 'video') {
@@ -65,13 +61,14 @@ export default function SequenceScene() {
           0
         )
       } else {
-        /* fallback: 8-frame mask blends at the same film positions */
+        /* fallback: 8-frame mask blends at the film's stage anchors */
+        const MW = 0.06
         const layers = root.querySelectorAll('.seq-layer')
         layers.forEach((el) =>
           gsap.set(el, { '--p': '-18%', autoAlpha: 0, visibility: 'hidden' })
         )
         layers.forEach((layer, k) => {
-          const at = MORPH(k)
+          const at = STAGE_AT[k + 1] - MW
           tl.set(layer, { autoAlpha: 1, visibility: 'visible' }, at)
           tl.fromTo(layer, { '--p': '-18%' }, { '--p': '120%', duration: MW, ease: 'none' }, at)
           tl.fromTo(scan, { y: '4vh' }, { y: '-104vh', duration: MW, ease: 'none' }, at)
@@ -80,9 +77,9 @@ export default function SequenceScene() {
         })
       }
 
-      /* phase tags swap at each morph's midpoint */
+      /* phase tags swap at each stage anchor */
       for (let k = 0; k < STAGE_COUNT - 1; k++) {
-        const at = MORPH(k) + MW * 0.5
+        const at = STAGE_AT[k + 1] - 0.01
         tl.to(tags[k], { autoAlpha: 0, y: -6, duration: 0.014 }, at)
         tl.fromTo(
           tags[k + 1],
@@ -112,24 +109,24 @@ export default function SequenceScene() {
         tl.set(g, { autoAlpha: 0 }, at + dur + 0.02)
       }
 
-      hide(groups.g1, 0.035) /* stage 1 — empty land */
-      tl.to('.seq-hint', { autoAlpha: 0, duration: 0.02 }, 0.028)
+      hide(groups.g1, 0.032) /* earthworks begin */
+      tl.to('.seq-hint', { autoAlpha: 0, duration: 0.02 }, 0.026)
 
-      show(groups.g2, 0.135) /* stage 2 — foundation */
-      hide(groups.g2, 0.2)
+      show(groups.g2, 0.14) /* the slab is poured */
+      hide(groups.g2, 0.215)
 
-      show(groups.g3, 0.265) /* stages 3–4 — structure */
-      hide(groups.g3, 0.45)
+      show(groups.g3, 0.3) /* the timber frame rises */
+      hide(groups.g3, 0.455)
 
-      show(groups.g4, 0.515) /* stages 5–6 — exterior */
-      hide(groups.g4, 0.695)
+      show(groups.g4, 0.53) /* sheathing, windows, materials */
+      hide(groups.g4, 0.655)
 
-      show(groups.g5, 0.755) /* stage 7 — land and water */
-      hide(groups.g5, 0.828)
+      show(groups.g5, 0.71) /* landscaping, complete in daylight */
+      hide(groups.g5, 0.79)
 
-      show(groups.g6, 0.9, 0.026) /* stage 8 — the residence */
-      tl.fromTo('.seq-credit', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.018 }, 0.94)
-      tl.to([tags[7], railFill.parentNode], { autoAlpha: 0, duration: 0.018 }, 0.955)
+      show(groups.g6, 0.87, 0.026) /* dusk — the residence, lit */
+      tl.fromTo('.seq-credit', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.018 }, 0.92)
+      tl.to([tags[7], railFill.parentNode], { autoAlpha: 0, duration: 0.018 }, 0.94)
       tl.to({}, { duration: 0.01 })
     },
     { pinDistance: '+=600%', scrub: 0.7, deps: [mode] }
@@ -184,11 +181,6 @@ export default function SequenceScene() {
         gsap.set('.seq-hint', { opacity: 1 })
         return
       }
-      gsap.fromTo(
-        root.querySelector('.seq-stack'),
-        { scale: 1.1 },
-        { scale: 1.06, duration: 2.6, ease: 'power2.out' }
-      )
       gsap.fromTo(
         lines,
         { yPercent: 112 },
@@ -279,8 +271,8 @@ export default function SequenceScene() {
       </div>
 
       <div className="stx stx-5 stx-low-left">
-        <div className="stx-line"><span className="stx-state">BETWEEN</span></div>
-        <div className="stx-line"><span className="stx-state">LAND AND WATER.</span></div>
+        <div className="stx-line"><span className="stx-state">THE LAND</span></div>
+        <div className="stx-line"><span className="stx-state">RETURNS AROUND IT.</span></div>
       </div>
 
       <div className="stx stx-6">

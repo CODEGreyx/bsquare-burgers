@@ -34,14 +34,14 @@ const jsFile = readdirSync(join(dist, 'assets')).find((f) => f.endsWith('.js'))
 let js = readFileSync(join(dist, 'assets', jsFile), 'utf8')
 const media = [
   ['house-build.mp4', 'video/mp4'],
-  ['house-sequence/01_empty_land.webp', 'image/webp'],
-  ['house-sequence/02_foundation.webp', 'image/webp'],
-  ['house-sequence/03_ground_structure.webp', 'image/webp'],
-  ['house-sequence/04_full_structure.webp', 'image/webp'],
-  ['house-sequence/05_walls_and_roof.webp', 'image/webp'],
-  ['house-sequence/06_windows_and_materials.webp', 'image/webp'],
-  ['house-sequence/07_pool_and_landscaping.webp', 'image/webp'],
-  ['house-sequence/08_completed_villa.webp', 'image/webp'],
+  ['film-frames/01_land.webp', 'image/webp'],
+  ['film-frames/02_foundation.webp', 'image/webp'],
+  ['film-frames/03_structure.webp', 'image/webp'],
+  ['film-frames/04_frame.webp', 'image/webp'],
+  ['film-frames/05_envelope.webp', 'image/webp'],
+  ['film-frames/06_glazing.webp', 'image/webp'],
+  ['film-frames/07_landscape.webp', 'image/webp'],
+  ['film-frames/08_residence.webp', 'image/webp'],
 ]
 for (const [rel, mime] of media) {
   if (!existsSync(join(dist, rel))) continue
