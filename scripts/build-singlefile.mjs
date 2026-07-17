@@ -33,12 +33,14 @@ html = html.replace(
 const jsFile = readdirSync(join(dist, 'assets')).find((f) => f.endsWith('.js'))
 let js = readFileSync(join(dist, 'assets', jsFile), 'utf8')
 const media = [
-  ['assets/exterior/residence-complete.webp', 'image/webp'],
-  ['assets/construction/residence-structure.webp', 'image/webp'],
-  ['assets/construction/residence-construction.webp', 'image/webp'],
-  ['assets/interior/interior-living.webp', 'image/webp'],
-  ['assets/interior/interior-living-2.webp', 'image/webp'],
-  ['assets/video/build-timelapse.mp4', 'video/mp4'],
+  ['house-sequence/01_empty_land.webp', 'image/webp'],
+  ['house-sequence/02_foundation.webp', 'image/webp'],
+  ['house-sequence/03_ground_structure.webp', 'image/webp'],
+  ['house-sequence/04_full_structure.webp', 'image/webp'],
+  ['house-sequence/05_walls_and_roof.webp', 'image/webp'],
+  ['house-sequence/06_windows_and_materials.webp', 'image/webp'],
+  ['house-sequence/07_pool_and_landscaping.webp', 'image/webp'],
+  ['house-sequence/08_completed_villa.webp', 'image/webp'],
 ]
 for (const [rel, mime] of media) {
   if (!existsSync(join(dist, rel))) continue
