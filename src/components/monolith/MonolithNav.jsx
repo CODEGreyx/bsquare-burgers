@@ -47,14 +47,14 @@ export default function MonolithNav() {
         MONOLITH
       </a>
       <nav className="mnav-links">
-        <a href="#top" onClick={go(0)}>
-          Residence
+        <a href="#gallery" onClick={go('#gallery')}>
+          Collection
         </a>
-        <a href="#architecture" onClick={go('#architecture')}>
-          Architecture
+        <a href="#material" onClick={go('#material')}>
+          Studio
         </a>
-        <a href="#enquire" onClick={go('#enquire')}>
-          Enquire
+        <a href="#final" onClick={go('#final')}>
+          Contact
         </a>
       </nav>
     </header>

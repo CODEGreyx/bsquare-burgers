@@ -34,6 +34,13 @@ const jsFile = readdirSync(join(dist, 'assets')).find((f) => f.endsWith('.js'))
 let js = readFileSync(join(dist, 'assets', jsFile), 'utf8')
 const media = [
   ['house-build.mp4', 'video/mp4'],
+  ['assets/frames/land.webp', 'image/webp'],
+  ['assets/frames/slab.webp', 'image/webp'],
+  ['assets/frames/frame.webp', 'image/webp'],
+  ['assets/frames/envelope.webp', 'image/webp'],
+  ['assets/frames/day.webp', 'image/webp'],
+  ['assets/frames/dusk.webp', 'image/webp'],
+  ['assets/frames/hero.webp', 'image/webp'],
   ['film-frames/01_land.webp', 'image/webp'],
   ['film-frames/02_foundation.webp', 'image/webp'],
   ['film-frames/03_structure.webp', 'image/webp'],

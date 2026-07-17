@@ -145,6 +145,21 @@
   color: rgba(240, 235, 225, 0.42);
 }
 
+.seq-est {
+  position: absolute;
+  top: 10vh;
+  left: 3.4vw;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  letter-spacing: 0.4em;
+  color: rgba(240, 235, 225, 0.75);
+}
+.seq-est-dim {
+  color: rgba(240, 235, 225, 0.42);
+}
+
 .seq-hint {
   position: absolute;
   left: 50%;

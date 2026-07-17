@@ -109,7 +109,10 @@ export default function SequenceScene() {
         tl.set(g, { autoAlpha: 0 }, at + dur + 0.02)
       }
 
+      tl.to('.stx-split-l', { xPercent: -16, duration: 0.05, ease: 'power1.in' }, 0.028)
+      tl.to('.stx-split-r', { xPercent: 16, duration: 0.05, ease: 'power1.in' }, 0.028)
       hide(groups.g1, 0.032) /* earthworks begin */
+      tl.to('.seq-est', { autoAlpha: 0, duration: 0.02 }, 0.03)
       tl.to('.seq-hint', { autoAlpha: 0, duration: 0.02 }, 0.026)
 
       show(groups.g2, 0.14) /* the slab is poured */
@@ -243,8 +246,8 @@ export default function SequenceScene() {
         <div className="stx-line"><span className="stx-mark">MONOLITH</span></div>
         <div className="stx-line"><span className="stx-descriptor">PRIVATE RESIDENCE</span></div>
         <div className="stx-gap" />
-        <div className="stx-line"><span className="stx-state">ARCHITECTURE BEGINS</span></div>
-        <div className="stx-line"><span className="stx-state">WITH THE LAND.</span></div>
+        <div className="stx-line"><span className="stx-state stx-split-l">PROPERTY</span></div>
+        <div className="stx-line"><span className="stx-state stx-split-r">BEYOND SCALE.</span></div>
       </div>
 
       <div className="stx stx-2 stx-low-left">
@@ -297,8 +300,13 @@ export default function SequenceScene() {
 
       <span className="seq-credit t-tech">CODEGREY.DEV</span>
 
+      <div className="seq-est t-tech" aria-hidden="true">
+        <span>PRIVATE RESIDENCES</span>
+        <span className="seq-est-dim">EST. 2026</span>
+      </div>
+
       <div className="seq-hint t-tech" aria-hidden="true">
-        <span>SCROLL</span>
+        <span>SCROLL TO ENTER</span>
         <span className="seq-hint-line" />
       </div>
     </section>
