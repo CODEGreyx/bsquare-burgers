@@ -348,12 +348,23 @@ export function FinalStatement() {
         { yPercent: 0, duration: 0.16, stagger: 0.06, ease: 'power1.out' },
         0.12
       )
-      tl.fromTo('.fs-by', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0.5)
-      tl.fromTo('.fs-cta', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.66)
-      tl.fromTo('.fs-foot', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.08 }, 0.8)
-      tl.to({}, { duration: 0.12 })
+      tl.fromTo('.fs-by', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.1 }, 0.32)
+      tl.fromTo('.fs-cta', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.08 }, 0.42)
+
+      /* the studio signature: the frame sinks to black, CODEGREY.DEV */
+      tl.to('.fs-black', { autoAlpha: 1, duration: 0.14, ease: 'none' }, 0.56)
+      tl.to(['.fs-center'], { autoAlpha: 0, duration: 0.1 }, 0.58)
+      tl.fromTo(
+        root.querySelectorAll('.fs-cg .rvl > span'),
+        { yPercent: 112 },
+        { yPercent: 0, duration: 0.1, stagger: 0.04, ease: 'power1.out' },
+        0.72
+      )
+      tl.fromTo('.fs-cg-tag', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.08 }, 0.84)
+      tl.fromTo('.fs-foot', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.06 }, 0.9)
+      tl.to({}, { duration: 0.06 })
     },
-    { pinDistance: '+=120%', scrub: 0.9 }
+    { pinDistance: '+=200%', scrub: 0.9 }
   )
 
   return (
@@ -384,9 +395,14 @@ export function FinalStatement() {
         </a>
       </div>
 
+      <div className="fs-black" aria-hidden="true" />
+      <div className="fs-cg">
+        <div className="rvl"><span className="t-tech fs-cg-label">A CONCEPT EXPERIENCE BY</span></div>
+        <div className="rvl"><span className="fs-cg-mark">CODEGREY.DEV</span></div>
+        <span className="t-tech fs-cg-tag">DIGITAL EXPERIENCES FOR AMBITIOUS BRANDS.</span>
+      </div>
       <div className="fs-foot t-tech">
         <span>MONOLITH — EST. 2026</span>
-        <span>A CONCEPT EXPERIENCE BY CODEGREY.DEV</span>
         <span className="fs-foot-dim">
           MONOLITH IS A FICTIONAL BRAND · NO REAL PROPERTY IS REPRESENTED
         </span>
