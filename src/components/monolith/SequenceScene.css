@@ -12,6 +12,24 @@
 .seq {
   background: var(--ink);
 }
+/* dawn grade over the film's bright opening — deep blue night falling
+   to a warm horizon, multiplied into the footage so the cut from the
+   dusk hero reads as first light, not a hard jump */
+.seq-dawn {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      rgba(10, 14, 28, 0.92),
+      rgba(12, 16, 30, 0.72) 42%,
+      rgba(46, 30, 16, 0.6) 78%,
+      rgba(24, 18, 12, 0.68)
+    );
+  mix-blend-mode: multiply;
+}
+
 /* cinematic scrim: gently seats nav and captions over bright daylight */
 .seq::after {
   content: '';
