@@ -196,7 +196,7 @@ export function CollectionScene() {
     (tl, root) => {
       tl.fromTo(
         '.cl-img',
-        { scale: 2.7, transformOrigin: '62% 38%' },
+        { scale: 2.5, transformOrigin: '56% 52%' },
         { scale: 1, duration: 1, ease: 'none' },
         0
       )
@@ -230,7 +230,7 @@ export function CollectionScene() {
 
   return (
     <section id="collection" className="cl scene" ref={ref}>
-      <img className="cl-img" src={FX.hero} alt="The completed residence at dusk" />
+      <img className="cl-img" src={LIB.living2} alt="A living space of the collection at dusk" />
       <div className="cl-veil" aria-hidden="true" />
 
       <div className="cl-title">
@@ -283,7 +283,7 @@ export function BlueprintScene() {
 
   return (
     <section id="blueprint" className="bp scene" ref={ref}>
-      <img className="bp-bg" src={FX.day} alt="" aria-hidden="true" />
+      <img className="bp-bg" src={LIB.concrete} alt="" aria-hidden="true" />
       <div className="bp-veil" aria-hidden="true" />
 
       <svg className="bp-svg" viewBox="0 0 1440 900" fill="none" aria-hidden="true">
