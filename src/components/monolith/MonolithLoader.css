@@ -11,11 +11,11 @@
 }
 
 .ldr-mark {
-  font-family: var(--sans);
+  font-family: var(--serif);
   font-weight: 300;
-  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
-  letter-spacing: 0.5em;
-  margin-right: -0.5em;
+  font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+  letter-spacing: 0.4em;
+  margin-right: -0.4em;
   color: var(--ivory);
 }
 

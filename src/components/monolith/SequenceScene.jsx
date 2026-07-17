@@ -109,6 +109,7 @@ export default function SequenceScene() {
         tl.set(g, { autoAlpha: 0 }, at + dur + 0.02)
       }
 
+      tl.to('.seq-titleveil', { autoAlpha: 0, duration: 0.05, ease: 'none' }, 0.015)
       tl.to('.stx-split-l', { xPercent: -16, duration: 0.05, ease: 'power1.in' }, 0.028)
       tl.to('.stx-split-r', { xPercent: 16, duration: 0.05, ease: 'power1.in' }, 0.028)
       hide(groups.g1, 0.032) /* earthworks begin */
@@ -242,6 +243,7 @@ export default function SequenceScene() {
       </div>
 
       {/* ---- narrative typography ---- */}
+      <div className="seq-titleveil" aria-hidden="true" />
       <div className="stx stx-1">
         <div className="stx-line"><span className="stx-mark">MONOLITH</span></div>
         <div className="stx-line"><span className="stx-descriptor">PRIVATE RESIDENCE</span></div>

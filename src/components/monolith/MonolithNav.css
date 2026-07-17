@@ -19,9 +19,10 @@
 }
 
 .mnav-mark {
+  font-family: var(--serif);
   font-weight: 400;
-  font-size: 0.82rem;
-  letter-spacing: 0.44em;
+  font-size: 1.05rem;
+  letter-spacing: 0.4em;
 }
 
 .mnav-links {

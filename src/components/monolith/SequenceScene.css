@@ -145,6 +145,19 @@
   color: rgba(240, 235, 225, 0.42);
 }
 
+.seq-titleveil {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 82% 68% at 50% 46%,
+    rgba(8, 8, 10, 0.78) 24%,
+    rgba(8, 8, 10, 0.45) 58%,
+    rgba(8, 8, 10, 0.12) 100%
+  );
+}
+
 .seq-est {
   position: absolute;
   top: 10vh;
@@ -232,13 +245,13 @@
 }
 
 .stx-mark {
-  font-family: var(--sans);
-  font-weight: 200;
-  font-size: clamp(3rem, 8.5vw, 8rem);
-  letter-spacing: 0.3em;
-  margin-right: -0.3em;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(3.6rem, 10vw, 9.6rem);
+  letter-spacing: 0.16em;
+  margin-right: -0.16em;
   color: var(--warmwhite);
-  text-shadow: 0 2px 44px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 2px 44px rgba(0, 0, 0, 0.5);
 }
 .stx-descriptor {
   display: inline-flex;
