@@ -33,6 +33,7 @@ html = html.replace(
 const jsFile = readdirSync(join(dist, 'assets')).find((f) => f.endsWith('.js'))
 let js = readFileSync(join(dist, 'assets', jsFile), 'utf8')
 const media = [
+  ['house-build.mp4', 'video/mp4'],
   ['house-sequence/01_empty_land.webp', 'image/webp'],
   ['house-sequence/02_foundation.webp', 'image/webp'],
   ['house-sequence/03_ground_structure.webp', 'image/webp'],
