@@ -125,7 +125,7 @@ export default function SequenceScene() {
       tl.fromTo('.seq-credit', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.018 }, 0.9)
       tl.to({}, { duration: 0.04 })
     },
-    { pinDistance: '+=600%', scrub: 0.7, deps: [mode] }
+    { pinDistance: '+=480%', scrub: 0.7, deps: [mode] }
   )
 
   /* ---- the rAF playhead: eases currentTime toward the scroll target,

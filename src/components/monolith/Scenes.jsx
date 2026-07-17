@@ -84,7 +84,7 @@ export function GalleryScene() {
       })
       tl.fromTo('.gl-progress-fill', { scaleX: 0 }, { scaleX: 1, duration: 1, ease: 'none' }, 0)
     },
-    { pinDistance: '+=280%', scrub: 0.9 }
+    { pinDistance: '+=150%', scrub: 0.9 }
   )
 
   return (
@@ -155,7 +155,7 @@ export function MaterialScene() {
         )
       })
     },
-    { pinDistance: '+=220%', scrub: 0.9 }
+    { pinDistance: '+=150%', scrub: 0.9 }
   )
 
   return (
@@ -225,7 +225,7 @@ export function CollectionScene() {
         tl.fromTo(s, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.06 }, 0.15 + i * 0.09)
       })
     },
-    { pinDistance: '+=260%', scrub: 0.9 }
+    { pinDistance: '+=170%', scrub: 0.9 }
   )
 
   return (
@@ -278,7 +278,7 @@ export function BlueprintScene() {
       )
       tl.to({}, { duration: 0.15 })
     },
-    { pinDistance: '+=200%', scrub: 0.9 }
+    { pinDistance: '+=150%', scrub: 0.9 }
   )
 
   return (
@@ -353,7 +353,7 @@ export function FinalStatement() {
       tl.fromTo('.fs-foot', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.08 }, 0.8)
       tl.to({}, { duration: 0.12 })
     },
-    { pinDistance: '+=180%', scrub: 0.9 }
+    { pinDistance: '+=120%', scrub: 0.9 }
   )
 
   return (
