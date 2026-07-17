@@ -12,6 +12,28 @@
   object-fit: cover;
   background: var(--ink);
 }
+/* cinematic grade over the clip: letterbox falloff + soft vignette,
+   pulls the daylight footage toward the site's dark editorial palette */
+.build-grade {
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      rgba(10, 10, 11, 0.62),
+      transparent 22% 78%,
+      rgba(10, 10, 11, 0.68)
+    ),
+    radial-gradient(
+      ellipse 130% 105% at 50% 48%,
+      transparent 52%,
+      rgba(10, 10, 11, 0.55) 100%
+    );
+}
+/* the finished residence the dusk footage resolves into */
+.build-resolve {
+  z-index: 3;
+  visibility: hidden;
+}
 
 /* every photographic layer shares the one locked frame; each state is
    blended in by a WIDE, SOFT boundary that travels continuously with

@@ -21,6 +21,13 @@ code-generated stand-in with a documented replacement path ·
 | `src/components/svg/FloorPlanSVG.jsx` | SVG component | 1 · 2 · 4 | Ground-floor plan: draws itself in scene 1, tilts into the ground plane in scene 2, flashes over the interior in scene 4 | **final** (intentionally vector — crisper than raster for scroll-drawing) |
 | `src/components/svg/ElevationSVG.jsx` | SVG component | 2 · 3 | Structural elevation traced against the hero photo; columns/slabs/volumes/glazing rise layer by layer | **final** (same rationale) |
 
+## Video
+
+| File | Type | Duration | Scene | Purpose | Status |
+| --- | --- | --- | --- | --- | --- |
+| `public/assets/video/build-timelapse.mp4` | H.264 MP4, 1920×1012, keyframe every 8 frames | 19.2 s | 1 | THE BUILD — real 4K construction timelapse (day → golden hour → deep dusk over tower cranes), playhead scrubbed 1:1 to scroll. Source: Pexels video 7025003, native 4096×2160, free for commercial use, no attribution required. Re-encoded with dense keyframes for smooth bidirectional seeking. | **final** |
+| `public/assets/video/build-timelapse.webm` | VP9 WebM, same cut | 19.2 s | 1 | Fallback source for browsers without H.264 (open-codec Chromium builds) | **final** |
+
 ## Video slots (empty — still + code-motion fallback active)
 
 | File (slot) | Type | Target duration | Scene | Purpose | Status |

@@ -30,7 +30,10 @@ const STAGES = ['01 — Survey', '02 — Structure', '03 — Envelope', '04 — 
 export default function BuildScene() {
   const ref = useScrollTimeline(
     (tl, root) => {
-      /* ---- VIDEO PATH: scrub a real construction clip to scroll ---- */
+      /* ---- VIDEO PATH: a real 4K works timelapse, scrubbed to scroll.
+         The clip's playhead IS the scrollbar — every millimetre of scroll
+         moves the site forward or backward in time, and the deep-dusk
+         ending resolves into the finished NØRTHLINE residence. ---- */
       if (hasVideo) {
         const video = root.querySelector('.build-video')
         video.pause()
@@ -38,13 +41,43 @@ export default function BuildScene() {
         const scrub = () => {
           if (video.duration) video.currentTime = proxy.t * video.duration
         }
-        tl.to(proxy, { t: 1, duration: 1, ease: 'none', onUpdate: scrub }, 0)
-        tl.to('.build-title', { yPercent: -12, autoAlpha: 0, duration: 0.06 }, 0.03)
-        tl.to('.build-hint', { autoAlpha: 0, duration: 0.03 }, 0.03)
-        tl.call(() => sound.swell(), null, 0.72)
-        tl.fromTo('.build-word-presence', { yPercent: 22, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.07 }, 0.82)
-        tl.fromTo('.build-caption', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.05 }, 0.9)
-        tl.to({}, { duration: 0.08 })
+        video.addEventListener('loadedmetadata', scrub, { once: true })
+
+        gsap.set('.build-resolve', { autoAlpha: 0 })
+
+        /* the title steps aside as the record begins */
+        tl.to('.build-title', { yPercent: -12, autoAlpha: 0, duration: 0.05 }, 0.02)
+        tl.to('.build-hint', { autoAlpha: 0, duration: 0.03 }, 0.02)
+
+        /* scroll drags the clip through day → golden hour → dusk */
+        tl.to(proxy, { t: 1, duration: 0.77, ease: 'none', onUpdate: scrub }, 0.03)
+
+        /* running construction-record day counter */
+        const day = root.querySelector('.build-day')
+        const dayProxy = { d: 1 }
+        tl.fromTo(day, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.03 }, 0.06)
+        tl.to(
+          dayProxy,
+          {
+            d: 196,
+            duration: 0.7,
+            ease: 'none',
+            onUpdate: () => {
+              day.textContent = `DAY ${String(Math.round(dayProxy.d)).padStart(3, '0')}`
+            },
+          },
+          0.07
+        )
+        tl.call(() => sound.impact(0.7), null, 0.3)
+        tl.call(() => sound.impact(1.0), null, 0.58)
+
+        /* the dusk skyline resolves into the finished residence */
+        tl.call(() => sound.swell(), null, 0.79)
+        tl.to('.build-resolve', { autoAlpha: 1, duration: 0.09, ease: 'none' }, 0.79)
+        tl.to(day, { autoAlpha: 0, y: -8, duration: 0.03 }, 0.84)
+        tl.fromTo('.build-word-presence', { yPercent: 22, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.06 }, 0.88)
+        tl.fromTo('.build-caption', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.05 }, 0.93)
+        tl.to({}, { duration: 0.02 })
         return
       }
 
@@ -208,14 +241,29 @@ export default function BuildScene() {
   return (
     <section id="scene-build" className="scene" ref={ref}>
       {hasVideo ? (
-        <video
-          className="img-cover build-video"
-          src={videos.buildTimelapse}
-          muted
-          playsInline
-          preload="auto"
-          aria-label="The NØRTHLINE residence under construction at dusk"
-        />
+        <>
+          <video
+            className="img-cover build-video"
+            muted
+            playsInline
+            preload="auto"
+            aria-label="Construction timelapse, day to dusk"
+          >
+            <source src={videos.buildTimelapse} type="video/mp4" />
+            <source
+              src={videos.buildTimelapse.replace(/\.mp4$/, '.webm')}
+              type="video/webm"
+            />
+          </video>
+          {/* cinematic grade: soft vignette + letterbox falloff over the clip */}
+          <div className="build-grade scene-fill" aria-hidden="true" />
+          {/* the dusk skyline resolves into the finished residence */}
+          <img
+            className="img-cover build-resolve"
+            src={stills.residenceComplete}
+            alt="The completed NØRTHLINE residence at dusk"
+          />
+        </>
       ) : (
         <>
           {/* the one locked shot — three states of the same frame,

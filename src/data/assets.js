@@ -34,7 +34,7 @@ export const videos = {
    * code-driven stage reveal. Encode with dense keyframes for smooth
    * seeking — see HIGGSFIELD-PROMPTS.md (video V0).
    */
-  buildTimelapse: null, // '/assets/video/build-timelapse.mp4'
+  buildTimelapse: '/assets/video/build-timelapse.mp4', // Pexels 7025003, 4K day→dusk works timelapse
 
   /** Slow cinematic push toward the residence at dusk. */
   exteriorApproach: null, // '/assets/video/exterior-approach.mp4'

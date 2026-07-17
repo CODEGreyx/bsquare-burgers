@@ -6,7 +6,7 @@
  *
  * Usage: npm run build && node scripts/build-singlefile.mjs
  */
-import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 
 const dist = 'dist'
@@ -32,14 +32,17 @@ html = html.replace(
 /* ---- JS: inline bundle, embed the four stills ---- */
 const jsFile = readdirSync(join(dist, 'assets')).find((f) => f.endsWith('.js'))
 let js = readFileSync(join(dist, 'assets', jsFile), 'utf8')
-const stills = [
-  'assets/exterior/residence-complete.webp',
-  'assets/construction/residence-structure.webp',
-  'assets/construction/residence-construction.webp',
-  'assets/interior/interior-living.webp',
+const media = [
+  ['assets/exterior/residence-complete.webp', 'image/webp'],
+  ['assets/construction/residence-structure.webp', 'image/webp'],
+  ['assets/construction/residence-construction.webp', 'image/webp'],
+  ['assets/interior/interior-living.webp', 'image/webp'],
+  ['assets/interior/interior-living-2.webp', 'image/webp'],
+  ['assets/video/build-timelapse.mp4', 'video/mp4'],
 ]
-for (const rel of stills) {
-  js = js.replaceAll(`/${rel}`, dataUri(join(dist, rel), 'image/webp'))
+for (const [rel, mime] of media) {
+  if (!existsSync(join(dist, rel))) continue
+  js = js.replaceAll(`/${rel}`, dataUri(join(dist, rel), mime))
 }
 js = js.replace(/<\/script>/g, '<\\/script>')
 html = html.replace(
