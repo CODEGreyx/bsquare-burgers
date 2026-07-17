@@ -2,15 +2,12 @@ import React, { useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
-import { setLenis, getLenis } from './lib/lenis'
+import { setLenis } from './lib/lenis'
 
-import Loader from './components/Loader'
-import Navigation from './components/Navigation'
-import FilmingMode from './components/FilmingMode'
-import SoundControl from './components/SoundControl'
-import BuildScene from './components/BuildScene'
-import InteriorScene from './components/InteriorScene'
-import FinalScene from './components/FinalScene'
+import MonolithLoader from './components/monolith/MonolithLoader'
+import MonolithNav from './components/monolith/MonolithNav'
+import SequenceScene from './components/monolith/SequenceScene'
+import AfterSections from './components/monolith/AfterSections'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -39,19 +36,14 @@ export default function App() {
     gsap.ticker.add(tick)
     gsap.ticker.lagSmoothing(0)
 
-    /* re-measure pins once layout and the opening image are settled —
-       triggers created before the pins (nav) need this to re-anchor */
+    /* re-measure pins once the frames are decoded and layout settles */
     const refresh = () => ScrollTrigger.refresh()
-    const hero = new Image()
-    hero.src = '/assets/exterior/residence-complete.webp'
-    if (hero.complete) refresh()
-    else hero.onload = refresh
-    window.addEventListener('northline:loaded', refresh)
+    window.addEventListener('monolith:loaded', refresh)
     const settle = setTimeout(refresh, 300)
 
     return () => {
       clearTimeout(settle)
-      window.removeEventListener('northline:loaded', refresh)
+      window.removeEventListener('monolith:loaded', refresh)
       gsap.ticker.remove(tick)
       lenis.destroy()
       setLenis(null)
@@ -60,16 +52,14 @@ export default function App() {
   }, [])
 
   return (
-    <FilmingMode>
-      <Loader />
-      <Navigation />
+    <>
+      <MonolithLoader />
+      <MonolithNav />
       <main>
-        <BuildScene />
-        <InteriorScene />
-        <FinalScene />
+        <SequenceScene />
+        <AfterSections />
       </main>
-      <SoundControl />
       <div className="grade" aria-hidden="true" />
-    </FilmingMode>
+    </>
   )
 }

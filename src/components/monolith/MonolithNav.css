@@ -1,0 +1,66 @@
+.mnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.1rem 3.4vw 1.6rem;
+  pointer-events: none;
+  background: linear-gradient(rgba(10, 10, 11, 0.5), transparent);
+}
+
+.mnav a {
+  pointer-events: auto;
+  text-decoration: none;
+  color: var(--ivory);
+}
+
+.mnav-mark {
+  font-weight: 400;
+  font-size: 0.82rem;
+  letter-spacing: 0.44em;
+}
+
+.mnav-links {
+  display: flex;
+  gap: 3.2vw;
+}
+.mnav-links a {
+  position: relative;
+  font-weight: 300;
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ivory-55);
+  transition: color 0.45s ease;
+}
+.mnav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.45em;
+  height: 1px;
+  background: var(--ivory-55);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.mnav-links a:hover {
+  color: var(--ivory);
+}
+.mnav-links a:hover::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 768px) {
+  .mnav {
+    padding: 1.4rem 5vw 1.2rem;
+  }
+  .mnav-links {
+    gap: 6vw;
+  }
+}

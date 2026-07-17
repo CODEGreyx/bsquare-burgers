@@ -1,0 +1,40 @@
+.ldr {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+  background: var(--ink);
+}
+
+.ldr-mark {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+  letter-spacing: 0.5em;
+  margin-right: -0.5em;
+  color: var(--ivory);
+}
+
+.ldr-line {
+  width: min(240px, 40vw);
+  height: 1px;
+  background: var(--ivory-16);
+  overflow: hidden;
+}
+.ldr-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--ivory-55);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.ldr-sub {
+  letter-spacing: 0.5em;
+  margin-right: -0.5em;
+}

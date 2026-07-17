@@ -1,0 +1,239 @@
+/* ============================================================
+   After the sequence: Architecture · Materials · Enquiry
+   ============================================================ */
+
+.arch,
+.mat,
+.enq {
+  position: relative;
+  background: var(--ink);
+  padding: 22vh 3.4vw;
+}
+
+.arch-index {
+  display: block;
+  letter-spacing: 0.44em;
+  color: rgba(240, 235, 225, 0.4);
+  margin-bottom: 7vh;
+}
+
+/* ---------- architecture ---------- */
+
+.arch-statement {
+  font-weight: 300;
+  font-size: clamp(2rem, 5.4vw, 5.2rem);
+  letter-spacing: 0.12em;
+  line-height: 1.16;
+  color: var(--warmwhite);
+  max-width: 18ch;
+}
+.arch-statement .rvl {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.arch-statement .rvl > span {
+  display: inline-block;
+  will-change: transform;
+}
+
+.arch-support {
+  margin-top: 7vh;
+  max-width: 44ch;
+  font-weight: 300;
+  font-size: clamp(0.78rem, 1vw, 0.95rem);
+  letter-spacing: 0.14em;
+  line-height: 2.1;
+  color: rgba(240, 235, 225, 0.55);
+  text-transform: uppercase;
+}
+
+.arch-rule {
+  position: absolute;
+  right: 3.4vw;
+  top: 22vh;
+  bottom: 22vh;
+  width: 1px;
+  background: linear-gradient(var(--ivory-16), transparent);
+}
+
+/* ---------- materials ---------- */
+
+.mat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--ivory-08);
+  border-top: 1px solid var(--ivory-08);
+  border-bottom: 1px solid var(--ivory-08);
+}
+
+.mat-cell {
+  background: var(--ink);
+  padding: 3.2rem 2rem 2.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}
+
+.mat-crop {
+  height: 30vh;
+  background-size: 320%;
+  background-repeat: no-repeat;
+  filter: saturate(0.82) contrast(1.02);
+  transition: background-size 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.4s ease;
+}
+.mat-cell:hover .mat-crop {
+  background-size: 348%;
+  filter: saturate(1) contrast(1.04);
+}
+
+.mat-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.mat-n {
+  color: var(--bronze);
+  letter-spacing: 0.4em;
+}
+.mat-name {
+  font-weight: 300;
+  font-size: clamp(0.9rem, 1.2vw, 1.15rem);
+  letter-spacing: 0.3em;
+  color: var(--warmwhite);
+}
+.mat-note {
+  font-weight: 300;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  line-height: 1.9;
+  color: rgba(240, 235, 225, 0.45);
+  text-transform: uppercase;
+}
+
+/* ---------- enquiry ---------- */
+
+.enq {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #070708;
+}
+
+.enq-title {
+  font-weight: 300;
+  font-size: clamp(1.8rem, 4.4vw, 4.2rem);
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  color: var(--warmwhite);
+}
+.enq-title .rvl {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.enq-title .rvl > span {
+  display: inline-block;
+}
+
+.enq-form {
+  margin-top: 9vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4.5rem 5vw;
+  max-width: 880px;
+}
+.enq-field {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.enq-field-wide {
+  grid-column: 1 / -1;
+}
+.enq-field span {
+  letter-spacing: 0.4em;
+  color: rgba(240, 235, 225, 0.4);
+}
+.enq-field input,
+.enq-field textarea {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--ivory-16);
+  color: var(--warmwhite);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  padding: 0.6em 0;
+  border-radius: 0;
+  resize: none;
+  transition: border-color 0.6s ease;
+}
+.enq-field input:focus,
+.enq-field textarea:focus {
+  outline: none;
+  border-bottom-color: var(--bronze);
+}
+
+.enq-submit {
+  grid-column: 1 / -1;
+  justify-self: start;
+  position: relative;
+  font-weight: 400;
+  font-size: 0.72rem;
+  letter-spacing: 0.44em;
+  text-transform: uppercase;
+  color: var(--warmwhite);
+  padding: 0 0 0.8em;
+}
+.enq-submit::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--bronze);
+  transform-origin: left center;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.enq-submit:hover::after {
+  transform: scaleX(0.4);
+}
+
+.enq-sent {
+  margin-top: 9vh;
+  letter-spacing: 0.4em;
+  color: var(--bronze);
+}
+
+.enq-footer {
+  margin-top: auto;
+  padding-top: 14vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.enq-disclaimer {
+  color: rgba(240, 235, 225, 0.22);
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 1020px) {
+  .mat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .mat-grid {
+    grid-template-columns: 1fr;
+  }
+  .enq-form {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
