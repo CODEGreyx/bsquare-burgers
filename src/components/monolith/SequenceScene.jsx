@@ -25,7 +25,6 @@ export default function SequenceScene() {
       const tags = root.querySelectorAll('.seq-phase span')
       const railFill = root.querySelector('.seq-rail-fill')
       const groups = {
-        g1: root.querySelector('.stx-1'),
         g2: root.querySelector('.stx-2'),
         g3: root.querySelector('.stx-3'),
         g4: root.querySelector('.stx-4'),
@@ -37,7 +36,7 @@ export default function SequenceScene() {
       gsap.set(tags, { autoAlpha: 0 })
       gsap.set(tags[0], { autoAlpha: 1 })
       Object.values(groups).forEach((g) => {
-        if (g !== groups.g1) gsap.set(g.querySelectorAll('.stx-line > *'), { yPercent: 112 })
+        gsap.set(g.querySelectorAll('.stx-line > *'), { yPercent: 112 })
       })
 
       /* ONE locked camera: the image never moves, scales or drifts —
@@ -109,12 +108,7 @@ export default function SequenceScene() {
         tl.set(g, { autoAlpha: 0 }, at + dur + 0.02)
       }
 
-      tl.to('.seq-titleveil', { autoAlpha: 0, duration: 0.05, ease: 'none' }, 0.015)
-      tl.to('.stx-split-l', { xPercent: -16, duration: 0.05, ease: 'power1.in' }, 0.028)
-      tl.to('.stx-split-r', { xPercent: 16, duration: 0.05, ease: 'power1.in' }, 0.028)
-      hide(groups.g1, 0.032) /* earthworks begin */
-      tl.to('.seq-est', { autoAlpha: 0, duration: 0.02 }, 0.03)
-      tl.to('.seq-hint', { autoAlpha: 0, duration: 0.02 }, 0.026)
+      tl.fromTo('.seq-sect', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.02 }, 0.005)
 
       show(groups.g2, 0.14) /* the slab is poured */
       hide(groups.g2, 0.215)
@@ -174,28 +168,6 @@ export default function SequenceScene() {
     }
   }, [mode, ref])
 
-  /* entrance: opening title rises once the loader clears */
-  useLayoutEffect(() => {
-    const root = ref.current
-    const onLoaded = () => {
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      const lines = root.querySelectorAll('.stx-1 .stx-line > *')
-      if (reduced) {
-        gsap.set(lines, { yPercent: 0 })
-        gsap.set('.seq-hint', { opacity: 1 })
-        return
-      }
-      gsap.fromTo(
-        lines,
-        { yPercent: 112 },
-        { yPercent: 0, duration: 1.15, stagger: 0.14, ease: 'power3.out', delay: 0.25 }
-      )
-      gsap.fromTo('.seq-hint', { opacity: 0 }, { opacity: 1, duration: 1, delay: 1.6 })
-    }
-    window.addEventListener('monolith:loaded', onLoaded)
-    return () => window.removeEventListener('monolith:loaded', onLoaded)
-  }, [ref])
-
   return (
     <section id="sequence" className="scene seq" ref={ref}>
       <div className="seq-stack scene-fill">
@@ -232,6 +204,8 @@ export default function SequenceScene() {
         <span className="seq-scan-tick" />
       </div>
 
+      <span className="seq-sect t-tech" aria-hidden="true">02 — THE CONSTRUCTION RECORD</span>
+
       {/* technical chrome */}
       <div className="seq-phase t-tech" aria-hidden="true">
         {FRAMES.map((f, i) => (
@@ -243,15 +217,6 @@ export default function SequenceScene() {
       </div>
 
       {/* ---- narrative typography ---- */}
-      <div className="seq-titleveil" aria-hidden="true" />
-      <div className="stx stx-1">
-        <div className="stx-line"><span className="stx-mark">MONOLITH</span></div>
-        <div className="stx-line"><span className="stx-descriptor">PRIVATE RESIDENCE</span></div>
-        <div className="stx-gap" />
-        <div className="stx-line"><span className="stx-state stx-split-l">PROPERTY</span></div>
-        <div className="stx-line"><span className="stx-state stx-split-r">BEYOND SCALE.</span></div>
-      </div>
-
       <div className="stx stx-2 stx-low-left">
         <div className="stx-line"><span className="stx-state-sm">BELOW EVERY LANDMARK</span></div>
         <div className="stx-line"><span className="stx-state-sm">LIES AN UNSEEN FOUNDATION.</span></div>
@@ -287,12 +252,12 @@ export default function SequenceScene() {
         <div className="stx-line">
           <a
             className="stx-cta"
-            href="#architecture"
+            href="#gallery"
             onClick={(e) => {
               e.preventDefault()
               const lenis = getLenis()
-              if (lenis) lenis.scrollTo('#architecture', { duration: 2.2 })
-              else document.querySelector('#architecture')?.scrollIntoView({ behavior: 'smooth' })
+              if (lenis) lenis.scrollTo('#gallery', { duration: 2.2 })
+              else document.querySelector('#gallery')?.scrollIntoView({ behavior: 'smooth' })
             }}
           >
             EXPLORE THE RESIDENCE
@@ -301,16 +266,6 @@ export default function SequenceScene() {
       </div>
 
       <span className="seq-credit t-tech">CODEGREY.DEV</span>
-
-      <div className="seq-est t-tech" aria-hidden="true">
-        <span>PRIVATE RESIDENCES</span>
-        <span className="seq-est-dim">EST. 2026</span>
-      </div>
-
-      <div className="seq-hint t-tech" aria-hidden="true">
-        <span>SCROLL TO ENTER</span>
-        <span className="seq-hint-line" />
-      </div>
     </section>
   )
 }

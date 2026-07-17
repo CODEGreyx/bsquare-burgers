@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useScrollTimeline, primeDraw } from '../../hooks/useScrollTimeline'
-import { FX } from '../../data/frames'
+import { FX, LIB } from '../../data/frames'
 import { getLenis } from '../../lib/lenis'
 import './Scenes.css'
 
@@ -43,13 +43,13 @@ export function TypeScene() {
 
   return (
     <section id="type" className="ts" ref={ref}>
-      <img className="ts-back" src={FX.envelope} alt="" aria-hidden="true" />
+      <img className="ts-back" src={FX.golden} alt="" aria-hidden="true" />
       <div className="ts-words" aria-hidden="true">
         <span className="ts-word">DESIGNED</span>
         <span className="ts-word">WITHOUT</span>
         <span className="ts-word">COMPROMISE</span>
       </div>
-      <img className="ts-front" src={FX.envelope} alt="The timber frame of Residence 01 at noon" />
+      <img className="ts-front" src={FX.golden} alt="The timber frame of Residence 01 at noon" />
       <div className="ts-label t-tech">
         <span>RESIDENCE 01</span>
         <span className="ts-label-dim">PRIVATE COLLECTION</span>
@@ -63,10 +63,10 @@ export function TypeScene() {
    stills, each with one word, a project code and internal drift.
    ================================================================== */
 const PANELS = [
-  { src: FX.frame, word: 'FORM', code: 'ML·26·01', n: '01' },
-  { src: FX.day, word: 'LIGHT', code: 'ML·26·02', n: '02' },
-  { src: FX.envelope, word: 'MATERIAL', code: 'ML·26·03', n: '03' },
-  { src: FX.hero, word: 'SILENCE', code: 'ML·26·04', n: '04' },
+  { src: LIB.seafront, word: 'FORM', code: 'ML·26·01', n: '01' },
+  { src: LIB.living, word: 'LIGHT', code: 'ML·26·02', n: '02' },
+  { src: LIB.concrete, word: 'MATERIAL', code: 'ML·26·03', n: '03' },
+  { src: FX.duskb, word: 'SILENCE', code: 'ML·26·04', n: '04' },
 ]
 
 export function GalleryScene() {
@@ -118,10 +118,10 @@ export function GalleryScene() {
    drifting at different speeds under a travelling light.
    ================================================================== */
 const SWATCHES = [
-  { label: 'HONED LIMESTONE', src: FX.envelope, pos: '30% 40%', size: '480%', cls: 'mt-a' },
-  { label: 'SMOKED GLASS', src: FX.hero, pos: '62% 36%', size: '520%', cls: 'mt-b' },
-  { label: 'BRUSHED METAL', src: FX.day, pos: '50% 12%', size: '540%', cls: 'mt-c' },
-  { label: 'NATURAL SHADOW', src: FX.dusk, pos: '18% 62%', size: '460%', cls: 'mt-d' },
+  { label: 'HONED LIMESTONE', src: LIB.concrete, pos: '40% 55%', size: '460%', cls: 'mt-a' },
+  { label: 'SMOKED GLASS', src: FX.evening, pos: '62% 36%', size: '520%', cls: 'mt-b' },
+  { label: 'WARM INTERIOR OAK', src: LIB.living2, pos: '55% 60%', size: '440%', cls: 'mt-c' },
+  { label: 'NATURAL SHADOW', src: LIB.seafrontPool, pos: '24% 66%', size: '460%', cls: 'mt-d' },
 ]
 
 export function MaterialScene() {
@@ -160,7 +160,7 @@ export function MaterialScene() {
 
   return (
     <section id="material" className="mt scene" ref={ref}>
-      <img className="mt-bg" src={FX.envelope} alt="" aria-hidden="true" />
+      <img className="mt-bg" src={FX.frame2} alt="" aria-hidden="true" />
       <div className="mt-veil" aria-hidden="true" />
       <div className="mt-light" aria-hidden="true" />
 
@@ -358,7 +358,7 @@ export function FinalStatement() {
 
   return (
     <section id="final" className="fs scene" ref={ref}>
-      <img className="fs-img" src={FX.dusk} alt="The residence at dusk, lit from within" />
+      <img className="fs-img" src={FX.evening} alt="The residence at dusk, lit from within" />
       <div className="fs-veil" aria-hidden="true" />
 
       <div className="fs-center">

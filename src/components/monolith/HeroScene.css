@@ -1,0 +1,99 @@
+.hero {
+  background: #0b0b0d;
+}
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+/* the dusk image is already dark — only a breath of grading */
+.hero-grad {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(8, 8, 10, 0.22), transparent 18%),
+    linear-gradient(transparent 74%, rgba(8, 8, 10, 0.38));
+}
+
+.hero-center {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 13vh;
+  gap: 1.6rem;
+  pointer-events: none;
+}
+.hero-line {
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.hero-line > * {
+  display: inline-block;
+  will-change: transform;
+}
+.hero-label {
+  letter-spacing: 0.56em;
+  margin-right: -0.56em;
+  color: rgba(240, 235, 225, 0.72);
+}
+.hero-mark {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(3.8rem, 11vw, 10.4rem);
+  letter-spacing: 0.15em;
+  margin-right: -0.15em;
+  line-height: 1;
+  color: var(--warmwhite);
+}
+.hero-rule {
+  width: 64px;
+  height: 1px;
+  background: rgba(168, 132, 92, 0.85);
+  transform: scaleX(0);
+}
+
+.hero-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 4.4vh;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  opacity: 0;
+  letter-spacing: 0.5em;
+  margin-right: -0.5em;
+}
+.hero-hint-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(rgba(240, 235, 225, 0.5), transparent);
+  animation: herohint 2.6s ease-in-out infinite;
+}
+@keyframes herohint {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+.hero-code {
+  position: absolute;
+  right: 3.4vw;
+  bottom: 4.6vh;
+  z-index: 2;
+  opacity: 0;
+  letter-spacing: 0.4em;
+  color: rgba(240, 235, 225, 0.55);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-hint-line { animation: none; }
+}

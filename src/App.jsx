@@ -6,6 +6,7 @@ import { setLenis } from './lib/lenis'
 
 import MonolithLoader from './components/monolith/MonolithLoader'
 import MonolithNav from './components/monolith/MonolithNav'
+import HeroScene from './components/monolith/HeroScene'
 import SequenceScene from './components/monolith/SequenceScene'
 import {
   TypeScene,
@@ -64,6 +65,7 @@ export default function App() {
       <MonolithLoader />
       <MonolithNav />
       <main>
+        <HeroScene />
         <SequenceScene />
         <TypeScene />
         <GalleryScene />
