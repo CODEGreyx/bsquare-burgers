@@ -41,11 +41,6 @@ export default function SequenceScene() {
          only the construction inside the frame changes */
       tl.fromTo(railFill, { scaleY: 0 }, { scaleY: 1, duration: 1, ease: 'none' }, 0)
 
-      /* dawn grade: the record opens as dark as the dusk hero above it,
-         then daylight rises across the first stretch of scroll */
-      gsap.set('.seq-dawn', { autoAlpha: 1 })
-      tl.to('.seq-dawn', { autoAlpha: 0, duration: 0.22, ease: 'power1.out' }, 0.02)
-
       if (mode === 'video') {
         /* ScrollTrigger's scrubbed proxy IS the film's target playhead;
            the rAF loop (separate effect) chases it frame-accurately */
@@ -202,7 +197,6 @@ export default function SequenceScene() {
         )}
       </div>
 
-      <div className="seq-dawn" aria-hidden="true" />
 
       {/* survey scanline (fallback blends only) */}
       <div className="seq-scan" aria-hidden="true">
