@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Ferrari F8 · Notte — Beyond Performance</title>
+    <meta name="description" content="A cinematic concept experience. The Ferrari F8 · Notte — sculpted by velocity, driven by scroll." />
+    <meta name="theme-color" content="#000000" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <meta property="og:title" content="Ferrari F8 · Notte — Beyond Performance" />
+    <meta property="og:description" content="A cinematic scroll-driven concept film." />
+    <meta property="og:image" content="/public/ferrari-poster.jpg" />
+    <meta property="og:type" content="website" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Antonio:wght@200;300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" as="image" href="/public/ferrari-poster.jpg" />
+    <link rel="preload" as="fetch" href="/public/ferrari.mp4" type="video/mp4" />
+    <link rel="stylesheet" href="ferrari.css?v=1" />
+  </head>
+
+  <body class="ferrari">
+    <!-- ═══ PRELOADER ═══ -->
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="loader-inner">
+        <div class="loader-word">FERRARI</div>
+        <div class="loader-line"><span id="loaderBar"></span></div>
+        <div class="loader-meta">
+          <span id="loaderPct">0</span><span>%</span>
+          <span class="loader-tag">STREAMING FILM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ NAV ═══ -->
+    <header class="nav" id="nav">
+      <a class="nav-brand" href="#top" aria-label="Ferrari">
+        <span class="nav-mark">FERRARI</span>
+        <span class="nav-model">F8&nbsp;·&nbsp;NOTTE</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#specification">Specification</a>
+        <a href="#craft">Interior</a>
+        <a href="#performance">Performance</a>
+      </nav>
+      <a href="#configure" class="nav-cta">Configure</a>
+    </header>
+
+    <main id="top">
+      <!-- ═══════════════════════════════════════════
+           THE SCROLL FILM  (pinned, frame-scrubbed)
+      ═══════════════════════════════════════════ -->
+      <section class="film" id="film" aria-label="Ferrari F8 Notte — concept film">
+        <div class="film-stage" id="filmStage">
+          <div class="film-media" id="filmMedia">
+            <img class="film-poster" id="filmPoster" src="/public/ferrari-poster.jpg" alt="Ferrari F8 Notte, front view" />
+            <video
+              class="film-video"
+              id="filmVideo"
+              muted
+              playsinline
+              webkit-playsinline
+              preload="auto"
+              disablepictureinpicture
+              aria-hidden="true"
+            ></video>
+            <div class="film-grain" aria-hidden="true"></div>
+            <div class="film-vignette" aria-hidden="true"></div>
+            <div class="film-bloom" id="filmBloom" aria-hidden="true"></div>
+          </div>
+
+          <!-- HUD frame -->
+          <div class="hud" aria-hidden="true">
+            <span class="hud-corner hud-tl"></span>
+            <span class="hud-corner hud-tr"></span>
+            <span class="hud-corner hud-bl"></span>
+            <span class="hud-corner hud-br"></span>
+            <div class="hud-id">SCENE&nbsp;01&nbsp;//&nbsp;ROSSO&nbsp;NOTTE</div>
+            <div class="hud-tc"><span id="hudTc">00:00</span><i>/</i>00:10</div>
+            <div class="hud-lat">REC&nbsp;<b id="hudRec">●</b></div>
+          </div>
+
+          <!-- ── BEAT 1 : FRONT ── -->
+          <article class="beat beat--center" data-beat="1">
+            <p class="beat-kicker" data-split="chars">MID-ENGINE · V8 · ROSSO NOTTE</p>
+            <h1 class="beat-title" data-split="lines">BEYOND<br />PERFORMANCE</h1>
+            <p class="beat-note" data-split="words">Not a car. A discipline of speed rendered in aluminium and light.</p>
+          </article>
+
+          <!-- ── BEAT 2 : SPEC APPROACH ── -->
+          <article class="beat beat--specs" data-beat="2">
+            <div class="spec-hud">
+              <p class="spec-hud-label" data-split="chars">TELEMETRY // LIVE</p>
+              <div class="spec-hud-row">
+                <div class="spec-hud-item"><b>720</b><span>CV · MAX POWER</span></div>
+                <div class="spec-hud-item"><b>2.9</b><span>SEC · 0–100 KM/H</span></div>
+                <div class="spec-hud-item"><b>340</b><span>KM/H · V-MAX</span></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- ── BEAT 3 : SIDE REVEAL ── -->
+          <article class="beat beat--left" data-beat="3">
+            <p class="beat-kicker" data-split="chars">THE SILHOUETTE</p>
+            <h2 class="beat-title" data-split="lines">SCULPTED<br />BY VELOCITY</h2>
+            <p class="beat-note" data-split="words">Every surface earns its place in the airstream — nothing decorative, everything intentional.</p>
+          </article>
+
+          <!-- ── BEAT 4 : INTERIOR / CRAFT ── -->
+          <article class="beat beat--right" data-beat="4">
+            <p class="beat-kicker" data-split="chars">THE COCKPIT</p>
+            <h2 class="beat-title" data-split="lines">CRAFTED<br />FOR THE DRIVER</h2>
+            <p class="beat-note" data-split="words">Hand-stitched leather, machined aluminium, a wheel that disappears into instinct.</p>
+          </article>
+
+          <!-- ── BEAT 5 : FINAL FRAME ── -->
+          <article class="beat beat--final" data-beat="5">
+            <p class="beat-kicker" data-split="chars">CONCEPT · 2026</p>
+            <h2 class="beat-title beat-name" data-split="lines">F8&nbsp;·&nbsp;NOTTE</h2>
+            <p class="beat-note" data-split="words">The night edition. Limited by intent, not by count.</p>
+            <a href="#configure" class="beat-btn">
+              <span>CONFIGURE YOURS</span>
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </article>
+
+          <div class="film-progress" aria-hidden="true"><span id="filmProgress"></span></div>
+          <div class="scroll-cue" id="scrollCue"><span>SCROLL</span><i></i></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           SPECIFICATION  (light editorial)
+      ═══════════════════════════════════════════ -->
+      <section class="spec" id="specification">
+        <div class="spec-head">
+          <p class="eyebrow reveal-up">01 — SPECIFICATION</p>
+          <h2 class="reveal-lines" data-split="lines">THE NUMBERS<br />BEHIND THE SILENCE</h2>
+          <p class="spec-intro reveal-up">A naturally aggressive 3.9-litre twin-turbo V8, tuned for the night. Figures are concept targets — a study in what restraint at full throttle looks like.</p>
+        </div>
+
+        <div class="spec-table">
+          <div class="spec-line">
+            <span class="spec-idx">/01</span>
+            <span class="spec-key">Engine</span>
+            <span class="spec-val" data-split="words">3.9 L Twin-Turbo V8</span>
+          </div>
+          <div class="spec-line">
+            <span class="spec-idx">/02</span>
+            <span class="spec-key">Maximum Power</span>
+            <span class="spec-val"><b data-count="720" data-suffix="">0</b>&nbsp;CV @ 8000 rpm</span>
+          </div>
+          <div class="spec-line">
+            <span class="spec-idx">/03</span>
+            <span class="spec-key">Maximum Torque</span>
+            <span class="spec-val"><b data-count="770" data-suffix="">0</b>&nbsp;Nm</span>
+          </div>
+          <div class="spec-line">
+            <span class="spec-idx">/04</span>
+            <span class="spec-key">0 – 100 km/h</span>
+            <span class="spec-val"><b data-count="2.9" data-dec="1" data-suffix="">0</b>&nbsp;s</span>
+          </div>
+          <div class="spec-line">
+            <span class="spec-idx">/05</span>
+            <span class="spec-key">0 – 200 km/h</span>
+            <span class="spec-val"><b data-count="7.8" data-dec="1" data-suffix="">0</b>&nbsp;s</span>
+          </div>
+          <div class="spec-line">
+            <span class="spec-idx">/06</span>
+            <span class="spec-key">Top Speed</span>
+            <span class="spec-val"><b data-count="340" data-suffix="">0</b>&nbsp;km/h</span>
+          </div>
+          <div class="spec-line">
+            <span class="spec-idx">/07</span>
+            <span class="spec-key">Dry Weight</span>
+            <span class="spec-val"><b data-count="1330" data-suffix="">0</b>&nbsp;kg</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           INTERIOR / CRAFT  (dark, full-bleed)
+      ═══════════════════════════════════════════ -->
+      <section class="craft" id="craft">
+        <div class="craft-media">
+          <img src="/public/ferrari-night.jpg" alt="Ferrari F8 Notte at speed through the city at night" />
+          <div class="craft-media-grain"></div>
+        </div>
+        <div class="craft-copy">
+          <p class="eyebrow reveal-up">02 — CRAFT</p>
+          <h2 class="reveal-lines" data-split="lines">BUILT IN THE<br />DARK HOURS</h2>
+          <p class="reveal-up">The Notte edition wears its carbon in shadow. A cabin trimmed in obsidian leather, brushed titanium paddles, and a single thread of Rosso Corsa running the length of the seat — the only colour that remains after dusk.</p>
+          <div class="craft-tags reveal-up">
+            <span>Obsidian Leather</span>
+            <span>Titanium Shift</span>
+            <span>Rosso Thread</span>
+            <span>Carbon Monocoque</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           PERFORMANCE  (kinetic figures)
+      ═══════════════════════════════════════════ -->
+      <section class="performance" id="performance">
+        <p class="eyebrow reveal-up">03 — PERFORMANCE</p>
+        <div class="perf-grid">
+          <div class="perf-cell">
+            <b class="perf-num"><span data-count="2.9" data-dec="1">0</span></b>
+            <span class="perf-unit">seconds</span>
+            <span class="perf-desc">Standstill to 100 km/h. Long enough to change your mind. Too fast to try.</span>
+          </div>
+          <div class="perf-cell">
+            <b class="perf-num"><span data-count="340">0</span></b>
+            <span class="perf-unit">km/h</span>
+            <span class="perf-desc">Terminal velocity, reached where the road runs out of reasons.</span>
+          </div>
+          <div class="perf-cell">
+            <b class="perf-num"><span data-count="720">0</span></b>
+            <span class="perf-unit">cavalli</span>
+            <span class="perf-desc">Horsepower measured the Italian way — in horses that were never tamed.</span>
+          </div>
+        </div>
+        <p class="perf-foot reveal-up">Concept figures. Emotional accuracy guaranteed.</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           CONFIGURE CTA  (cinematic close)
+      ═══════════════════════════════════════════ -->
+      <section class="configure" id="configure">
+        <div class="configure-bg" aria-hidden="true">
+          <img src="/public/ferrari-poster.jpg" alt="" />
+          <div class="configure-veil"></div>
+          <div class="configure-grain"></div>
+        </div>
+        <div class="configure-inner">
+          <p class="eyebrow reveal-up">THE INVITATION</p>
+          <h2 class="configure-title reveal-lines" data-split="lines">BUILD YOUR<br />F8 · NOTTE</h2>
+          <p class="configure-sub reveal-up">Specification opens for a limited allocation. Choose your carbon, your calipers, your thread of red — and reserve the night.</p>
+          <div class="configure-actions reveal-up">
+            <a href="#top" class="btn btn-primary">CONFIGURE YOURS</a>
+            <a href="#specification" class="btn btn-ghost">REVIEW SPECIFICATION</a>
+          </div>
+        </div>
+        <footer class="foot">
+          <span class="foot-mark">FERRARI</span>
+          <span class="foot-note">Concept experience · Not affiliated with Ferrari S.p.A. · Scroll-driven film study</span>
+          <span class="foot-year">MMXXVI</span>
+        </footer>
+      </section>
+    </main>
+
+    <script src="vendor/gsap.min.js"></script>
+    <script src="vendor/ScrollTrigger.min.js"></script>
+    <script src="vendor/lenis.min.js"></script>
+    <script src="ferrari.js?v=1"></script>
+  </body>
+</html>
