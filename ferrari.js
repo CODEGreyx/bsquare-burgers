@@ -148,6 +148,8 @@
       splitEl(el).forEach((i) => (i.style.transform = "none"));
     });
     $$(".reveal-up, .reveal-lines").forEach((el) => el.classList.add("is-in"));
+    $$(".spec-line").forEach((r) => r.classList.add("is-drawn"));
+    $$(".spec-hud-fill, .craft-rule").forEach((el) => (el.style.transform = "none"));
     // let the film play softly on loop
     video.loop = true;
     video.muted = true;
@@ -219,6 +221,8 @@
     const media = $("#filmMedia");
     const progressBar = $("#filmProgress");
     const hudTc = $("#hudTc");
+    const hudFocal = $("#hudFocal");
+    const hudId = $("#hudId");
     const scrollCue = $("#scrollCue");
     const filmDuration = 10; // stable fallback; replaced by real metadata
 
@@ -273,6 +277,29 @@
     addBeat('[data-beat="4"]', 6.15, 7.7);
     addBeat('[data-beat="5"]', 8.3,  null);
 
+    // telemetry gauges fill with the scrub inside beat 2
+    const gaugeFills = $$('[data-beat="2"] .spec-hud-fill');
+    if (gaugeFills.length) {
+      tl.to(gaugeFills, {
+        scaleX: (i, el) => parseFloat(el.dataset.fill) || 0.8,
+        duration: 1.0, ease: "power2.out", stagger: 0.12,
+      }, 2.55);
+      tl.to(gaugeFills, { scaleX: 0, duration: 0.5, ease: "power2.in" }, 3.7);
+    }
+
+    // depth drift — text layers track the scrub at different rates while
+    // a beat holds, so the frame never feels frozen
+    [["1", 0.15, 1.7], ["2", 2.2, 3.7], ["3", 4.15, 5.65], ["4", 6.15, 7.7], ["5", 8.3, 10]]
+      .forEach(([b, a, z]) => {
+        const beat = $(`[data-beat="${b}"]`);
+        if (!beat) return;
+        const t = $(".beat-title", beat) || $(".spec-hud", beat);
+        const n = $(".beat-note", beat);
+        const d = z - a;
+        if (t) tl.fromTo(t, { y: 18 }, { y: -18, duration: d, ease: "none" }, a);
+        if (n) tl.fromTo(n, { y: 10 }, { y: -10, duration: d, ease: "none" }, a);
+      });
+
     // Scrub state for video time
     let targetTime = 0;
     let curTime = 0;
@@ -293,6 +320,12 @@
         targetTime = self.progress * (dur - 0.05);
         if (progressBar) progressBar.style.right = (100 - self.progress * 100) + "%";
         if (hudTc) hudTc.textContent = fmtTime(self.progress * 10);
+        // live camera telemetry: lens creeps 24→70mm, slate tracks the scene
+        if (hudFocal) hudFocal.textContent = String(Math.round(24 + self.progress * 46));
+        if (hudId) {
+          const sc = Math.min(5, Math.floor(self.progress * 5) + 1);
+          hudId.textContent = "SCENE 0" + sc + " // ROSSO NOTTE";
+        }
         // velocity → motion blur + red bloom (premium, capped)
         const v = Math.abs(self.getVelocity());
         const norm = Math.min(1, v / 3500);
@@ -368,6 +401,78 @@
       gsap.fromTo(confImg, { yPercent: -6, scale: 1.05 }, {
         yPercent: 6, ease: "none",
         scrollTrigger: { trigger: ".configure", start: "top bottom", end: "bottom top", scrub: true },
+      });
+    }
+
+    /* ── micro-interaction layer ── */
+
+    // spec rows rise in; hairline draws underneath each
+    $$(".spec-line").forEach((row) => {
+      gsap.from(row, {
+        opacity: 0, y: 26, duration: 0.8, ease: "power3.out",
+        scrollTrigger: { trigger: row, start: "top 90%" },
+        onStart: () => row.classList.add("is-drawn"),
+      });
+    });
+
+    // ghost numerals drift against the scroll
+    [[".spec-ghost", ".spec"], [".perf-ghost", ".performance"]].forEach(([g, s]) => {
+      const el = $(g);
+      if (!el) return;
+      gsap.fromTo(el, { yPercent: 14 }, {
+        yPercent: -14, ease: "none",
+        scrollTrigger: { trigger: s, start: "top bottom", end: "bottom top", scrub: true },
+      });
+    });
+
+    // craft image reveals with a cinematic wipe
+    const craftMedia = $(".craft-media");
+    if (craftMedia) {
+      gsap.fromTo(craftMedia,
+        { clipPath: "inset(0 100% 0 0)" },
+        { clipPath: "inset(0 0% 0 0)", duration: 1.3, ease: "power4.inOut",
+          scrollTrigger: { trigger: ".craft", start: "top 72%" } });
+    }
+
+    // rosso rule draws; craft tags cascade in
+    const craftRule = $(".craft-rule");
+    if (craftRule) {
+      gsap.to(craftRule, {
+        scaleX: 1, duration: 0.9, ease: "power3.out",
+        scrollTrigger: { trigger: ".craft-copy", start: "top 75%" },
+      });
+    }
+    const craftTags = $$(".craft-tags span");
+    if (craftTags.length) {
+      gsap.from(craftTags, {
+        opacity: 0, y: 16, duration: 0.6, ease: "power2.out", stagger: 0.07,
+        scrollTrigger: { trigger: ".craft-tags", start: "top 90%" },
+      });
+    }
+
+    // performance figures settle out of a motion blur
+    $$(".perf-cell .perf-num").forEach((num, i) => {
+      gsap.from(num, {
+        opacity: 0, y: 30, filter: "blur(12px)", duration: 0.9, delay: i * 0.12,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".perf-grid", start: "top 82%" },
+      });
+    });
+
+    // magnetic pull on CTAs (pointer devices only)
+    if (!isTouch) {
+      $$(".btn, .beat-btn, .nav-cta").forEach((el) => {
+        el.addEventListener("mousemove", (e) => {
+          const r = el.getBoundingClientRect();
+          gsap.to(el, {
+            x: (e.clientX - r.left - r.width / 2) * 0.16,
+            y: (e.clientY - r.top - r.height / 2) * 0.24,
+            duration: 0.4, ease: "power2.out",
+          });
+        });
+        el.addEventListener("mouseleave", () => {
+          gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.45)" });
+        });
       });
     }
 

@@ -81,7 +81,8 @@
             <span class="hud-corner hud-tr"></span>
             <span class="hud-corner hud-bl"></span>
             <span class="hud-corner hud-br"></span>
-            <div class="hud-id">SCENE&nbsp;01&nbsp;//&nbsp;ROSSO&nbsp;NOTTE</div>
+            <div class="hud-id" id="hudId">SCENE&nbsp;01&nbsp;//&nbsp;ROSSO&nbsp;NOTTE</div>
+            <div class="hud-cam"><span id="hudFocal">24</span>MM&nbsp;·&nbsp;ƒ/2.8&nbsp;·&nbsp;ISO&nbsp;100</div>
             <div class="hud-tc"><span id="hudTc">00:00</span><i>/</i>00:10</div>
             <div class="hud-lat">REC&nbsp;<b id="hudRec">●</b></div>
           </div>
@@ -98,9 +99,9 @@
             <div class="spec-hud">
               <p class="spec-hud-label" data-split="chars">TELEMETRY // LIVE</p>
               <div class="spec-hud-row">
-                <div class="spec-hud-item"><b>720</b><span>CV · MAX POWER</span></div>
-                <div class="spec-hud-item"><b>2.9</b><span>SEC · 0–100 KM/H</span></div>
-                <div class="spec-hud-item"><b>340</b><span>KM/H · V-MAX</span></div>
+                <div class="spec-hud-item"><b>720</b><span>CV · MAX POWER</span><span class="spec-hud-bar"><span class="spec-hud-fill" data-fill="0.92"></span></span></div>
+                <div class="spec-hud-item"><b>2.9</b><span>SEC · 0–100 KM/H</span><span class="spec-hud-bar"><span class="spec-hud-fill" data-fill="0.34"></span></span></div>
+                <div class="spec-hud-item"><b>340</b><span>KM/H · V-MAX</span><span class="spec-hud-bar"><span class="spec-hud-fill" data-fill="0.97"></span></span></div>
               </div>
             </div>
           </article>
@@ -139,6 +140,7 @@
            SPECIFICATION  (light editorial)
       ═══════════════════════════════════════════ -->
       <section class="spec" id="specification">
+        <div class="spec-ghost" aria-hidden="true">720</div>
         <div class="spec-head">
           <p class="eyebrow reveal-up">01 — SPECIFICATION</p>
           <h2 class="reveal-lines" data-split="lines">THE NUMBERS<br />BEHIND THE SILENCE</h2>
@@ -194,9 +196,10 @@
         </div>
         <div class="craft-copy">
           <p class="eyebrow reveal-up">02 — CRAFT</p>
+          <span class="craft-rule" aria-hidden="true"></span>
           <h2 class="reveal-lines" data-split="lines">BUILT IN THE<br />DARK HOURS</h2>
           <p class="reveal-up">The Notte edition wears its carbon in shadow. A cabin trimmed in obsidian leather, brushed titanium paddles, and a single thread of Rosso Corsa running the length of the seat — the only colour that remains after dusk.</p>
-          <div class="craft-tags reveal-up">
+          <div class="craft-tags">
             <span>Obsidian Leather</span>
             <span>Titanium Shift</span>
             <span>Rosso Thread</span>
@@ -209,6 +212,7 @@
            PERFORMANCE  (kinetic figures)
       ═══════════════════════════════════════════ -->
       <section class="performance" id="performance">
+        <div class="perf-ghost" aria-hidden="true">V8</div>
         <p class="eyebrow reveal-up">03 — PERFORMANCE</p>
         <div class="perf-grid">
           <div class="perf-cell">
