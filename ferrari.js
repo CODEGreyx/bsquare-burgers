@@ -225,7 +225,9 @@
     const progressBar = $("#filmProgress");
     const hudTc = $("#hudTc");
     const hudFocal = $("#hudFocal");
-    const hudId = $("#hudId");
+    const chapterNum = $("#chapterNum");
+    const chapterName = $("#chapterName");
+    const CHAPTERS = ["ARRIVAL", "COCKPIT", "SILHOUETTE", "TELEMETRY", "NOTTE"];
     const scrollCue = $("#scrollCue");
     const filmDuration = 10; // stable fallback; replaced by real metadata
 
@@ -285,14 +287,14 @@
     addBeat('[data-beat="4"]', 6.15, 7.7);
     addBeat('[data-beat="5"]', 8.3,  null);
 
-    // telemetry gauges fill with the scrub inside beat 2
-    const gaugeFills = $$('[data-beat="2"] .spec-hud-fill');
+    // telemetry lives in beat 4 — the drive; gauges fill with the scrub
+    const gaugeFills = $$('[data-beat="4"] .spec-hud-fill');
     if (gaugeFills.length) {
       tl.to(gaugeFills, {
         scaleX: (i, el) => parseFloat(el.dataset.fill) || 0.8,
         duration: 1.0, ease: "power2.out", stagger: 0.12,
-      }, 2.55);
-      tl.to(gaugeFills, { scaleX: 0, duration: 0.5, ease: "power2.in" }, 3.7);
+      }, 6.5);
+      tl.to(gaugeFills, { scaleX: 0, duration: 0.5, ease: "power2.in" }, 7.7);
     }
 
     // telemetry counters count WITH the scrub — reverse scroll counts down
@@ -302,16 +304,16 @@
         if (!numEl) return;
         const o = { v: 0 };
         const write = () => { numEl.textContent = o.v.toFixed(dec); };
-        tl.to(o, { v: target, duration: 1.15, ease: "power2.out", onUpdate: write }, 2.5 + i * 0.12);
-        tl.to(o, { v: 0, duration: 0.45, ease: "power2.in", onUpdate: write }, 3.72);
+        tl.to(o, { v: target, duration: 1.15, ease: "power2.out", onUpdate: write }, 6.45 + i * 0.12);
+        tl.to(o, { v: 0, duration: 0.45, ease: "power2.in", onUpdate: write }, 7.72);
       });
 
-    // focus reticle locks onto the car
+    // focus reticle locks onto the car during the drive
     const reticle = $(".tele-reticle");
     if (reticle) {
       gsap.set(reticle, { autoAlpha: 0, scale: 1.1 });
-      tl.to(reticle, { autoAlpha: 1, scale: 1, duration: 0.7, ease: "power3.out" }, 2.45);
-      tl.to(reticle, { autoAlpha: 0, scale: 1.06, duration: 0.45, ease: "power2.in" }, 3.66);
+      tl.to(reticle, { autoAlpha: 1, scale: 1, duration: 0.7, ease: "power3.out" }, 6.4);
+      tl.to(reticle, { autoAlpha: 0, scale: 1.06, duration: 0.45, ease: "power2.in" }, 7.66);
     }
 
     // cinema letterbox closes in as the film begins
@@ -338,9 +340,9 @@
       tl.to(".film-scrim--" + side, { opacity: 1, duration: 0.5 }, a);
       tl.to(".film-scrim--" + side, { opacity: 0, duration: 0.45 }, z);
     };
-    scrim("b", 2.3, 3.72);   // telemetry
-    scrim("l", 4.2, 5.68);   // silhouette
-    scrim("r", 6.2, 7.72);   // cockpit
+    scrim("r", 2.3, 3.72);   // cockpit copy (right)
+    scrim("l", 4.2, 5.68);   // silhouette (left)
+    scrim("b", 6.2, 7.72);   // telemetry (bottom, the drive)
 
     // depth drift — text layers track the scrub at different rates while
     // a beat holds, so the frame never feels frozen
@@ -375,16 +377,11 @@
         targetTime = self.progress * (dur - 0.05);
         if (progressBar) progressBar.style.right = (100 - self.progress * 100) + "%";
         if (hudTc) hudTc.textContent = fmtTime(self.progress * 10);
-        // live camera telemetry: lens creeps 24→70mm, slate tracks the scene
+        // live camera telemetry: lens creeps 24→70mm, chapter tracks the beat
         if (hudFocal) hudFocal.textContent = String(Math.round(24 + self.progress * 46));
-        if (hudId) {
-          const sc = Math.min(5, Math.floor(self.progress * 5) + 1);
-          hudId.textContent = "SCENE 0" + sc + " // ROSSO NOTTE";
-          const chNum = $("#chapterNum"), chName = $("#chapterName");
-          const chapters = ["ARRIVAL", "TELEMETRY", "SILHOUETTE", "COCKPIT", "NOTTE"];
-          if (chNum) chNum.textContent = "0" + sc;
-          if (chName) chName.textContent = chapters[sc - 1];
-        }
+        const sc = Math.min(5, Math.floor(self.progress * 5) + 1);
+        if (chapterNum) chapterNum.textContent = "0" + sc;
+        if (chapterName) chapterName.textContent = CHAPTERS[sc - 1];
         // velocity → motion blur + red bloom (premium, capped)
         const v = Math.abs(self.getVelocity());
         const norm = Math.min(1, v / 3500);
@@ -535,18 +532,7 @@
       });
     }
 
-    /* ═══════════════ NAV show / hide ═══════════════ */
-    const nav = $("#nav");
-    let lastY = 0;
-    ScrollTrigger.create({
-      start: 0, end: "max",
-      onUpdate: (self) => {
-        const y = self.scroll();
-        if (y > 120 && y > lastY) nav.classList.add("hide");
-        else nav.classList.remove("hide");
-        lastY = y;
-      },
-    });
+    /* nav stays put — it is the site header, always present */
 
     ScrollTrigger.refresh();
   }

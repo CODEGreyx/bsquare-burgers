@@ -243,7 +243,6 @@ img { display: block; max-width: 100%; }
   font-family: var(--f-mono); font-size: 0.6rem;
   letter-spacing: 0.22em; color: rgba(255, 255, 255, 0.72);
 }
-.hud-id { top: 2.6vh; left: 5.6vw; }
 .hud-tc { bottom: 2.6vh; left: 5.6vw; }
 .hud-tc i { color: rgba(255,255,255,0.4); font-style: normal; margin: 0 0.35em; }
 .hud-lat { bottom: 2.6vh; right: 5.6vw; }
@@ -453,7 +452,7 @@ img { display: block; max-width: 100%; }
 .spec {
   background: var(--paper);
   color: var(--ink);
-  padding: clamp(6rem, 14vh, 12rem) clamp(1.4rem, 6vw, 7rem);
+  padding: clamp(4rem, 9vh, 7rem) clamp(1.4rem, 6vw, 7rem);
 }
 .spec-head { max-width: 1100px; margin: 0 auto 0; }
 .spec-head .eyebrow { color: var(--red-deep); }
@@ -464,19 +463,19 @@ img { display: block; max-width: 100%; }
   margin: 1.2rem 0 0;
 }
 .spec-intro {
-  margin-top: 1.8rem; max-width: 54ch;
+  margin-top: 1.4rem; max-width: 54ch;
   font-size: clamp(0.95rem, 1.2vw, 1.1rem); font-weight: 300;
   color: #3a3a3c; line-height: 1.6;
 }
 .spec-table {
-  max-width: 1100px; margin: clamp(3rem, 7vw, 6rem) auto 0;
+  max-width: 1100px; margin: clamp(2rem, 4.5vw, 3.6rem) auto 0;
   border-top: 1px solid var(--line-dark);
 }
 .spec-line {
   display: grid;
   grid-template-columns: 4.5rem 1fr 1.1fr;
   align-items: baseline; gap: 1rem;
-  padding: clamp(1.3rem, 2.6vw, 2.1rem) 0.5rem;
+  padding: clamp(0.9rem, 1.7vw, 1.35rem) 0.5rem;
   border-bottom: 1px solid var(--line-dark);
   transition: background 0.4s var(--ease), padding-left 0.4s var(--ease);
 }
@@ -684,12 +683,12 @@ img { display: block; max-width: 100%; }
 
 /* HUD camera readout (mirrors the slate, live focal length) */
 .hud-cam {
-  position: absolute; top: 2.6vh; right: 5.6vw;
+  position: absolute; bottom: 2.6vh; right: calc(5.6vw + 4.8rem);
   font-family: var(--f-mono); font-size: 0.6rem;
   letter-spacing: 0.22em; color: rgba(255, 255, 255, 0.72);
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
-@media (max-width: 760px) { .hud-cam { display: none; } }
+@media (max-width: 1000px) { .hud-cam { display: none; } }
 
 /* telemetry gauge bars (film beat 2) */
 .spec-hud-bar {
