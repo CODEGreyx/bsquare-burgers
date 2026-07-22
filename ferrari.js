@@ -342,7 +342,7 @@
     };
     scrim("r", 2.3, 3.72);   // cockpit copy (right)
     scrim("l", 4.2, 5.68);   // silhouette (left)
-    scrim("b", 6.2, 7.72);   // telemetry (bottom, the drive)
+    scrim("r", 6.2, 7.72);   // telemetry (right, the drive)
 
     // depth drift — text layers track the scrub at different rates while
     // a beat holds, so the frame never feels frozen

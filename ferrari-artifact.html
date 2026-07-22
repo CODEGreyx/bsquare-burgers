@@ -431,8 +431,25 @@ img { display: block; max-width: 100%; }
   letter-spacing: 0.26em; color: var(--silver);
 }
 
+/* telemetry docked right \2014  the cockpit slot: right edge, centered */
+.beat--tele .tele {
+  border-left: 0; padding-left: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  padding-right: clamp(1.2rem, 2vw, 1.8rem);
+  text-align: right;
+}
+.beat--tele .tele-row {
+  flex-direction: column; align-items: flex-end;
+  gap: clamp(1.1rem, 2.2vh, 1.8rem);
+}
+.beat--tele .tele-item { align-items: flex-end; }
+.beat--tele .tele-item b { justify-content: flex-end; }
+.beat--tele .spec-hud-bar { margin-left: auto; }
+.beat--tele .spec-hud-fill { transform-origin: right; }
+
 /* focus reticle over the car during telemetry */
 .tele-reticle { position: absolute; inset: 26% 30% 32%; pointer-events: none; }
+.beat--tele .tele-reticle { inset: 26% 42% 32% 16%; }  /* car sits left of the column */
 .tele-reticle i {
   position: absolute; width: 15px; height: 15px;
   border: 1px solid rgba(255, 255, 255, 0.42);
@@ -467,30 +484,41 @@ img { display: block; max-width: 100%; }
 .spec {
   background: var(--paper);
   color: var(--ink);
-  padding: clamp(4rem, 9vh, 7rem) clamp(1.4rem, 6vw, 7rem);
+  padding: clamp(3.5rem, 9vh, 6rem) clamp(1.4rem, 6vw, 7rem);
+  display: flex; align-items: center;
+  min-height: 88vh;
 }
-.spec-head { max-width: 1100px; margin: 0 auto 0; }
+/* asymmetric editorial grid: head left, numbers right \2014  one viewport */
+.spec-inner {
+  display: grid; grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+  max-width: 1280px; margin: 0 auto; width: 100%;
+}
 .spec-head .eyebrow { color: var(--red-deep); }
 .spec-head h2 {
   font-family: var(--f-display); font-weight: 300;
-  font-size: clamp(2.4rem, 7vw, 6.4rem); line-height: 0.94;
+  font-size: clamp(2.2rem, 4.4vw, 4.2rem); line-height: 1.02;
   text-transform: uppercase; letter-spacing: -0.01em;
   margin: 1.2rem 0 0;
 }
 .spec-intro {
-  margin-top: 1.4rem; max-width: 54ch;
-  font-size: clamp(0.95rem, 1.2vw, 1.1rem); font-weight: 300;
+  margin-top: 1.4rem; max-width: 44ch;
+  font-size: clamp(0.9rem, 1.05vw, 1rem); font-weight: 300;
   color: #3a3a3c; line-height: 1.6;
 }
 .spec-table {
-  max-width: 1100px; margin: clamp(2rem, 4.5vw, 3.6rem) auto 0;
   border-top: 1px solid var(--line-dark);
+}
+@media (max-width: 860px) {
+  .spec { min-height: 0; }
+  .spec-inner { grid-template-columns: 1fr; gap: 2.4rem; }
 }
 .spec-line {
   display: grid;
-  grid-template-columns: 4.5rem 1fr 1.1fr;
+  grid-template-columns: 3.4rem 1fr 1.1fr;
   align-items: baseline; gap: 1rem;
-  padding: clamp(0.9rem, 1.7vw, 1.35rem) 0.5rem;
+  padding: clamp(0.75rem, 1.3vw, 1.05rem) 0.5rem;
   border-bottom: 1px solid var(--line-dark);
   transition: background 0.4s var(--ease), padding-left 0.4s var(--ease);
 }
@@ -504,7 +532,7 @@ img { display: block; max-width: 100%; }
 }
 .spec-val {
   font-family: var(--f-display); font-weight: 400;
-  font-size: clamp(1.2rem, 2.6vw, 2rem); text-align: right;
+  font-size: clamp(1.05rem, 1.9vw, 1.6rem); text-align: right;
   text-transform: uppercase; letter-spacing: 0.01em;
 }
 .spec-val b { font-weight: 500; font-variant-numeric: tabular-nums; }
@@ -893,7 +921,7 @@ img { display: block; max-width: 100%; }
           </article>
 
           <!-- &#x2500;&#x2500; BEAT 4 : LIVE TELEMETRY (the drive) &#x2500;&#x2500; -->
-          <article class="beat beat--specs" data-beat="4">
+          <article class="beat beat--right beat--tele" data-beat="4">
             <div class="tele">
               <span class="beat-rule" aria-hidden="true"></span>
               <p class="tele-label" data-split="chars">TELEMETRY // LIVE</p>
@@ -951,9 +979,10 @@ img { display: block; max-width: 100%; }
       &#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550; -->
       <section class="spec" id="specification">
         <div class="spec-ghost" aria-hidden="true">720</div>
+        <div class="spec-inner">
         <div class="spec-head">
           <p class="eyebrow reveal-up">01 &#x2014; SPECIFICATION</p>
-          <h2 class="reveal-lines" data-split="lines">THE NUMBERS<br />BEHIND THE SILENCE</h2>
+          <h2 class="reveal-lines" data-split="lines">THE NUMBERS<br />BEHIND<br />THE SILENCE</h2>
           <p class="spec-intro reveal-up">A naturally aggressive 3.9-litre twin-turbo V8, tuned for the night. Figures are concept targets &#x2014; a study in what restraint at full throttle looks like.</p>
         </div>
 
@@ -993,6 +1022,7 @@ img { display: block; max-width: 100%; }
             <span class="spec-key">Dry Weight</span>
             <span class="spec-val"><b data-count="1330" data-suffix="">0</b>&nbsp;kg</span>
           </div>
+        </div>
         </div>
       </section>
 
@@ -1421,7 +1451,7 @@ img { display: block; max-width: 100%; }
     };
     scrim("r", 2.3, 3.72);   // cockpit copy (right)
     scrim("l", 4.2, 5.68);   // silhouette (left)
-    scrim("b", 6.2, 7.72);   // telemetry (bottom, the drive)
+    scrim("r", 6.2, 7.72);   // telemetry (right, the drive)
 
     // depth drift — text layers track the scrub at different rates while
     // a beat holds, so the frame never feels frozen
