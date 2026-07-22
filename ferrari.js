@@ -149,7 +149,10 @@
     });
     $$(".reveal-up, .reveal-lines").forEach((el) => el.classList.add("is-in"));
     $$(".spec-line").forEach((r) => r.classList.add("is-drawn"));
-    $$(".spec-hud-fill, .craft-rule").forEach((el) => (el.style.transform = "none"));
+    $$(".spec-hud-fill, .craft-rule, .beat-rule").forEach((el) => (el.style.transform = "none"));
+    // static telemetry values when the film can't scrub
+    const teleVals = { "#teleNum1": "720", "#teleNum2": "2.9", "#teleNum3": "340" };
+    Object.keys(teleVals).forEach((k) => { const el = $(k); if (el) el.textContent = teleVals[k]; });
     // let the film play softly on loop
     video.loop = true;
     video.muted = true;
@@ -235,7 +238,10 @@
       const el = $(sel);
       if (!el) return;
       const inners = $$(".line-inner, .word-inner, .char-inner", el);
-      const extras = $$(".spec-hud-item", el);   // non-split content (beat 2 numbers)
+      const extras = $$(".tele-item, .beat-index li", el);  // non-split content
+      const rule = $(".beat-rule", el);
+      const ruleProp = (el.classList.contains("beat--center") || el.classList.contains("beat--final"))
+        ? "scaleY" : "scaleX";
       const btn = $(".beat-btn", el);
 
       // initial hidden state — container gated with autoAlpha so ONLY the
@@ -243,11 +249,13 @@
       gsap.set(el, { autoAlpha: 0, filter: "blur(6px)" });
       gsap.set(inners, { yPercent: 115 });
       gsap.set(extras, { autoAlpha: 0, y: 26 });
+      if (rule) gsap.set(rule, { [ruleProp]: 0 });
       if (btn) gsap.set(btn, { autoAlpha: 0, y: 20 });
 
       // IN — snap visibility on, then let masks carry the motion
       tl.to(el, { autoAlpha: 1, duration: 0.12 }, tIn);
       tl.to(el, { filter: "blur(0px)", duration: 0.7, ease: "power2.out" }, tIn);
+      if (rule) tl.to(rule, { [ruleProp]: 1, duration: 0.7, ease: "power3.out" }, tIn + 0.05);
       tl.to(inners, {
         yPercent: 0, duration: 0.9, ease: "power3.out",
         stagger: { each: 0.045, from: "start" },
@@ -287,13 +295,60 @@
       tl.to(gaugeFills, { scaleX: 0, duration: 0.5, ease: "power2.in" }, 3.7);
     }
 
+    // telemetry counters count WITH the scrub — reverse scroll counts down
+    [["#teleNum1", 720, 0], ["#teleNum2", 2.9, 1], ["#teleNum3", 340, 0]]
+      .forEach(([sel, target, dec], i) => {
+        const numEl = $(sel);
+        if (!numEl) return;
+        const o = { v: 0 };
+        const write = () => { numEl.textContent = o.v.toFixed(dec); };
+        tl.to(o, { v: target, duration: 1.15, ease: "power2.out", onUpdate: write }, 2.5 + i * 0.12);
+        tl.to(o, { v: 0, duration: 0.45, ease: "power2.in", onUpdate: write }, 3.72);
+      });
+
+    // focus reticle locks onto the car
+    const reticle = $(".tele-reticle");
+    if (reticle) {
+      gsap.set(reticle, { autoAlpha: 0, scale: 1.1 });
+      tl.to(reticle, { autoAlpha: 1, scale: 1, duration: 0.7, ease: "power3.out" }, 2.45);
+      tl.to(reticle, { autoAlpha: 0, scale: 1.06, duration: 0.45, ease: "power2.in" }, 3.66);
+    }
+
+    // cinema letterbox closes in as the film begins
+    gsap.set(".film-bars .bar", { scaleY: 0 });
+    tl.to(".film-bars .bar", { scaleY: 1, duration: 0.9, ease: "power3.out" }, 0.05);
+
+    // camera choreography — the footage settles, then pushes in per beat
+    gsap.set("#filmMedia", { scale: 1.09, transformOrigin: "50% 55%" });
+    tl.to("#filmMedia", { scale: 1.0, duration: 1.7, ease: "power2.out" }, 0);
+    tl.to("#filmMedia", { scale: 1.05, duration: 1.3, ease: "power1.inOut" }, 2.3);
+    tl.to("#filmMedia", { scale: 1.0, duration: 1.2, ease: "power1.inOut" }, 3.8);
+    tl.to("#filmMedia", { scale: 1.06, duration: 1.4, ease: "power1.inOut" }, 6.2);
+    tl.to("#filmMedia", { scale: 1.0, duration: 1.4, ease: "power1.inOut" }, 7.85);
+
+    // anamorphic light sweeps between beats
+    [1.82, 3.92, 5.85, 7.92].forEach((t) => {
+      tl.fromTo("#filmSweep", { xPercent: -55, opacity: 0 },
+        { xPercent: 55, opacity: 1, duration: 0.55, ease: "power2.inOut" }, t);
+      tl.to("#filmSweep", { opacity: 0, duration: 0.18 }, t + 0.42);
+    });
+
+    // directional scrims grade the frame behind each text zone
+    const scrim = (side, a, z) => {
+      tl.to(".film-scrim--" + side, { opacity: 1, duration: 0.5 }, a);
+      tl.to(".film-scrim--" + side, { opacity: 0, duration: 0.45 }, z);
+    };
+    scrim("b", 2.3, 3.72);   // telemetry
+    scrim("l", 4.2, 5.68);   // silhouette
+    scrim("r", 6.2, 7.72);   // cockpit
+
     // depth drift — text layers track the scrub at different rates while
     // a beat holds, so the frame never feels frozen
     [["1", 0.15, 1.7], ["2", 2.2, 3.7], ["3", 4.15, 5.65], ["4", 6.15, 7.7], ["5", 8.3, 10]]
       .forEach(([b, a, z]) => {
         const beat = $(`[data-beat="${b}"]`);
         if (!beat) return;
-        const t = $(".beat-title", beat) || $(".spec-hud", beat);
+        const t = $(".beat-title", beat) || $(".tele", beat);
         const n = $(".beat-note", beat);
         const d = z - a;
         if (t) tl.fromTo(t, { y: 18 }, { y: -18, duration: d, ease: "none" }, a);
@@ -325,6 +380,10 @@
         if (hudId) {
           const sc = Math.min(5, Math.floor(self.progress * 5) + 1);
           hudId.textContent = "SCENE 0" + sc + " // ROSSO NOTTE";
+          const chNum = $("#chapterNum"), chName = $("#chapterName");
+          const chapters = ["ARRIVAL", "TELEMETRY", "SILHOUETTE", "COCKPIT", "NOTTE"];
+          if (chNum) chNum.textContent = "0" + sc;
+          if (chName) chName.textContent = chapters[sc - 1];
         }
         // velocity → motion blur + red bloom (premium, capped)
         const v = Math.abs(self.getVelocity());

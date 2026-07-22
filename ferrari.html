@@ -75,6 +75,20 @@
             <div class="film-bloom" id="filmBloom" aria-hidden="true"></div>
           </div>
 
+          <!-- directional scrims (per-beat depth grading) -->
+          <div class="film-scrim film-scrim--l" aria-hidden="true"></div>
+          <div class="film-scrim film-scrim--r" aria-hidden="true"></div>
+          <div class="film-scrim film-scrim--b" aria-hidden="true"></div>
+
+          <!-- anamorphic light sweep -->
+          <div class="film-sweep" id="filmSweep" aria-hidden="true"></div>
+
+          <!-- cinema letterbox -->
+          <div class="film-bars" aria-hidden="true">
+            <span class="bar bar--t"></span>
+            <span class="bar bar--b"></span>
+          </div>
+
           <!-- HUD frame -->
           <div class="hud" aria-hidden="true">
             <span class="hud-corner hud-tl"></span>
@@ -89,25 +103,43 @@
 
           <!-- ── BEAT 1 : FRONT ── -->
           <article class="beat beat--center" data-beat="1">
+            <span class="beat-rule" aria-hidden="true"></span>
             <p class="beat-kicker" data-split="chars">MID-ENGINE · V8 · ROSSO NOTTE</p>
             <h1 class="beat-title" data-split="lines">BEYOND<br />PERFORMANCE</h1>
             <p class="beat-note" data-split="words">Not a car. A discipline of speed rendered in aluminium and light.</p>
           </article>
 
-          <!-- ── BEAT 2 : SPEC APPROACH ── -->
+          <!-- ── BEAT 2 : LIVE TELEMETRY ── -->
           <article class="beat beat--specs" data-beat="2">
-            <div class="spec-hud">
-              <p class="spec-hud-label" data-split="chars">TELEMETRY // LIVE</p>
-              <div class="spec-hud-row">
-                <div class="spec-hud-item"><b>720</b><span>CV · MAX POWER</span><span class="spec-hud-bar"><span class="spec-hud-fill" data-fill="0.92"></span></span></div>
-                <div class="spec-hud-item"><b>2.9</b><span>SEC · 0–100 KM/H</span><span class="spec-hud-bar"><span class="spec-hud-fill" data-fill="0.34"></span></span></div>
-                <div class="spec-hud-item"><b>340</b><span>KM/H · V-MAX</span><span class="spec-hud-bar"><span class="spec-hud-fill" data-fill="0.97"></span></span></div>
+            <div class="tele">
+              <span class="beat-rule" aria-hidden="true"></span>
+              <p class="tele-label" data-split="chars">TELEMETRY // LIVE</p>
+              <div class="tele-row">
+                <div class="tele-item">
+                  <b><span class="tele-num" id="teleNum1">0</span><i>CV</i></b>
+                  <span class="tele-cap">MAX POWER</span>
+                  <span class="spec-hud-bar"><span class="spec-hud-fill" data-fill="0.92"></span></span>
+                </div>
+                <div class="tele-item">
+                  <b><span class="tele-num" id="teleNum2">0.0</span><i>SEC</i></b>
+                  <span class="tele-cap">0–100 KM/H</span>
+                  <span class="spec-hud-bar"><span class="spec-hud-fill" data-fill="0.34"></span></span>
+                </div>
+                <div class="tele-item">
+                  <b><span class="tele-num" id="teleNum3">0</span><i>KM/H</i></b>
+                  <span class="tele-cap">V-MAX</span>
+                  <span class="spec-hud-bar"><span class="spec-hud-fill" data-fill="0.97"></span></span>
+                </div>
               </div>
+            </div>
+            <div class="tele-reticle" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><em></em>
             </div>
           </article>
 
           <!-- ── BEAT 3 : SIDE REVEAL ── -->
           <article class="beat beat--left" data-beat="3">
+            <span class="beat-rule" aria-hidden="true"></span>
             <p class="beat-kicker" data-split="chars">THE SILHOUETTE</p>
             <h2 class="beat-title" data-split="lines">SCULPTED<br />BY VELOCITY</h2>
             <p class="beat-note" data-split="words">Every surface earns its place in the airstream — nothing decorative, everything intentional.</p>
@@ -115,13 +147,20 @@
 
           <!-- ── BEAT 4 : INTERIOR / CRAFT ── -->
           <article class="beat beat--right" data-beat="4">
+            <span class="beat-rule" aria-hidden="true"></span>
             <p class="beat-kicker" data-split="chars">THE COCKPIT</p>
             <h2 class="beat-title" data-split="lines">CRAFTED<br />FOR THE DRIVER</h2>
             <p class="beat-note" data-split="words">Hand-stitched leather, machined aluminium, a wheel that disappears into instinct.</p>
+            <ul class="beat-index">
+              <li><i>01</i><span>OBSIDIAN LEATHER</span></li>
+              <li><i>02</i><span>TITANIUM SHIFT</span></li>
+              <li><i>03</i><span>ROSSO THREAD</span></li>
+            </ul>
           </article>
 
           <!-- ── BEAT 5 : FINAL FRAME ── -->
           <article class="beat beat--final" data-beat="5">
+            <span class="beat-rule" aria-hidden="true"></span>
             <p class="beat-kicker" data-split="chars">CONCEPT · 2026</p>
             <h2 class="beat-title beat-name" data-split="lines">F8&nbsp;·&nbsp;NOTTE</h2>
             <p class="beat-note" data-split="words">The night edition. Limited by intent, not by count.</p>
@@ -131,6 +170,7 @@
             </a>
           </article>
 
+          <div class="film-chapter" aria-hidden="true"><span id="chapterNum">01</span>&nbsp;—&nbsp;<span id="chapterName">ARRIVAL</span></div>
           <div class="film-progress" aria-hidden="true"><span id="filmProgress"></span></div>
           <div class="scroll-cue" id="scrollCue"><span>SCROLL</span><i></i></div>
         </div>
