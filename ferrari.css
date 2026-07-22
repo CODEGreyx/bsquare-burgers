@@ -416,25 +416,18 @@ img { display: block; max-width: 100%; }
   letter-spacing: 0.26em; color: var(--silver);
 }
 
-/* telemetry docked right — the cockpit slot: right edge, centered */
-.beat--tele .tele {
-  border-left: 0; padding-left: 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.18);
-  padding-right: clamp(1.2rem, 2vw, 1.8rem);
-  text-align: right;
+/* telemetry docked right — the cockpit slot, numbers in a horizontal row.
+   Full-bleed container so the reticle's frame is the whole viewport. */
+.beat--tele {
+  inset: 0; transform: none;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding: 0 clamp(1.4rem, 6vw, 7rem);
+  text-align: left; max-width: none;
 }
-.beat--tele .tele-row {
-  flex-direction: column; align-items: flex-end;
-  gap: clamp(1.1rem, 2.2vh, 1.8rem);
-}
-.beat--tele .tele-item { align-items: flex-end; }
-.beat--tele .tele-item b { justify-content: flex-end; }
-.beat--tele .spec-hud-bar { margin-left: auto; }
-.beat--tele .spec-hud-fill { transform-origin: right; }
 
 /* focus reticle over the car during telemetry */
 .tele-reticle { position: absolute; inset: 26% 30% 32%; pointer-events: none; }
-.beat--tele .tele-reticle { inset: 26% 42% 32% 16%; }  /* car sits left of the column */
+.beat--tele .tele-reticle { inset: 28% 40% 34% 26%; }  /* frames the car, clear of the numbers */
 .tele-reticle i {
   position: absolute; width: 15px; height: 15px;
   border: 1px solid rgba(255, 255, 255, 0.42);
