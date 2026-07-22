@@ -284,7 +284,7 @@
     addBeat('[data-beat="1"]', 0.15, 1.7);
     addBeat('[data-beat="2"]', 2.2,  3.7);
     addBeat('[data-beat="3"]', 4.15, 5.65);
-    addBeat('[data-beat="4"]', 6.15, 7.7);
+    addBeat('[data-beat="4"]', 6.7, 7.85);
     addBeat('[data-beat="5"]', 8.3,  null);
 
     // telemetry lives in beat 4 — the drive; gauges fill with the scrub
@@ -293,8 +293,8 @@
       tl.to(gaugeFills, {
         scaleX: (i, el) => parseFloat(el.dataset.fill) || 0.8,
         duration: 1.0, ease: "power2.out", stagger: 0.12,
-      }, 6.5);
-      tl.to(gaugeFills, { scaleX: 0, duration: 0.5, ease: "power2.in" }, 7.7);
+      }, 7.0);
+      tl.to(gaugeFills, { scaleX: 0, duration: 0.5, ease: "power2.in" }, 7.85);
     }
 
     // telemetry counters count WITH the scrub — reverse scroll counts down
@@ -304,16 +304,16 @@
         if (!numEl) return;
         const o = { v: 0 };
         const write = () => { numEl.textContent = o.v.toFixed(dec); };
-        tl.to(o, { v: target, duration: 1.15, ease: "power2.out", onUpdate: write }, 6.45 + i * 0.12);
-        tl.to(o, { v: 0, duration: 0.45, ease: "power2.in", onUpdate: write }, 7.72);
+        tl.to(o, { v: target, duration: 1.15, ease: "power2.out", onUpdate: write }, 6.95 + i * 0.12);
+        tl.to(o, { v: 0, duration: 0.45, ease: "power2.in", onUpdate: write }, 7.9);
       });
 
     // focus reticle locks onto the car during the drive
     const reticle = $(".tele-reticle");
     if (reticle) {
       gsap.set(reticle, { autoAlpha: 0, scale: 1.1 });
-      tl.to(reticle, { autoAlpha: 1, scale: 1, duration: 0.7, ease: "power3.out" }, 6.4);
-      tl.to(reticle, { autoAlpha: 0, scale: 1.06, duration: 0.45, ease: "power2.in" }, 7.66);
+      tl.to(reticle, { autoAlpha: 1, scale: 1, duration: 0.7, ease: "power3.out" }, 6.9);
+      tl.to(reticle, { autoAlpha: 0, scale: 1.06, duration: 0.45, ease: "power2.in" }, 7.82);
     }
 
     // cinema letterbox closes in as the film begins
@@ -325,7 +325,7 @@
     tl.to("#filmMedia", { scale: 1.0, duration: 1.7, ease: "power2.out" }, 0);
     tl.to("#filmMedia", { scale: 1.05, duration: 1.3, ease: "power1.inOut" }, 2.3);
     tl.to("#filmMedia", { scale: 1.0, duration: 1.2, ease: "power1.inOut" }, 3.8);
-    tl.to("#filmMedia", { scale: 1.06, duration: 1.4, ease: "power1.inOut" }, 6.2);
+    tl.to("#filmMedia", { scale: 1.06, duration: 1.15, ease: "power1.inOut" }, 6.7);
     tl.to("#filmMedia", { scale: 1.0, duration: 1.4, ease: "power1.inOut" }, 7.85);
 
     // anamorphic light sweeps between beats
@@ -342,11 +342,11 @@
     };
     scrim("r", 2.3, 3.72);   // cockpit copy (right)
     scrim("l", 4.2, 5.68);   // silhouette (left)
-    scrim("r", 6.2, 7.72);   // telemetry (right, the drive)
+    scrim("r", 6.75, 7.9);   // telemetry (right, the drive)
 
     // depth drift — text layers track the scrub at different rates while
     // a beat holds, so the frame never feels frozen
-    [["1", 0.15, 1.7], ["2", 2.2, 3.7], ["3", 4.15, 5.65], ["4", 6.15, 7.7], ["5", 8.3, 10]]
+    [["1", 0.15, 1.7], ["2", 2.2, 3.7], ["3", 4.15, 5.65], ["4", 6.7, 7.85], ["5", 8.3, 10]]
       .forEach(([b, a, z]) => {
         const beat = $(`[data-beat="${b}"]`);
         if (!beat) return;
