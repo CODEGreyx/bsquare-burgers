@@ -292,9 +292,8 @@
     if (gaugeFills.length) {
       tl.to(gaugeFills, {
         scaleX: (i, el) => parseFloat(el.dataset.fill) || 0.8,
-        duration: 1.0, ease: "power2.out", stagger: 0.12,
+        duration: 0.6, ease: "power2.out", stagger: 0.1,
       }, 7.0);
-      tl.to(gaugeFills, { scaleX: 0, duration: 0.5, ease: "power2.in" }, 7.85);
     }
 
     // telemetry counters count WITH the scrub — reverse scroll counts down
@@ -304,8 +303,7 @@
         if (!numEl) return;
         const o = { v: 0 };
         const write = () => { numEl.textContent = o.v.toFixed(dec); };
-        tl.to(o, { v: target, duration: 1.15, ease: "power2.out", onUpdate: write }, 6.95 + i * 0.12);
-        tl.to(o, { v: 0, duration: 0.45, ease: "power2.in", onUpdate: write }, 7.9);
+        tl.to(o, { v: target, duration: 0.85, ease: "power2.out", onUpdate: write }, 6.95 + i * 0.1);
       });
 
     // focus reticle locks onto the car during the drive
