@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>RAVEN R9 · Notturno — Own the Night</title>
+    <meta name="description" content="A cinematic concept experience. The RAVEN R9 · Notturno — sculpted by velocity, driven by scroll." />
+    <meta name="theme-color" content="#000000" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <meta property="og:title" content="RAVEN R9 · Notturno — Own the Night" />
+    <meta property="og:description" content="A cinematic scroll-driven concept film." />
+    <meta property="og:image" content="/public/raven-poster.jpg" />
+    <meta property="og:type" content="website" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Antonio:wght@200;300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" as="image" href="/public/raven-poster.jpg" />
+    <link rel="preload" as="fetch" href="/public/raven-arrival.mp4" type="video/mp4" />
+    <link rel="preload" as="fetch" href="/public/raven-launch.mp4" type="video/mp4" />
+    <link rel="stylesheet" href="raven.css?v=1" />
+  </head>
+
+  <body class="raven">
+    <!-- ═══ PRELOADER ═══ -->
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="loader-inner">
+        <div class="loader-word">RAVEN</div>
+        <div class="loader-line"><span id="loaderBar"></span></div>
+        <div class="loader-meta">
+          <span id="loaderPct">0</span><span>%</span>
+          <span class="loader-tag">STREAMING FILM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ NAV ═══ -->
+    <header class="nav" id="nav">
+      <a class="nav-brand" href="#top" aria-label="Raven">
+        <span class="nav-mark">RAVEN</span>
+        <span class="nav-model">R9&nbsp;·&nbsp;NOTTURNO</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#specification">Specification</a>
+        <a href="#craft">Engineering</a>
+        <a href="#performance">Performance</a>
+      </nav>
+      <a href="#configure" class="nav-cta">Configure</a>
+    </header>
+
+    <main id="top">
+      <!-- ═══════════════════════════════════════════
+           THE SCROLL FILM  (pinned, frame-scrubbed, two reels)
+      ═══════════════════════════════════════════ -->
+      <section class="film" id="film" aria-label="Raven R9 Notturno — concept film">
+        <div class="film-stage" id="filmStage">
+          <div class="film-media" id="filmMedia">
+            <img class="film-poster" id="filmPoster" src="/public/raven-poster.jpg" alt="Raven R9 Notturno emerging from fog" />
+            <video
+              class="film-video"
+              id="filmVideoA"
+              data-clip="a"
+              muted
+              playsinline
+              webkit-playsinline
+              preload="auto"
+              disablepictureinpicture
+              aria-hidden="true"
+            ></video>
+            <video
+              class="film-video"
+              id="filmVideoB"
+              data-clip="b"
+              muted
+              playsinline
+              webkit-playsinline
+              preload="auto"
+              disablepictureinpicture
+              aria-hidden="true"
+            ></video>
+            <div class="film-grain" aria-hidden="true"></div>
+            <div class="film-vignette" aria-hidden="true"></div>
+            <div class="film-bloom" id="filmBloom" aria-hidden="true"></div>
+            <div class="film-cutflash" id="filmCutflash" aria-hidden="true"></div>
+          </div>
+
+          <!-- directional scrims (per-beat depth grading) -->
+          <div class="film-scrim film-scrim--l" aria-hidden="true"></div>
+          <div class="film-scrim film-scrim--r" aria-hidden="true"></div>
+          <div class="film-scrim film-scrim--b" aria-hidden="true"></div>
+
+          <!-- anamorphic light sweep -->
+          <div class="film-sweep" id="filmSweep" aria-hidden="true"></div>
+
+          <!-- cinema letterbox -->
+          <div class="film-bars" aria-hidden="true">
+            <span class="bar bar--t"></span>
+            <span class="bar bar--b"></span>
+          </div>
+
+          <!-- HUD frame -->
+          <div class="hud" aria-hidden="true">
+            <span class="hud-corner hud-tl"></span>
+            <span class="hud-corner hud-tr"></span>
+            <span class="hud-corner hud-bl"></span>
+            <span class="hud-corner hud-br"></span>
+            <div class="hud-cam"><span id="hudFocal">24</span>MM&nbsp;·&nbsp;ƒ/1.8&nbsp;·&nbsp;ISO&nbsp;400</div>
+            <div class="hud-lat">REC&nbsp;<b id="hudRec">●</b></div>
+          </div>
+
+          <!-- ── BEAT 1 : ARRIVAL (clip A — wide, fog) ── -->
+          <article class="beat beat--center" data-beat="1">
+            <span class="beat-rule" aria-hidden="true"></span>
+            <p class="beat-kicker" data-split="chars">CARBON TWIN · MIDNIGHT SPEC</p>
+            <h1 class="beat-title" data-split="lines">OWN THE<br />NIGHT</h1>
+            <p class="beat-note" data-split="words">Not a machine. A silhouette that answers only to throttle.</p>
+          </article>
+
+          <!-- ── BEAT 2 : IGNITION (clip A — headlights fire) ── -->
+          <article class="beat beat--right" data-beat="2">
+            <span class="beat-rule" aria-hidden="true"></span>
+            <p class="beat-kicker" data-split="chars">IGNITION</p>
+            <h2 class="beat-title" data-split="lines">EYES OPEN<br />IN THE DARK</h2>
+            <p class="beat-note" data-split="words">Twin lamps, one warning. The night was never asking permission.</p>
+          </article>
+
+          <!-- ── BEAT 3 : THE SILHOUETTE (clip B — profile) ── -->
+          <article class="beat beat--left" data-beat="3">
+            <span class="beat-rule" aria-hidden="true"></span>
+            <p class="beat-kicker" data-split="chars">THE SILHOUETTE</p>
+            <h2 class="beat-title" data-split="lines">SCULPTED<br />BY VELOCITY</h2>
+            <p class="beat-note" data-split="words">Every panel argues with the wind and wins.</p>
+          </article>
+
+          <!-- ── BEAT 4 : LIVE TELEMETRY (clip B — the launch) ── -->
+          <article class="beat beat--right beat--tele" data-beat="4">
+            <div class="tele">
+              <span class="beat-rule" aria-hidden="true"></span>
+              <p class="tele-label" data-split="chars">TELEMETRY // LIVE</p>
+              <div class="tele-row">
+                <div class="tele-item">
+                  <b><span class="tele-num" id="teleNum1">0</span><i>CV</i></b>
+                  <span class="tele-cap">MAX POWER</span>
+                  <span class="spec-hud-bar"><span class="spec-hud-fill" data-fill="0.85"></span></span>
+                </div>
+                <div class="tele-item">
+                  <b><span class="tele-num" id="teleNum2">0.0</span><i>SEC</i></b>
+                  <span class="tele-cap">0–100 KM/H</span>
+                  <span class="spec-hud-bar"><span class="spec-hud-fill" data-fill="0.3"></span></span>
+                </div>
+                <div class="tele-item">
+                  <b><span class="tele-num" id="teleNum3">0</span><i>KM/H</i></b>
+                  <span class="tele-cap">V-MAX</span>
+                  <span class="spec-hud-bar"><span class="spec-hud-fill" data-fill="0.94"></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="tele-reticle" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><em></em>
+            </div>
+          </article>
+
+          <!-- ── BEAT 5 : FINAL FRAME (clip B — departure) ── -->
+          <article class="beat beat--final" data-beat="5">
+            <span class="beat-rule" aria-hidden="true"></span>
+            <p class="beat-kicker" data-split="chars">CONCEPT · 2026</p>
+            <h2 class="beat-title beat-name" data-split="lines">RAVEN&nbsp;·&nbsp;R9</h2>
+            <p class="beat-note" data-split="words">One bike. One night. No second thoughts.</p>
+            <a href="#configure" class="beat-btn">
+              <span>CONFIGURE YOURS</span>
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </article>
+
+          <div class="film-chapter" aria-hidden="true"><span id="chapterNum">01</span>&nbsp;—&nbsp;<span id="chapterName">ARRIVAL</span></div>
+          <div class="film-progress" aria-hidden="true"><span id="filmProgress"></span></div>
+          <div class="scroll-cue" id="scrollCue"><span>SCROLL</span><i></i></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           SPECIFICATION  (light editorial)
+      ═══════════════════════════════════════════ -->
+      <section class="spec" id="specification">
+        <div class="spec-ghost" aria-hidden="true">220</div>
+        <div class="spec-inner">
+        <div class="spec-head">
+          <p class="eyebrow reveal-up">01 — SPECIFICATION</p>
+          <h2 class="reveal-lines" data-split="lines">THE NUMBERS<br />BEHIND<br />THE SILENCE</h2>
+          <p class="spec-intro reveal-up">A concept twin-cylinder platform, tuned for the hour after midnight. Figures are concept targets — a study in what restraint at full throttle looks like.</p>
+        </div>
+
+        <div class="spec-table">
+          <div class="spec-line">
+            <span class="spec-idx">/01</span>
+            <span class="spec-key">Engine</span>
+            <span class="spec-val" data-split="words">999cc Inline-Four</span>
+          </div>
+          <div class="spec-line">
+            <span class="spec-idx">/02</span>
+            <span class="spec-key">Maximum Power</span>
+            <span class="spec-val"><b data-count="220" data-suffix="">0</b>&nbsp;CV @ 11000 rpm</span>
+          </div>
+          <div class="spec-line">
+            <span class="spec-idx">/03</span>
+            <span class="spec-key">Maximum Torque</span>
+            <span class="spec-val"><b data-count="118" data-suffix="">0</b>&nbsp;Nm</span>
+          </div>
+          <div class="spec-line">
+            <span class="spec-idx">/04</span>
+            <span class="spec-key">0 – 100 km/h</span>
+            <span class="spec-val"><b data-count="2.6" data-dec="1" data-suffix="">0</b>&nbsp;s</span>
+          </div>
+          <div class="spec-line">
+            <span class="spec-idx">/05</span>
+            <span class="spec-key">0 – 200 km/h</span>
+            <span class="spec-val"><b data-count="6.4" data-dec="1" data-suffix="">0</b>&nbsp;s</span>
+          </div>
+          <div class="spec-line">
+            <span class="spec-idx">/06</span>
+            <span class="spec-key">Top Speed</span>
+            <span class="spec-val"><b data-count="310" data-suffix="">0</b>&nbsp;km/h</span>
+          </div>
+          <div class="spec-line">
+            <span class="spec-idx">/07</span>
+            <span class="spec-key">Dry Weight</span>
+            <span class="spec-val"><b data-count="198" data-suffix="">0</b>&nbsp;kg</span>
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           ENGINEERING  (dark, full-bleed)
+      ═══════════════════════════════════════════ -->
+      <section class="craft" id="craft">
+        <div class="craft-media">
+          <img src="/public/raven-engineering.jpg" alt="Raven R9 Notturno, headlamps lit in the fog" />
+          <div class="craft-media-grain"></div>
+        </div>
+        <div class="craft-copy">
+          <p class="eyebrow reveal-up">02 — ENGINEERING</p>
+          <span class="craft-rule" aria-hidden="true"></span>
+          <h2 class="reveal-lines" data-split="lines">BALANCED AT<br />EVERY LEAN</h2>
+          <p class="reveal-up">An aluminium twin-spar chassis, tuned for a single purpose: disappear beneath you. Carbon bodywork, forged wheels, and a titanium system that exhales more than it shouts.</p>
+          <div class="craft-tags">
+            <span>Forged Aluminium</span>
+            <span>Carbon Bodywork</span>
+            <span>Titanium Exhaust</span>
+            <span>Adaptive Suspension</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           PERFORMANCE  (kinetic figures)
+      ═══════════════════════════════════════════ -->
+      <section class="performance" id="performance">
+        <div class="perf-ghost" aria-hidden="true">R9</div>
+        <p class="eyebrow reveal-up">03 — PERFORMANCE</p>
+        <div class="perf-grid">
+          <div class="perf-cell">
+            <b class="perf-num"><span data-count="2.6" data-dec="1">0</span></b>
+            <span class="perf-unit">seconds</span>
+            <span class="perf-desc">Standstill to 100 km/h. The horizon arrives before your exhale finishes.</span>
+          </div>
+          <div class="perf-cell">
+            <b class="perf-num"><span data-count="310">0</span></b>
+            <span class="perf-unit">km/h</span>
+            <span class="perf-desc">Terminal velocity, reached where the tarmac stops asking questions.</span>
+          </div>
+          <div class="perf-cell">
+            <b class="perf-num"><span data-count="220">0</span></b>
+            <span class="perf-unit">horsepower</span>
+            <span class="perf-desc">Two hundred and twenty reasons to respect the throttle.</span>
+          </div>
+        </div>
+        <p class="perf-foot reveal-up">Concept figures. Emotional accuracy guaranteed.</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           CONFIGURE CTA  (cinematic close)
+      ═══════════════════════════════════════════ -->
+      <section class="configure" id="configure">
+        <div class="configure-bg" aria-hidden="true">
+          <img src="/public/raven-configure.jpg" alt="" />
+          <div class="configure-veil"></div>
+          <div class="configure-grain"></div>
+        </div>
+        <div class="configure-inner">
+          <p class="eyebrow reveal-up">THE INVITATION</p>
+          <h2 class="configure-title reveal-lines" data-split="lines">BUILD YOUR<br />RAVEN R9</h2>
+          <p class="configure-sub reveal-up">Specification opens for a limited allocation. Choose your finish, your exhaust note, your hour of the night — and reserve the dark.</p>
+          <div class="configure-actions reveal-up">
+            <a href="#top" class="btn btn-primary">CONFIGURE YOURS</a>
+            <a href="#specification" class="btn btn-ghost">REVIEW SPECIFICATION</a>
+          </div>
+        </div>
+        <footer class="foot">
+          <span class="foot-mark">RAVEN</span>
+          <span class="foot-note">Concept experience · Scroll-driven film study</span>
+          <span class="foot-year">MMXXVI</span>
+        </footer>
+      </section>
+    </main>
+
+    <script src="vendor/gsap.min.js"></script>
+    <script src="vendor/ScrollTrigger.min.js"></script>
+    <script src="vendor/lenis.min.js"></script>
+    <script src="raven.js?v=1"></script>
+  </body>
+</html>
