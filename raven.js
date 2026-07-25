@@ -516,6 +516,26 @@
       });
     });
 
+    const perfImg = $(".perf-media img");
+    if (perfImg) {
+      gsap.fromTo(perfImg, { yPercent: -6, scale: 1.05 }, {
+        yPercent: 6, ease: "none",
+        scrollTrigger: { trigger: ".performance", start: "top bottom", end: "bottom top", scrub: true },
+      });
+    }
+    const perfRule = $(".perf-rule span");
+    if (perfRule) {
+      gsap.to(perfRule, {
+        scaleX: 1, duration: 0.9, ease: "power3.out",
+        scrollTrigger: { trigger: ".perf-rule", start: "top 88%" },
+      });
+    }
+    $$(".perf-cell").forEach((cell, i) => {
+      gsap.from(cell, {
+        opacity: 0, y: 24, duration: 0.7, ease: "power3.out", delay: i * 0.08,
+        scrollTrigger: { trigger: ".perf-grid", start: "top 88%" },
+      });
+    });
     const craftImg = $(".craft-media img");
     if (craftImg) {
       gsap.fromTo(craftImg, { yPercent: -8 }, {
@@ -549,7 +569,7 @@
     }
 
     // cinematic wipe reveal — shared by every full-bleed dark section
-    [".craft-media"].forEach((sel) => {
+    [".craft-media", ".perf-media"].forEach((sel) => {
       const el = $(sel);
       if (!el) return;
       gsap.fromTo(el,
@@ -560,7 +580,7 @@
 
     // pointer-reactive glow on every dark full-bleed section (desktop only)
     if (!isTouch) {
-      $$(".craft, .configure").forEach((section) => {
+      $$(".performance, .craft, .configure").forEach((section) => {
         section.addEventListener("mousemove", (e) => {
           const r = section.getBoundingClientRect();
           section.style.setProperty("--gx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
