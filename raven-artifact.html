@@ -20,13 +20,13 @@ html,body{background:#000;margin:0;}
 
 :root {
   --white: #ffffff;
-  --paper: #f2f1ee;         /* silver-white editorial ground */
+  --paper: #0b0b0d;         /* near-black editorial ground */
   --paper-2: #e9e8e4;
-  --ink: #0a0a0b;           /* near-black */
+  --ink: #f4f4f5;           /* type on the dark ground */
   --black: #000000;
   --silver: #a7abb0;
   --silver-2: #cbced2;
-  --line-dark: rgba(10, 10, 11, 0.14);
+  --line-dark: rgba(255, 255, 255, 0.13);
   --line-light: rgba(255, 255, 255, 0.16);
   --red: #ff2800;           /* signal red \2014  used with restraint */
   --red-deep: #c81e00;
@@ -61,6 +61,7 @@ body.is-loading { overflow: hidden; height: 100vh; }
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
 
+.eyebrow i { font-style: normal; color: var(--red); }
 .eyebrow {
   font-family: var(--f-mono);
   font-size: clamp(0.62rem, 0.9vw, 0.74rem);
@@ -137,18 +138,17 @@ img { display: block; max-width: 100%; }
 /* left: wordmark + model designation on one baseline */
 .nav-brand {
   grid-column: 1; justify-self: start;
-  display: flex; align-items: baseline; gap: 0.6rem;
+  display: flex; align-items: baseline; gap: 0.42em;
 }
 .nav-mark {
   font-family: var(--f-display); font-weight: 500;
   font-size: clamp(0.95rem, 1.45vw, 1.15rem);
   letter-spacing: 0.4em; text-indent: 0.4em; line-height: 1;
 }
-.nav-model {
-  font-family: var(--f-mono); font-size: 0.58rem;
-  letter-spacing: 0.2em; line-height: 1;
-  color: rgba(255, 255, 255, 0.5);
-  padding-left: 0.6rem; border-left: 1px solid rgba(255, 255, 255, 0.22);
+.nav-r9 {
+  font-family: var(--f-display); font-weight: 500;
+  font-size: clamp(0.95rem, 1.45vw, 1.15rem);
+  letter-spacing: 0.16em; line-height: 1; color: var(--red);
 }
 
 /* centre: the three links, evenly spaced */
@@ -179,7 +179,7 @@ img { display: block; max-width: 100%; }
   letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap;
   line-height: 1;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  height: 2.35rem; padding: 0 1.25rem; border-radius: 100px;
+  height: 2.4rem; padding: 0 1.3rem; border-radius: 0;
   transition: background 0.35s var(--ease), color 0.35s var(--ease),
               border-color 0.35s var(--ease);
 }
@@ -202,9 +202,9 @@ img { display: block; max-width: 100%; }
 @media (max-width: 900px) {
   .nav { grid-template-columns: 1fr auto; height: clamp(58px, 7vh, 70px); }
   .nav-links { display: none; }
-  .nav-cta { grid-column: 2; height: 2.05rem; padding: 0 1rem; font-size: 0.56rem; letter-spacing: 0.18em; }
+  .nav-cta { grid-column: 2; height: 2.1rem; padding: 0 0.95rem; font-size: 0.56rem; letter-spacing: 0.18em; }
   .nav-mark { font-size: 0.88rem; letter-spacing: 0.3em; text-indent: 0.3em; }
-  .nav-model { display: none; }
+  .nav-r9 { font-size: 0.88rem; }
 }
 
 /* \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550  THE FILM \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550  */
@@ -530,7 +530,7 @@ img { display: block; max-width: 100%; }
   display: inline-flex; align-items: center; gap: 0.7rem;
   font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.24em;
   color: #fff; padding: 0.95rem 1.7rem;
-  border: 1px solid rgba(255, 255, 255, 0.55); border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.55); border-radius: 0;
   transition: background 0.4s var(--ease), color 0.4s var(--ease), gap 0.4s var(--ease);
 }
 .beat-btn > span { text-indent: 0.12em; }
@@ -553,7 +553,7 @@ img { display: block; max-width: 100%; }
   align-items: center;
   max-width: 1280px; margin: 0 auto; width: 100%;
 }
-.spec-head .eyebrow { color: var(--red-deep); }
+.spec-head .eyebrow { color: var(--silver); }
 .spec-head h2 {
   font-family: var(--f-display); font-weight: 300;
   font-size: clamp(2.2rem, 4.4vw, 4.2rem); line-height: 1.02;
@@ -563,7 +563,7 @@ img { display: block; max-width: 100%; }
 .spec-intro {
   margin-top: 1.4rem; max-width: 44ch;
   font-size: clamp(0.9rem, 1.05vw, 1rem); font-weight: 300;
-  color: #3a3a3c; line-height: 1.6;
+  color: rgba(255,255,255,0.6); line-height: 1.6;
 }
 .spec-table {
   border-top: 1px solid var(--line-dark);
@@ -580,7 +580,7 @@ img { display: block; max-width: 100%; }
   border-bottom: 1px solid var(--line-dark);
   transition: background 0.4s var(--ease), padding-left 0.4s var(--ease);
 }
-.spec-line:hover { background: rgba(0, 0, 0, 0.02); padding-left: 1.2rem; }
+.spec-line:hover { background: rgba(255, 255, 255, 0.03); padding-left: 1.2rem; }
 .spec-idx {
   font-family: var(--f-mono); font-size: 0.66rem; letter-spacing: 0.15em; color: var(--silver);
 }
@@ -642,7 +642,7 @@ img { display: block; max-width: 100%; }
 .craft-tags span {
   font-family: var(--f-mono); font-size: 0.6rem; letter-spacing: 0.2em;
   text-transform: uppercase; color: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0;
   padding: 0.5rem 0.9rem;
 }
 @media (max-width: 860px) {
@@ -652,60 +652,75 @@ img { display: block; max-width: 100%; }
 }
 
 /* \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550  PERFORMANCE \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 
-   Deliberately image-free \2014  pure type and negative space, the quiet
-   beat between Engineering and the closing Configure frame. */
+   Template layout: a left-aligned headline over a row of icon stats,
+   each figure paired with its unit and a quiet caption. */
 .performance {
   position: relative; overflow: hidden;
   background: var(--paper); color: var(--ink);
-  padding: clamp(6rem, 14vh, 12rem) clamp(1.4rem, 6vw, 7rem);
-  text-align: center;
+  padding: clamp(6rem, 13vh, 10rem) clamp(1.4rem, 6vw, 7rem);
 }
-/* pointer-reactive glow \2014  desktop only, a quiet spotlight that tracks the cursor */
-.glow-spot {
-  position: absolute; inset: 0; z-index: 1; grid-column: 1 / -1; pointer-events: none; opacity: 0;
-  background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 40%), rgba(255, 40, 0, 0.14), transparent 70%);
-  transition: opacity 0.5s var(--ease);
+.performance .eyebrow { position: relative; z-index: 2; color: var(--silver); }
+.perf-title {
+  font-family: var(--f-display); font-weight: 300;
+  font-size: clamp(2.2rem, 5vw, 4.4rem); line-height: 1.0;
+  text-transform: uppercase; letter-spacing: 0.01em;
+  margin: 1.1rem 0 0; color: #fff;
 }
-.craft:hover .glow-spot,
-.configure:hover .glow-spot { opacity: 1; }
-.performance .eyebrow { position: relative; z-index: 2; color: var(--red-deep); }
 .perf-grid {
   position: relative; z-index: 2;
-  margin-top: clamp(3rem, 7vw, 6rem);
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: clamp(2rem, 5vw, 5rem);
-  max-width: 1200px; margin-left: auto; margin-right: auto;
+  margin-top: clamp(3rem, 6vw, 5rem);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1.6rem, 3.4vw, 3.4rem);
+  max-width: 1240px;
+  padding-top: clamp(2rem, 3.4vw, 3rem);
+  border-top: 1px solid var(--line-dark);
 }
 .perf-cell {
-  display: flex; flex-direction: column; align-items: center;
-  padding: 0 1rem;
-  border-left: 1px solid var(--line-dark);
+  display: flex; flex-direction: column; align-items: flex-start;
+  transition: transform 0.5s var(--ease);
 }
-.perf-cell:first-child { border-left: 0; }
+.perf-cell:hover { transform: translateY(-6px); }
+.perf-icon {
+  display: block; width: 26px; height: 26px;
+  color: rgba(255, 255, 255, 0.55); margin-bottom: clamp(1rem, 2vw, 1.6rem);
+  transition: color 0.35s var(--ease);
+}
+.perf-icon svg { width: 100%; height: 100%; display: block; }
+.perf-cell:hover .perf-icon { color: var(--red); }
 .perf-num {
-  font-family: var(--f-display); font-weight: 200;
-  font-size: clamp(4rem, 12vw, 9rem); line-height: 0.9;
-  font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
-  color: var(--ink); text-shadow: 0 2px 20px rgba(242, 241, 238, 0.6);
+  font-family: var(--f-display); font-weight: 300;
+  font-size: clamp(2.4rem, 5.2vw, 4rem); line-height: 0.95;
+  font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
+  color: #fff; display: flex; align-items: baseline; gap: 0.3rem;
 }
-.perf-unit {
-  font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.26em;
-  text-transform: uppercase; color: var(--red-deep); margin-top: 0.8rem;
-}
-.perf-desc {
-  margin-top: 1.4rem; max-width: 30ch;
-  font-size: 0.9rem; font-weight: 300; color: #4a4a4c; line-height: 1.6;
-}
-.perf-foot {
-  position: relative; z-index: 2;
-  margin-top: clamp(3rem, 6vw, 5rem);
-  font-family: var(--f-mono); font-size: 0.66rem; letter-spacing: 0.24em;
+.perf-num i {
+  font-family: var(--f-mono); font-style: normal;
+  font-size: 0.58rem; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--silver);
 }
-@media (max-width: 780px) {
-  .perf-grid { grid-template-columns: 1fr; gap: 3.2rem; }
-  .perf-cell { border-left: 0; border-top: 1px solid var(--line-dark); padding-top: 2.4rem; }
-  .perf-cell:first-child { border-top: 0; padding-top: 0; }
+.perf-unit {
+  font-family: var(--f-mono); font-size: 0.58rem; letter-spacing: 0.24em;
+  text-transform: uppercase; color: rgba(255, 255, 255, 0.45);
+  margin-top: 0.75rem; position: relative; padding-bottom: 4px;
+}
+.perf-unit::after {
+  content: ""; position: absolute; left: 0; bottom: 0;
+  width: 100%; height: 1px; background: var(--red);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.45s var(--ease);
+}
+.perf-cell:hover .perf-unit::after { transform: scaleX(1); }
+.perf-foot {
+  position: relative; z-index: 2;
+  margin-top: clamp(3rem, 5vw, 4.5rem);
+  font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.24em;
+  text-transform: uppercase; color: rgba(255, 255, 255, 0.32);
+}
+@media (max-width: 900px) {
+  .perf-grid { grid-template-columns: repeat(2, 1fr); gap: 2.6rem 1.6rem; }
+}
+@media (max-width: 520px) {
+  .perf-grid { grid-template-columns: 1fr; gap: 2.4rem; }
 }
 
 /* \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550  CONFIGURE \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550  */
@@ -749,7 +764,7 @@ img { display: block; max-width: 100%; }
 }
 .btn {
   font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.22em;
-  text-transform: uppercase; padding: 1.05rem 2rem; border-radius: 100px;
+  text-transform: uppercase; padding: 1.05rem 2.1rem; border-radius: 0;
   text-indent: 0.11em;   /* offset the phantom trailing letter-space */
   transition: transform 0.4s var(--ease), background 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease);
 }
@@ -768,6 +783,11 @@ img { display: block; max-width: 100%; }
 .foot-mark {
   font-family: var(--f-display); font-weight: 500;
   letter-spacing: 0.42em; text-indent: 0.42em; font-size: 1rem; color: #fff;
+  display: inline-flex; align-items: baseline; gap: 0.1em;
+}
+.foot-mark i {
+  font-style: normal; color: var(--red);
+  letter-spacing: 0.16em; text-indent: 0;
 }
 .foot-note {
   font-family: var(--f-mono); font-size: 0.56rem; letter-spacing: 0.16em;
@@ -828,8 +848,8 @@ img { display: block; max-width: 100%; }
   position: absolute; z-index: 0; top: 2%; right: -6%;
   font-family: var(--f-display); font-weight: 200; line-height: 0.8;
   font-size: clamp(14rem, 38vw, 44rem);
-  color: rgba(10, 10, 11, 0.028);
-  -webkit-text-stroke: 1px rgba(10, 10, 11, 0.07);
+  color: rgba(255, 255, 255, 0.022);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
   pointer-events: none; user-select: none; white-space: nowrap;
 }
 .spec-head, .spec-table { position: relative; z-index: 1; }
@@ -845,7 +865,7 @@ img { display: block; max-width: 100%; }
 .spec-line.is-drawn::after { transform: scaleX(1); }
 .spec-idx { transition: color 0.35s var(--ease); }
 .spec-val { transition: transform 0.45s var(--ease); }
-.spec-line:hover .spec-idx { color: var(--red-deep); }
+.spec-line:hover .spec-idx { color: var(--red); }
 .spec-line:hover .spec-val { transform: translateX(-6px); }
 
 /* craft \2014  accent rule + tag hovers */
@@ -870,7 +890,7 @@ img { display: block; max-width: 100%; }
 .perf-unit { position: relative; }
 .perf-unit::after {
   content: ""; position: absolute; left: 0; bottom: -6px;
-  width: 100%; height: 1px; background: var(--red-deep);
+  width: 100%; height: 1px; background: var(--red);
   transform: scaleX(0); transform-origin: left;
   transition: transform 0.45s var(--ease);
 }
@@ -914,8 +934,7 @@ img { display: block; max-width: 100%; }
     <!-- &#x2550;&#x2550;&#x2550; NAV &#x2550;&#x2550;&#x2550; -->
     <header class="nav" id="nav">
       <a class="nav-brand" href="#top" aria-label="Raven R9 Notturno">
-        <span class="nav-mark">RAVEN</span>
-        <span class="nav-model">R9</span>
+        <span class="nav-mark">RAVEN</span><span class="nav-r9">R9</span>
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a class="nav-link" href="#specification">Specification</a>
@@ -923,7 +942,7 @@ img { display: block; max-width: 100%; }
         <a class="nav-link" href="#performance">Performance</a>
       </nav>
       <a href="#configure" class="nav-cta">
-        <span>Configure</span>
+        <span>Pre-Order</span>
       </a>
       <span class="nav-progress" id="navProgress" aria-hidden="true"></span>
     </header>
@@ -1065,7 +1084,7 @@ img { display: block; max-width: 100%; }
         <div class="spec-ghost" aria-hidden="true">220</div>
         <div class="spec-inner">
         <div class="spec-head">
-          <p class="eyebrow reveal-up">01 &#x2014; SPECIFICATION</p>
+          <p class="eyebrow reveal-up"><i>01</i> &#x2014; SPECIFICATION</p>
           <h2 class="reveal-lines" data-split="lines">THE NUMBERS<br />BEHIND<br />THE SILENCE</h2>
           <p class="spec-intro reveal-up">A concept twin-cylinder platform, tuned for the hour after midnight. Figures are concept targets &#x2014; a study in what restraint at full throttle looks like.</p>
         </div>
@@ -1120,7 +1139,7 @@ img { display: block; max-width: 100%; }
         </div>
         <div class="glow-spot" aria-hidden="true"></div>
         <div class="craft-copy">
-          <p class="eyebrow reveal-up">02 &#x2014; ENGINEERING</p>
+          <p class="eyebrow reveal-up"><i>02</i> &#x2014; ENGINEERING</p>
           <span class="craft-rule" aria-hidden="true"></span>
           <h2 class="reveal-lines" data-split="lines">BALANCED AT<br />EVERY LEAN</h2>
           <p class="reveal-up">An aluminium twin-spar chassis, tuned for a single purpose: disappear beneath you. Carbon bodywork, forged wheels, and a titanium system that exhales more than it shouts.</p>
@@ -1137,22 +1156,28 @@ img { display: block; max-width: 100%; }
            PERFORMANCE  (full-bleed, kinetic figures)
       &#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550; -->
       <section class="performance" id="performance">
-        <p class="eyebrow reveal-up">03 &#x2014; PERFORMANCE</p>
+        <p class="eyebrow reveal-up"><i>03</i> &#x2014; PERFORMANCE</p>
+        <h2 class="perf-title reveal-lines" data-split="lines">NO LIMITS.<br />JUST DRIVE.</h2>
         <div class="perf-grid">
           <div class="perf-cell">
-            <b class="perf-num"><span data-count="2.6" data-dec="1">0</span></b>
-            <span class="perf-unit">seconds</span>
-            <span class="perf-desc">Standstill to 100 km/h. The horizon arrives before your exhale finishes.</span>
+            <span class="perf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="13" r="8"/><path d="M12 13V8.5" stroke-linecap="round"/><path d="M9 2h6" stroke-linecap="round"/></svg></span>
+            <b class="perf-num"><span data-count="2.6" data-dec="1">0</span><i>s</i></b>
+            <span class="perf-unit">0 &#x2013; 100 km/h</span>
           </div>
           <div class="perf-cell">
-            <b class="perf-num"><span data-count="310">0</span></b>
-            <span class="perf-unit">km/h</span>
-            <span class="perf-desc">Terminal velocity, reached where the tarmac stops asking questions.</span>
+            <span class="perf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4.5-6" stroke-linecap="round"/><circle cx="12" cy="18" r="1.3"/></svg></span>
+            <b class="perf-num"><span data-count="310">0</span><i>km/h</i></b>
+            <span class="perf-unit">Top Speed</span>
           </div>
           <div class="perf-cell">
-            <b class="perf-num"><span data-count="220">0</span></b>
-            <span class="perf-unit">horsepower</span>
-            <span class="perf-desc">Two hundred and twenty reasons to respect the throttle.</span>
+            <span class="perf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12z" stroke-linejoin="round"/></svg></span>
+            <b class="perf-num"><span data-count="220">0</span><i>hp</i></b>
+            <span class="perf-unit">Max Power</span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 8h12l2 13H4z" stroke-linejoin="round"/><circle cx="12" cy="5.5" r="2.5"/></svg></span>
+            <b class="perf-num"><span data-count="198">0</span><i>kg</i></b>
+            <span class="perf-unit">Dry Weight</span>
           </div>
         </div>
         <p class="perf-foot reveal-up">Concept figures. Emotional accuracy guaranteed.</p>
@@ -1178,7 +1203,7 @@ img { display: block; max-width: 100%; }
           </div>
         </div>
         <footer class="foot">
-          <span class="foot-mark">RAVEN</span>
+          <span class="foot-mark">RAVEN<i>R9</i></span>
           <span class="foot-note">Concept experience &#xb7; Scroll-driven film study</span>
           <span class="foot-year">MMXXVI</span>
         </footer>
