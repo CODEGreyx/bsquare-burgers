@@ -597,7 +597,9 @@ img { display: block; max-width: 100%; }
 .craft-media { position: relative; overflow: hidden; }
 .craft-media img {
   position: absolute; inset: 0; width: 100%; height: 120%;
-  object-fit: cover; will-change: transform;   /* parallax target */
+  object-fit: cover; object-position: 42% center;  /* hold the rider in the crop */
+  filter: contrast(1.04) saturate(1.04);
+  will-change: transform;   /* parallax target */
 }
 .craft-media-grain {
   position: absolute; inset: 0; z-index: 2; pointer-events: none;
@@ -635,29 +637,13 @@ img { display: block; max-width: 100%; }
 }
 
 /* ═══════════════ PERFORMANCE ═══════════════
-   The one frame that leaves the studio: a night city run. Kept dark and
-   only lightly veiled so the skyline, the headlight and the motion blur
-   all stay readable behind the figures. */
+   Deliberately image-free — pure type and negative space, the quiet
+   beat between Engineering and the closing Configure frame. */
 .performance {
   position: relative; overflow: hidden;
-  background: #050506; color: #fff;
+  background: var(--paper); color: var(--ink);
   padding: clamp(6rem, 14vh, 12rem) clamp(1.4rem, 6vw, 7rem);
   text-align: center;
-}
-.perf-media { position: absolute; inset: 0; z-index: 0; }
-.perf-media img {
-  width: 100%; height: 122%; object-fit: cover; object-position: center 45%;
-  filter: contrast(1.05) saturate(1.04) brightness(0.92);
-  will-change: transform;
-}
-.perf-veil {
-  position: absolute; inset: 0;
-  background: radial-gradient(125% 92% at 50% 46%, transparent 24%, rgba(0,0,0,0.7) 100%),
-              linear-gradient(to bottom, rgba(0,0,0,0.66), rgba(0,0,0,0.16) 34%, rgba(0,0,0,0.32) 64%, rgba(0,0,0,0.9));
-}
-.perf-media-grain {
-  position: absolute; inset: -50%; opacity: 0.045; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 /* pointer-reactive glow — desktop only, a quiet spotlight that tracks the cursor */
 .glow-spot {
@@ -665,10 +651,9 @@ img { display: block; max-width: 100%; }
   background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 40%), rgba(255, 40, 0, 0.14), transparent 70%);
   transition: opacity 0.5s var(--ease);
 }
-.performance:hover .glow-spot,
 .craft:hover .glow-spot,
 .configure:hover .glow-spot { opacity: 1; }
-.performance .eyebrow { position: relative; z-index: 2; color: var(--silver-2); text-shadow: 0 1px 10px rgba(0,0,0,0.8); }
+.performance .eyebrow { position: relative; z-index: 2; color: var(--red-deep); }
 .perf-grid {
   position: relative; z-index: 2;
   margin-top: clamp(3rem, 7vw, 6rem);
@@ -679,34 +664,32 @@ img { display: block; max-width: 100%; }
 .perf-cell {
   display: flex; flex-direction: column; align-items: center;
   padding: 0 1rem;
-  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  border-left: 1px solid var(--line-dark);
 }
 .perf-cell:first-child { border-left: 0; }
 .perf-num {
   font-family: var(--f-display); font-weight: 200;
   font-size: clamp(4rem, 12vw, 9rem); line-height: 0.9;
   font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
-  color: #fff; text-shadow: 0 2px 26px rgba(0, 0, 0, 0.55);
+  color: var(--ink); text-shadow: 0 2px 20px rgba(242, 241, 238, 0.6);
 }
 .perf-unit {
   font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.26em;
-  text-transform: uppercase; color: var(--red); margin-top: 0.8rem;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85);
+  text-transform: uppercase; color: var(--red-deep); margin-top: 0.8rem;
 }
 .perf-desc {
   margin-top: 1.4rem; max-width: 30ch;
-  font-size: 0.9rem; font-weight: 300; color: rgba(255,255,255,0.72); line-height: 1.6;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.8);
+  font-size: 0.9rem; font-weight: 300; color: #4a4a4c; line-height: 1.6;
 }
 .perf-foot {
   position: relative; z-index: 2;
   margin-top: clamp(3rem, 6vw, 5rem);
   font-family: var(--f-mono); font-size: 0.66rem; letter-spacing: 0.24em;
-  text-transform: uppercase; color: var(--silver-2);
+  text-transform: uppercase; color: var(--silver);
 }
 @media (max-width: 780px) {
   .perf-grid { grid-template-columns: 1fr; gap: 3.2rem; }
-  .perf-cell { border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.16); padding-top: 2.4rem; }
+  .perf-cell { border-left: 0; border-top: 1px solid var(--line-dark); padding-top: 2.4rem; }
   .perf-cell:first-child { border-top: 0; padding-top: 0; }
 }
 
@@ -835,7 +818,6 @@ img { display: block; max-width: 100%; }
   pointer-events: none; user-select: none; white-space: nowrap;
 }
 .spec-head, .spec-table { position: relative; z-index: 1; }
-.perf-grid, .perf-foot, .performance .eyebrow { position: relative; z-index: 2; }
 
 /* spec rows — hairline draws in, richer hover */
 .spec-line { position: relative; border-bottom: 0; }
@@ -873,7 +855,7 @@ img { display: block; max-width: 100%; }
 .perf-unit { position: relative; }
 .perf-unit::after {
   content: ""; position: absolute; left: 0; bottom: -6px;
-  width: 100%; height: 1px; background: var(--red);
+  width: 100%; height: 1px; background: var(--red-deep);
   transform: scaleX(0); transform-origin: left;
   transition: transform 0.45s var(--ease);
 }
