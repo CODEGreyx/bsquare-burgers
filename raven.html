@@ -41,16 +41,19 @@
 
     <!-- ═══ NAV ═══ -->
     <header class="nav" id="nav">
+      <span class="nav-plate" aria-hidden="true"></span>
+      <nav class="nav-wing nav-wing--l" aria-label="Primary">
+        <a class="nav-link" href="#specification">Specification</a>
+        <a class="nav-link" href="#craft">Engineering</a>
+      </nav>
       <a class="nav-brand" href="#top" aria-label="Raven">
         <span class="nav-mark">RAVEN</span>
-        <span class="nav-model">R9&nbsp;·&nbsp;NOTTURNO</span>
       </a>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#specification">Specification</a>
-        <a href="#craft">Engineering</a>
-        <a href="#performance">Performance</a>
-      </nav>
-      <a href="#configure" class="nav-cta">Configure</a>
+      <div class="nav-wing nav-wing--r">
+        <a class="nav-link" href="#performance">Performance</a>
+        <a href="#configure" class="nav-cta">Configure</a>
+      </div>
+      <span class="nav-progress" id="navProgress" aria-hidden="true"></span>
     </header>
 
     <main id="top">
@@ -262,12 +265,6 @@
            PERFORMANCE  (full-bleed, kinetic figures)
       ═══════════════════════════════════════════ -->
       <section class="performance" id="performance">
-        <div class="perf-media" aria-hidden="true">
-          <img src="/public/raven-performance.jpg" alt="Raven R9 Notturno, front three-quarter" />
-          <div class="perf-veil"></div>
-          <div class="perf-media-grain"></div>
-        </div>
-        <div class="glow-spot" aria-hidden="true"></div>
         <p class="eyebrow reveal-up">03 — PERFORMANCE</p>
         <div class="perf-grid">
           <div class="perf-cell">

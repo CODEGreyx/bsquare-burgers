@@ -260,7 +260,7 @@
     const chapterName = $("#chapterName");
     const CHAPTERS = ["ARRIVAL", "IGNITION", "SILHOUETTE", "TELEMETRY", "DEPARTURE"];
     const scrollCue = $("#scrollCue");
-    const CUT = 5.0; // timeline unit where reel A hard-cuts to reel B (of 10 total)
+    // (the reel swap is a scroll-progress event at p = 0.5 — see onUpdate)
 
     // beat helper: build in/out on a scrubbed timeline
     const tl = gsap.timeline();
@@ -349,17 +349,15 @@
     gsap.set("#filmMedia", { scale: 1.09, transformOrigin: "50% 55%" });
     tl.to("#filmMedia", { scale: 1.0, duration: 1.7, ease: "power2.out" }, 0);      // reel A settle
     tl.to("#filmMedia", { scale: 1.05, duration: 1.3, ease: "power1.inOut" }, 2.6); // ignition push
-    tl.to("#filmMedia", { scale: 1.1,  duration: 0.01 }, CUT);                     // snap reset on cut
-    tl.to("#filmMedia", { scale: 1.0,  duration: 1.4, ease: "power2.out" }, CUT + 0.05); // reel B settle
     tl.to("#filmMedia", { scale: 1.06, duration: 1.1, ease: "power1.inOut" }, 7.3); // launch push
     tl.to("#filmMedia", { scale: 1.0,  duration: 1.3, ease: "power1.inOut" }, 9.3);
 
-    // hard cut: light sweep + white flash at the reel change
-    tl.fromTo("#filmSweep", { xPercent: -55, opacity: 0 },
-      { xPercent: 55, opacity: 1, duration: 0.4, ease: "power2.inOut" }, CUT - 0.15);
-    tl.to("#filmSweep", { opacity: 0, duration: 0.15 }, CUT + 0.22);
-    tl.fromTo(cutflash, { opacity: 0 }, { opacity: 0.85, duration: 0.05, ease: "none" }, CUT - 0.02);
-    tl.to(cutflash, { opacity: 0, duration: 0.22, ease: "power2.out" }, CUT + 0.02);
+    // ── the hard cut ──
+    // NOTE: this timeline is longer than 10 units (tweens overrun the base
+    // spacer), so authored times do NOT map 1:1 onto scroll progress. The
+    // reel swap is a scroll-progress event (p crossing 0.5), so the white
+    // blowout that masks it is driven from progress too, in onUpdate below —
+    // that is the only way the flash and the swap stay frame-exact.
 
     // additional anamorphic sweeps between beats within each reel
     [1.98, 4.42, 7.0, 9.42].forEach((t) => {
@@ -389,6 +387,13 @@
         if (t) tl.fromTo(t, { y: 18 }, { y: -18, duration: d, ease: "none" }, a);
         if (n) tl.fromTo(n, { y: 10 }, { y: -10, duration: d, ease: "none" }, a);
       });
+
+    // The camera punch on the cut must land on the swap, so it is positioned
+    // by MEASURED timeline midpoint — authored units drift (see note above).
+    // Added last so tl.duration() already reflects every other tween.
+    const CUT_T = tl.duration() * 0.5;
+    tl.to("#filmMedia", { scale: 1.1, duration: 0.01 }, CUT_T);                       // reset under the white
+    tl.to("#filmMedia", { scale: 1.0, duration: 1.4, ease: "power2.out" }, CUT_T + 0.05); // reel B settles in
 
     // ── Dual-reel scrub state ──
     let curTimeA = 0, curTimeB = TRIM_B;
@@ -446,7 +451,18 @@
         const v = Math.abs(self.getVelocity());
         const norm = Math.min(1, v / 3500);
         mblur = norm * (isSmall ? 3 : 6);
-        if (bloom) bloom.style.opacity = String(0.10 + norm * 0.4);
+
+        // ── the blowout, locked to the swap ──
+        // Reel A's headlamps hit their brightest on its final frame, so this
+        // reads as the bike flaring out the lens. Peaks at exactly p = 0.5,
+        // where the reels swap — the change of footage happens under full
+        // white and is never visible. Reverses identically scrubbing back.
+        const d = Math.abs(p - 0.5);
+        const flash = Math.max(0, 1 - d / 0.024);
+        if (cutflash) cutflash.style.opacity = Math.pow(flash, 0.55).toFixed(3);
+        // bloom swells into the blowout so the white feels lit, not pasted on
+        const flare = Math.max(0, 1 - d / 0.05);
+        if (bloom) bloom.style.opacity = String(0.10 + norm * 0.4 + flare * 0.45);
 
         if (scrollCue && p > 0.02) scrollCue.classList.add("gone");
         else if (scrollCue) scrollCue.classList.remove("gone");
@@ -514,13 +530,6 @@
         scrollTrigger: { trigger: ".configure", start: "top bottom", end: "bottom top", scrub: true },
       });
     }
-    const perfImg = $(".perf-media img");
-    if (perfImg) {
-      gsap.fromTo(perfImg, { yPercent: -7, scale: 1.04 }, {
-        yPercent: 7, ease: "none",
-        scrollTrigger: { trigger: ".performance", start: "top bottom", end: "bottom top", scrub: true },
-      });
-    }
 
     /* ── micro-interaction layer ── */
     $$(".spec-line").forEach((row) => {
@@ -540,7 +549,7 @@
     }
 
     // cinematic wipe reveal — shared by every full-bleed dark section
-    [".craft-media", ".perf-media"].forEach((sel) => {
+    [".craft-media"].forEach((sel) => {
       const el = $(sel);
       if (!el) return;
       gsap.fromTo(el,
@@ -551,7 +560,7 @@
 
     // pointer-reactive glow on every dark full-bleed section (desktop only)
     if (!isTouch) {
-      $$(".performance, .craft, .configure").forEach((section) => {
+      $$(".craft, .configure").forEach((section) => {
         section.addEventListener("mousemove", (e) => {
           const r = section.getBoundingClientRect();
           section.style.setProperty("--gx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
@@ -598,6 +607,37 @@
         });
       });
     }
+
+    /* ═══════════════ NAV ═══════════════
+       Stays put (it is the site header) but earns its bar on scroll:
+       transparent over the film, blurred + hairlined once you leave it. */
+    const nav = $("#nav");
+    const navProgress = $("#navProgress");
+    const navLinks = $$(".nav-link");
+
+    ScrollTrigger.create({
+      start: 0, end: "max",
+      onUpdate: (self) => {
+        if (nav) nav.classList.toggle("scrolled", self.scroll() > window.innerHeight * 0.6);
+        if (navProgress) navProgress.style.transform = "scaleX(" + self.progress.toFixed(4) + ")";
+      },
+    });
+
+    // current-section indicator — one link lit at a time, no clutter
+    navLinks.forEach((link) => {
+      const id = link.getAttribute("href");
+      const section = id && id.length > 1 ? $(id) : null;
+      if (!section) return;
+      const light = () => {
+        navLinks.forEach((l) => l.classList.remove("current"));
+        link.classList.add("current");
+      };
+      const dim = (self) => { if (!self.isActive) link.classList.remove("current"); };
+      ScrollTrigger.create({
+        trigger: section, start: "top 55%", end: "bottom 45%",
+        onEnter: light, onEnterBack: light, onLeave: dim, onLeaveBack: dim,
+      });
+    });
 
     ScrollTrigger.refresh();
   }
