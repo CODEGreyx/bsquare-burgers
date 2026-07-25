@@ -19,6 +19,7 @@
 
   const SRC_A = "/public/raven-arrival.mp4";
   const SRC_B = "/public/raven-launch.mp4";
+  const TRIM_B = 94 / 24; // reel B opens on hands settling onto the bars, not the fist-pump
   const videoA = $("#filmVideoA");
   const videoB = $("#filmVideoB");
   const poster = $("#filmPoster");
@@ -97,12 +98,12 @@
     if (window.ScrollTrigger) setTimeout(() => window.ScrollTrigger.refresh(), 300);
   }
 
-  function attachVideo(video, src) {
+  function attachVideo(video, src, seedTime) {
     return new Promise((resolve) => {
       let settled = false;
       const done = () => { if (!settled) { settled = true; resolve(); } };
       video.addEventListener("loadeddata", () => {
-        try { video.currentTime = 0.001; } catch (e) {}
+        try { video.currentTime = seedTime || 0.001; } catch (e) {}
       }, { once: true });
       video.addEventListener("canplaythrough", done, { once: true });
       video.addEventListener("error", done, { once: true });
@@ -150,7 +151,7 @@
       fetchBlob(SRC_B, (r, t) => { bytes.b = r; totals.b = t; report(); }),
     ]);
     setLoaderProgress(1);
-    await Promise.all([attachVideo(videoA, urlA), attachVideo(videoB, urlB)]);
+    await Promise.all([attachVideo(videoA, urlA), attachVideo(videoB, urlB, TRIM_B)]);
     if (videoA.readyState >= 2 && videoB.readyState >= 2) {
       poster.style.opacity = "0";
       videoA.classList.add("active"); // reel A opens the film
@@ -179,7 +180,7 @@
     videoA.addEventListener("ended", () => {
       videoA.classList.remove("active");
       videoB.classList.add("active");
-      videoB.currentTime = 0;
+      videoB.currentTime = TRIM_B;
       videoB.play().catch(() => {});
     });
     videoB.addEventListener("ended", () => {
@@ -390,7 +391,7 @@
       });
 
     // ── Dual-reel scrub state ──
-    let curTimeA = 0, curTimeB = 0;
+    let curTimeA = 0, curTimeB = TRIM_B;
     let targetA = 0, targetB = 0;
     let activeIsA = true;
     let mblur = 0;
@@ -417,7 +418,7 @@
         } else {
           const local = Math.min(1, (p - 0.5) / 0.5);
           const dur = videoB.duration || 8;
-          targetB = local * (dur - 0.03);
+          targetB = TRIM_B + local * (dur - 0.03 - TRIM_B);
         }
 
         // hard cut crossing — swap visible reel, snap the incoming
