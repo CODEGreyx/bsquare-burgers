@@ -598,26 +598,28 @@ img { display: block; max-width: 100%; }
   .craft-media img { height: 100%; }
 }
 
-/* \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550  PERFORMANCE \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550  */
+/* \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550  PERFORMANCE \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 \2550 
+   Bright studio still, kept light \2014  the section reads as a breather
+   between the two dark chapters (Engineering, Configure) either side. */
 .performance {
   position: relative; overflow: hidden;
-  background: var(--black); color: #fff;
+  background: var(--paper); color: var(--ink);
   padding: clamp(6rem, 14vh, 12rem) clamp(1.4rem, 6vw, 7rem);
   text-align: center;
 }
 .perf-media { position: absolute; inset: 0; z-index: 0; }
 .perf-media img {
   width: 100%; height: 122%; object-fit: cover; object-position: center 30%;
-  filter: contrast(1.06) brightness(0.82);
+  filter: contrast(1.02) saturate(0.98);
   will-change: transform;
 }
 .perf-veil {
   position: absolute; inset: 0;
-  background: radial-gradient(120% 85% at 50% 38%, transparent 32%, rgba(0,0,0,0.86) 100%),
-              linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.25) 35%, rgba(0,0,0,0.4) 65%, rgba(0,0,0,0.92));
+  background: radial-gradient(120% 85% at 50% 40%, rgba(242,241,238,0.2) 20%, rgba(242,241,238,0.86) 100%),
+              linear-gradient(to bottom, rgba(242,241,238,0.55), rgba(242,241,238,0.12) 32%, rgba(242,241,238,0.3) 66%, rgba(242,241,238,0.92));
 }
 .perf-media-grain {
-  position: absolute; inset: -50%; opacity: 0.05; pointer-events: none;
+  position: absolute; inset: -50%; opacity: 0.035; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 /* pointer-reactive glow \2014  desktop only, a quiet spotlight that tracks the cursor */
@@ -629,7 +631,7 @@ img { display: block; max-width: 100%; }
 .performance:hover .glow-spot,
 .craft:hover .glow-spot,
 .configure:hover .glow-spot { opacity: 1; }
-.performance .eyebrow { position: relative; z-index: 2; color: var(--silver-2); }
+.performance .eyebrow { position: relative; z-index: 2; color: var(--red-deep); }
 .perf-grid {
   position: relative; z-index: 2;
   margin-top: clamp(3rem, 7vw, 6rem);
@@ -640,32 +642,32 @@ img { display: block; max-width: 100%; }
 .perf-cell {
   display: flex; flex-direction: column; align-items: center;
   padding: 0 1rem;
-  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  border-left: 1px solid var(--line-dark);
 }
 .perf-cell:first-child { border-left: 0; }
 .perf-num {
   font-family: var(--f-display); font-weight: 200;
   font-size: clamp(4rem, 12vw, 9rem); line-height: 0.9;
   font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
-  color: #fff; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+  color: var(--ink); text-shadow: 0 2px 20px rgba(242, 241, 238, 0.6);
 }
 .perf-unit {
   font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.26em;
-  text-transform: uppercase; color: var(--red); margin-top: 0.8rem;
+  text-transform: uppercase; color: var(--red-deep); margin-top: 0.8rem;
 }
 .perf-desc {
   margin-top: 1.4rem; max-width: 30ch;
-  font-size: 0.9rem; font-weight: 300; color: rgba(255, 255, 255, 0.62); line-height: 1.6;
+  font-size: 0.9rem; font-weight: 300; color: #4a4a4c; line-height: 1.6;
 }
 .perf-foot {
   position: relative; z-index: 2;
   margin-top: clamp(3rem, 6vw, 5rem);
   font-family: var(--f-mono); font-size: 0.66rem; letter-spacing: 0.24em;
-  text-transform: uppercase; color: var(--silver-2);
+  text-transform: uppercase; color: var(--silver);
 }
 @media (max-width: 780px) {
   .perf-grid { grid-template-columns: 1fr; gap: 3.2rem; }
-  .perf-cell { border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.16); padding-top: 2.4rem; }
+  .perf-cell { border-left: 0; border-top: 1px solid var(--line-dark); padding-top: 2.4rem; }
   .perf-cell:first-child { border-top: 0; padding-top: 0; }
 }
 
