@@ -530,6 +530,13 @@
         scrollTrigger: { trigger: ".configure", start: "top bottom", end: "bottom top", scrub: true },
       });
     }
+    const perfImg = $(".perf-media img");
+    if (perfImg) {
+      gsap.fromTo(perfImg, { yPercent: -7, scale: 1.04 }, {
+        yPercent: 7, ease: "none",
+        scrollTrigger: { trigger: ".performance", start: "top bottom", end: "bottom top", scrub: true },
+      });
+    }
 
     /* ── micro-interaction layer ── */
     $$(".spec-line").forEach((row) => {
@@ -549,7 +556,7 @@
     }
 
     // cinematic wipe reveal — shared by every full-bleed dark section
-    [".craft-media"].forEach((sel) => {
+    [".craft-media", ".perf-media"].forEach((sel) => {
       const el = $(sel);
       if (!el) return;
       gsap.fromTo(el,
@@ -560,7 +567,7 @@
 
     // pointer-reactive glow on every dark full-bleed section (desktop only)
     if (!isTouch) {
-      $$(".craft, .configure").forEach((section) => {
+      $$(".performance, .craft, .configure").forEach((section) => {
         section.addEventListener("mousemove", (e) => {
           const r = section.getBoundingClientRect();
           section.style.setProperty("--gx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
