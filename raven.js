@@ -618,7 +618,16 @@
     ScrollTrigger.create({
       start: 0, end: "max",
       onUpdate: (self) => {
-        if (nav) nav.classList.toggle("scrolled", self.scroll() > window.innerHeight * 0.6);
+        const y = self.scroll();
+        if (nav) {
+          nav.classList.toggle("scrolled", y > window.innerHeight * 0.6);
+          // gets out of the way going down, returns the moment you scroll up
+          if (y > window.innerHeight * 0.85) {
+            nav.classList.toggle("hide", self.direction === 1);
+          } else {
+            nav.classList.remove("hide");
+          }
+        }
         if (navProgress) navProgress.style.transform = "scaleX(" + self.progress.toFixed(4) + ")";
       },
     });
