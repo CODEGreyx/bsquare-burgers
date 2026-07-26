@@ -518,8 +518,8 @@
 
     const perfImg = $(".perf-media img");
     if (perfImg) {
-      gsap.fromTo(perfImg, { yPercent: -6, scale: 1.05 }, {
-        yPercent: 6, ease: "none",
+      gsap.fromTo(perfImg, { scale: 1.1, yPercent: -3 }, {
+        scale: 1.02, yPercent: 3, ease: "none",
         scrollTrigger: { trigger: ".performance", start: "top bottom", end: "bottom top", scrub: true },
       });
     }
@@ -538,16 +538,16 @@
     });
     const craftImg = $(".craft-media img");
     if (craftImg) {
-      gsap.fromTo(craftImg, { yPercent: -8 }, {
-        yPercent: 8, ease: "none",
+      gsap.fromTo(craftImg, { scale: 1.12, yPercent: -3 }, {
+        scale: 1.02, yPercent: 3, ease: "none",
         scrollTrigger: { trigger: ".craft", start: "top bottom", end: "bottom top", scrub: true },
       });
     }
-    const confImg = $(".configure-bg img");
+    const confImg = $(".crew-media img");
     if (confImg) {
       gsap.fromTo(confImg, { yPercent: -6, scale: 1.05 }, {
         yPercent: 6, ease: "none",
-        scrollTrigger: { trigger: ".configure", start: "top bottom", end: "bottom top", scrub: true },
+        scrollTrigger: { trigger: ".crew", start: "top bottom", end: "bottom top", scrub: true },
       });
     }
 
@@ -569,7 +569,7 @@
     }
 
     // cinematic wipe reveal — shared by every full-bleed dark section
-    [".craft-media", ".perf-media"].forEach((sel) => {
+    [".craft-media", ".perf-media", ".crew-media"].forEach((sel) => {
       const el = $(sel);
       if (!el) return;
       gsap.fromTo(el,
@@ -580,7 +580,7 @@
 
     // pointer-reactive glow on every dark full-bleed section (desktop only)
     if (!isTouch) {
-      $$(".performance, .craft, .configure").forEach((section) => {
+      $$(".performance, .craft, .crew").forEach((section) => {
         section.addEventListener("mousemove", (e) => {
           const r = section.getBoundingClientRect();
           section.style.setProperty("--gx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
@@ -613,7 +613,7 @@
     });
 
     if (!isTouch) {
-      $$(".btn, .beat-btn, .nav-cta").forEach((el) => {
+      $$(".btn, .beat-btn, .nav-cta, .crew-btn").forEach((el) => {
         el.addEventListener("mousemove", (e) => {
           const r = el.getBoundingClientRect();
           gsap.to(el, {
