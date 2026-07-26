@@ -507,7 +507,7 @@
       });
     });
 
-    ["#specification", "#performance"].forEach((sec) => {
+    ["#specification"].forEach((sec) => {
       const section = $(sec);
       if (!section) return;
       ScrollTrigger.create({
@@ -516,26 +516,6 @@
       });
     });
 
-    const perfImg = $(".perf-media img");
-    if (perfImg) {
-      gsap.fromTo(perfImg, { scale: 1.1, yPercent: -3 }, {
-        scale: 1.02, yPercent: 3, ease: "none",
-        scrollTrigger: { trigger: ".performance", start: "top bottom", end: "bottom top", scrub: true },
-      });
-    }
-    const perfRule = $(".perf-rule span");
-    if (perfRule) {
-      gsap.to(perfRule, {
-        scaleX: 1, duration: 0.9, ease: "power3.out",
-        scrollTrigger: { trigger: ".perf-rule", start: "top 88%" },
-      });
-    }
-    $$(".perf-cell").forEach((cell, i) => {
-      gsap.from(cell, {
-        opacity: 0, y: 24, duration: 0.7, ease: "power3.out", delay: i * 0.08,
-        scrollTrigger: { trigger: ".perf-grid", start: "top 88%" },
-      });
-    });
     const craftImg = $(".craft-media img");
     if (craftImg) {
       gsap.fromTo(craftImg, { scale: 1.12, yPercent: -3 }, {
@@ -569,7 +549,7 @@
     }
 
     // cinematic wipe reveal — shared by every full-bleed dark section
-    [".craft-media", ".perf-media", ".crew-media"].forEach((sel) => {
+    [".craft-media", ".crew-media"].forEach((sel) => {
       const el = $(sel);
       if (!el) return;
       gsap.fromTo(el,
@@ -580,7 +560,7 @@
 
     // pointer-reactive glow on every dark full-bleed section (desktop only)
     if (!isTouch) {
-      $$(".performance, .craft, .crew").forEach((section) => {
+      $$(".craft, .crew").forEach((section) => {
         section.addEventListener("mousemove", (e) => {
           const r = section.getBoundingClientRect();
           section.style.setProperty("--gx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
@@ -604,13 +584,6 @@
       });
     }
 
-    $$(".perf-cell .perf-num").forEach((num, i) => {
-      gsap.from(num, {
-        opacity: 0, y: 30, filter: "blur(12px)", duration: 0.9, delay: i * 0.12,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ".perf-grid", start: "top 82%" },
-      });
-    });
 
     if (!isTouch) {
       $$(".btn, .beat-btn, .nav-cta, .crew-btn").forEach((el) => {
