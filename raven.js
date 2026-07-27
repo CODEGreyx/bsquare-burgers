@@ -93,6 +93,8 @@
   }
 
   function revealSite() {
+    frameSubjects();
+    $$("img[data-subject]").forEach((i) => i.addEventListener("load", frameSubjects, { once: true }));
     if (loader) loader.classList.add("done");
     body.classList.remove("is-loading");
     if (window.ScrollTrigger) setTimeout(() => window.ScrollTrigger.refresh(), 300);
@@ -193,6 +195,40 @@
 
     runCounters($$("[data-count]"));
   }
+
+
+  /* ─────────────────────────────────────────────
+     SUBJECT-AWARE FRAMING
+     object-fit: cover crops horizontally by an amount that depends on the
+     box's aspect at the current viewport, so a hand-picked object-position
+     that centres the bike on one screen clips it on another. Each image
+     declares where its subject sits in the source frame; this puts that
+     subject's midpoint on the box's midpoint, and clamps so the subject
+     can never run past either edge.
+  ───────────────────────────────────────────── */
+  function frameSubjects() {
+    $$("img[data-subject]").forEach((img) => {
+      if (!img.naturalWidth) return;
+      const box = img.parentElement.getBoundingClientRect();
+      const cw = box.width, ch = box.height;
+      if (!cw || !ch) return;
+      const [a, b] = img.dataset.subject.split(/\s+/).map(Number);
+      const nw = img.naturalWidth, nh = img.naturalHeight;
+      const scale = Math.max(cw / nw, ch / nh);
+      const over = nw * scale - cw;
+      if (over <= 0.5) { img.style.objectPosition = "50% center"; return; }
+      const l = a * nw * scale, r = b * nw * scale;
+      let pos = ((l + r) / 2 - cw / 2) / over;          // centre the subject
+      const lo = (r - cw) / over, hi = l / over;        // ...but keep it inside
+      if (lo <= hi) pos = Math.min(Math.max(pos, Math.max(lo, 0)), Math.min(hi, 1));
+      pos = Math.min(Math.max(pos, 0), 1);
+      img.style.objectPosition = (pos * 100).toFixed(2) + "% center";
+    });
+  }
+  window.addEventListener("resize", () => {
+    clearTimeout(frameSubjects._t);
+    frameSubjects._t = setTimeout(frameSubjects, 120);
+  });
 
   /* ─────────────────────────────────────────────
      NUMBER COUNTERS
@@ -661,6 +697,7 @@
       });
     });
 
+    frameSubjects();
     ScrollTrigger.refresh();
   }
 

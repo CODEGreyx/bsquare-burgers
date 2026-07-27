@@ -604,7 +604,7 @@ img { display: block; max-width: 100%; }
 }
 .craft-media img {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: 65% center;   /* keeps the rider whole */
+  object-fit: cover; object-position: 80% center;  /* subject centred in the box */
   filter: contrast(1.04) saturate(1.02);
   will-change: transform;
 }
@@ -639,13 +639,12 @@ img { display: block; max-width: 100%; }
   border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0;
   padding: 0.5rem 0.9rem;
 }
-@media (max-width: 860px) {
+@media (max-width: 1100px) {
   .craft {
     grid-template-columns: 1fr; gap: 0;
     padding: 0 0 clamp(3.5rem, 8vh, 5rem);
   }
-  .craft-media { aspect-ratio: 1.35; min-height: 0; order: -1; }
-  .craft-media img { object-position: 78% center; }
+  .craft-media { aspect-ratio: 1.0; min-height: 0; max-height: 92vh; order: -1; }
   .craft-media-fade {
     background: linear-gradient(to bottom, rgba(8,8,10,0.5), transparent 22%, transparent 60%, #08080a 99%);
   }
@@ -680,7 +679,7 @@ img { display: block; max-width: 100%; }
 .perf-media { position: relative; overflow: hidden; min-height: 58vh; }
 .perf-media img {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: 6% center;   /* whole bike, smoke to the right */
+  object-fit: cover; object-position: 0% center;   /* subject centred in the box */
   will-change: transform;
 }
 .perf-media-fade {
@@ -692,7 +691,7 @@ img { display: block; max-width: 100%; }
 .perf-content {
   position: relative; z-index: 2; max-width: 46rem;
   align-self: center;
-  padding: clamp(4rem, 9vh, 7rem) 0;
+  padding: clamp(5.5rem, 13vh, 9.5rem) 0;
 }
 .performance .eyebrow { color: var(--silver); }
 .perf-title {
@@ -763,8 +762,7 @@ img { display: block; max-width: 100%; }
     padding: 0 0 clamp(3.5rem, 8vh, 5rem);
     gap: 0;
   }
-  .perf-media { aspect-ratio: 1.35; min-height: 0; }
-  .perf-media img { object-position: 28% center; }
+  .perf-media { aspect-ratio: 1.0; min-height: 0; max-height: 82vh; }
   .perf-media-fade {
     background: linear-gradient(to bottom, rgba(8,8,10,0.6), transparent 30%, transparent 62%, #08080a 99%);
   }
@@ -788,7 +786,7 @@ img { display: block; max-width: 100%; }
 }
 .crew-copy {
   position: relative; z-index: 2; max-width: 44ch; align-self: center;
-  padding: clamp(4rem, 9vh, 7rem) 0;
+  padding: clamp(6rem, 14vh, 10.5rem) 0;
 }
 .crew .eyebrow { color: var(--silver); }
 .crew-title {
@@ -819,7 +817,7 @@ img { display: block; max-width: 100%; }
 .crew-media { position: relative; overflow: hidden; min-height: 58vh; }
 .crew-media img {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: 100% center; /* bike whole, hard against the copy edge */
+  object-fit: cover; object-position: 100% center; /* subject centred in the box */
   filter: contrast(1.04) saturate(1.02);
   will-change: transform;
 }
@@ -829,13 +827,12 @@ img { display: block; max-width: 100%; }
     linear-gradient(90deg, rgba(8,8,10,0.4) 0%, transparent 10%, transparent 95%, rgba(8,8,10,0.55) 100%),
     linear-gradient(to bottom, rgba(8,8,10,0.55), transparent 18%, transparent 82%, rgba(8,8,10,0.6));
 }
-@media (max-width: 860px) {
+@media (max-width: 1100px) {
   .crew {
     grid-template-columns: 1fr; gap: 0;
     padding: 0 0 clamp(3.5rem, 8vh, 5rem);
   }
-  .crew-media { aspect-ratio: 1.35; min-height: 0; }
-  .crew-media img { object-position: 88% center; }
+  .crew-media { aspect-ratio: 1.2; min-height: 0; max-height: 82vh; }
   .crew-media-fade {
     background: linear-gradient(to bottom, rgba(8,8,10,0.5), transparent 22%, transparent 60%, #08080a 99%);
   }
