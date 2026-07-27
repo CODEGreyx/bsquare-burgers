@@ -819,14 +819,14 @@ img { display: block; max-width: 100%; }
 .crew-media { position: relative; overflow: hidden; min-height: 58vh; }
 .crew-media img {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: 70% center;   /* bike left of frame, fog to the right */
+  object-fit: cover; object-position: 100% center; /* bike whole, hard against the copy edge */
   filter: contrast(1.04) saturate(1.02);
   will-change: transform;
 }
 .crew-media-fade {
   position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(8,8,10,0.45) 0%, transparent 10%, transparent 74%, rgba(8,8,10,0.85) 92%, #08080a 100%),
+    linear-gradient(90deg, rgba(8,8,10,0.4) 0%, transparent 10%, transparent 95%, rgba(8,8,10,0.55) 100%),
     linear-gradient(to bottom, rgba(8,8,10,0.55), transparent 18%, transparent 82%, rgba(8,8,10,0.6));
 }
 @media (max-width: 860px) {
@@ -835,7 +835,7 @@ img { display: block; max-width: 100%; }
     padding: 0 0 clamp(3.5rem, 8vh, 5rem);
   }
   .crew-media { aspect-ratio: 1.35; min-height: 0; }
-  .crew-media img { object-position: 60% center; }
+  .crew-media img { object-position: 88% center; }
   .crew-media-fade {
     background: linear-gradient(to bottom, rgba(8,8,10,0.5), transparent 22%, transparent 60%, #08080a 99%);
   }
